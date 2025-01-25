@@ -1,0 +1,9 @@
+import classNames from "classnames";
+
+import './styles/styles.css'
+
+export const GetStartedButton = () => {
+    return (
+        <button className={classNames("get-started-button")}>Get Started</button>
+    )
+}

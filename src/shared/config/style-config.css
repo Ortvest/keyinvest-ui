@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --grey: #131337A3;
+    --blue: #0500FF;
+    --white: #FFFFFF;
+}
+
+body {
+    font-family: "Inter", -apple-system, "Helvetica Neue", sans-serif;
+}
