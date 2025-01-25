@@ -1,0 +1,13 @@
+.app-navigation-wrapper {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+}
+
+.app-navigation-link {
+    color: var(--grey);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 21px;
+    text-decoration: none;
+}

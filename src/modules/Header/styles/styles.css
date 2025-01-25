@@ -1,0 +1,12 @@
+.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    height: 72px;
+    padding: 20px 40px 0 40px;
+}
+
+.header-actions-wrapper {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+}
