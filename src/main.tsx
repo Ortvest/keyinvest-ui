@@ -2,9 +2,12 @@
 import { createRoot } from 'react-dom/client'
 
 import App from './App.tsx'
+import {Providers} from "./Providers.tsx";
 
 createRoot(document.getElementById('root')!).render(
 
-    <App />
+    <Providers>
+        <App />
+    </Providers>
 
 )
