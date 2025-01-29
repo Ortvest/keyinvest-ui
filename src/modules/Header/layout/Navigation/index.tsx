@@ -1,21 +1,28 @@
-import {AppRoute, AppRoutes, UsageScopes} from "@global/router/routes.constants.ts";
-import {useMemo} from "react";
-import {Link} from "react-router-dom";
+import { useMemo } from 'react';
 
-import './styles/styles.css'
-import classNames from "classnames";
+import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 
-export const Navigation = () => {
+import { AppRoute, AppRoutes, UsageScopes } from '@global/router/routes.constants';
 
-    const headerRoutes: AppRoute[] = useMemo(() => Object.values(AppRoutes).filter((route: AppRoute) => route.usageScope.includes(UsageScopes.LANDING) && route.isVisible), [])
+import './styles/styles.css';
 
-    return (
-        <nav className={classNames("navigation-wrapper")}>
-            {
-                headerRoutes.map((route: AppRoute) => (
-                    <Link className={classNames("navigation-link")} to={route.path} key={route.path}>{route.title}</Link>
-                ))
-            }
-        </nav>
-    )
-}
+export const Navigation = (): JSX.Element => {
+  const headerRoutes: AppRoute[] = useMemo(
+    () =>
+      Object.values(AppRoutes).filter(
+        (route: AppRoute) => route.usageScope.includes(UsageScopes.LANDING) && route.isVisible
+      ),
+    []
+  );
+
+  return (
+    <nav className={classNames('navigation-wrapper')}>
+      {headerRoutes.map((route: AppRoute) => (
+        <Link className={classNames('navigation-link')} to={route.path} key={route.path}>
+          {route.title}
+        </Link>
+      ))}
+    </nav>
+  );
+};

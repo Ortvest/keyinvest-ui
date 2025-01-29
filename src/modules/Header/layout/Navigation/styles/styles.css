@@ -1,13 +1,13 @@
 .navigation-wrapper {
-    display: flex;
-    gap: 48px;
-    align-items: center;
+  display: flex;
+  gap: 48px;
+  align-items: center;
 }
 
 .navigation-link {
-    color: var(--grey);
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 21px;
-    text-decoration: none;
+  color: var(--grey);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  text-decoration: none;
 }

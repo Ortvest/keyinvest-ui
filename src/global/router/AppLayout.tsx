@@ -1,18 +1,16 @@
-import { Navigate, Outlet } from "react-router-dom";
-
 import classNames from 'classnames';
+import { Navigate, Outlet } from 'react-router-dom';
 
-import './styles/styles.css'
+import './styles/styles.css';
 
-const Layout = () => (
-    <main>
-        <div className={classNames("layout-wrapper")}>
-            <Outlet />
-        </div>
-    </main>
+const Layout = (): JSX.Element => (
+  <main>
+    <div className={classNames('layout-wrapper')}>
+      <Outlet />
+    </div>
+  </main>
 );
 
-export const AppLayout = ({ authed }: { authed: boolean }) => {
-
-    return authed ? <Layout /> : <Navigate to={'/auth/login'} replace/>
+export const AppLayout = ({ authed }: { authed: boolean }): JSX.Element => {
+  return authed ? <Layout /> : <Navigate to={'/auth/login'} replace />;
 };

@@ -1,17 +1,18 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet } from 'react-router-dom';
 
-import {AppRoutes} from "./routes.constants.ts";
+import { Header } from '@modules/Header';
 
-import './styles/styles.css'
-import {Header} from "@modules/Header";
+import './styles/styles.css';
 
-export const AuthLayout = ({ authed }: { authed: boolean }) => {
+import { AppRoutes } from './routes.constants';
 
-
-    return authed ? <Navigate to={AppRoutes.MAIN.path} replace /> : (
-        <>
-            <Header/>
-            <Outlet />
-        </>
-    );
+export const AuthLayout = ({ authed }: { authed: boolean }): JSX.Element => {
+  return authed ? (
+    <Navigate to={AppRoutes.MAIN.path} replace />
+  ) : (
+    <>
+      <Header />
+      <Outlet />
+    </>
+  );
 };

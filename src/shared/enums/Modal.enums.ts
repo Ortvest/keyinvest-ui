@@ -1,14 +1,14 @@
 export const ModalTypes = {
-    LOGIN:'login',
-    REGISTRATION: 'registration',
+  LOGIN: 'login',
+  REGISTRATION: 'registration',
 } as const;
 
 export type ModalType = typeof ModalTypes;
 
 export interface ModalState {
-    type: ModalType | null;
+  type: ModalType | null;
 }
 
 export interface ModalProps {
-    onCloseHandler: () => void;
+  onCloseHandler: () => void;
 }

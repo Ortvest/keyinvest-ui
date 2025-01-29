@@ -1,17 +1,17 @@
-import {useState} from "react";
-import {RouterProvider} from "react-router-dom";
+import { useState } from 'react';
 
-import {router} from "@global/router/router.tsx";
+import { RouterProvider } from 'react-router-dom';
 
-import "@shared/config/style-config.css"
+import { router } from '@global/router/router';
 
-function App() {
+import '@shared/config/style-config.css';
 
-    const [authed, _] = useState(false);
+function App(): JSX.Element {
+  const [authed] = useState(false);
 
-    const currentRouter = router(authed);
+  const currentRouter = router(authed);
 
-    return <RouterProvider router={currentRouter} />;
+  return <RouterProvider router={currentRouter} />;
 }
 
-export default App
+export default App;

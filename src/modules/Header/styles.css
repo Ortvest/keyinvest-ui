@@ -1,12 +1,13 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    height: 72px;
-    padding: 20px 40px 0 40px;
+  display: flex;
+  justify-content: space-between;
+
+  height: 72px;
+  padding: 20px 40px 0;
 }
 
 .header-actions {
-    display: flex;
-    gap: 48px;
-    align-items: center;
+  display: flex;
+  gap: 48px;
+  align-items: center;
 }
