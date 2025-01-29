@@ -1,8 +1,6 @@
 import classNames from 'classnames';
 import { Navigate, Outlet } from 'react-router-dom';
 
-import './styles/styles.css';
-
 const Layout = (): JSX.Element => (
   <main>
     <div className={classNames('layout-wrapper')}>
