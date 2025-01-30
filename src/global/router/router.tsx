@@ -4,6 +4,7 @@ import { AppLayout } from './AppLayout';
 import { AuthLayout } from './AuthLayout';
 import { AppRoutes } from './routes.constants';
 import { LandingPage } from '@pages/Landing';
+import { RegistrationPage } from '@pages/Registration';
 
 export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> =>
   createBrowserRouter([
@@ -14,6 +15,10 @@ export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> 
         {
           path: AppRoutes.AUTH_LOG_IN.path,
           element: null,
+        },
+        {
+          path: AppRoutes.AUTH_REGISTER.path,
+          element: <RegistrationPage />,
         },
         {
           path: AppRoutes.AUTH_SEND_PASSWORD_RESET.path,

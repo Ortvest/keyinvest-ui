@@ -1,0 +1,20 @@
+.validation {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+  gap: 10px;
+}
+.validation p {
+  display: flex;
+  gap: 12px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 500;
+}
+.valid {
+  color: #131337;
+}
+
+.invalid {
+  color: rgba(19, 19, 55, 0.48);
+}

@@ -1,0 +1,11 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  padding: 32px;
+}
+
+.privacy-container {
+  margin-top: auto;
+}
