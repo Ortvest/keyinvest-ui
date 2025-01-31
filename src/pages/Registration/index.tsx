@@ -1,5 +1,5 @@
-import { RegistrationModal } from '@modules/Modals/Registration';
+import { Registration } from '@modules/Auth/Registration';
 
 export const RegistrationPage = (): JSX.Element => {
-  return <RegistrationModal />;
+  return <Registration />;
 };

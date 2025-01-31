@@ -1,0 +1,15 @@
+.auth-header-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 96px;
+  align-items: center;
+}
+
+.auth-header-wrapper h2 {
+  margin-bottom: 24px;
+
+  color: #131337;
+  font-weight: 600;
+  font-size: 32px;
+  text-align: center;
+}

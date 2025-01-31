@@ -1,0 +1,29 @@
+.privacy-wrapper {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+}
+
+.privacy-wrapper a {
+  position: relative;
+
+  color: #131337;
+  font-weight: 600;
+  font-size: 16px;
+
+  cursor: pointer;
+}
+
+.privacy-wrapper a:first-child::after {
+  position: absolute;
+  top: 50%;
+  right: -16px;
+  content: '';
+
+  width: 1px;
+  height: 20px;
+
+  background-color: #e5e7eb;
+
+  transform: translateY(-50%);
+}
