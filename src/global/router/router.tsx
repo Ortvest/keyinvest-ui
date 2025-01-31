@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { AppLayout } from './AppLayout';
 import { AuthLayout } from './AuthLayout';
 import { AppRoutes } from './routes.constants';
+import { SignInPage } from '@pages/Authorization/SignInPage';
 import { LandingPage } from '@pages/Landing';
 
 export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> =>
@@ -13,7 +14,7 @@ export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> 
       children: [
         {
           path: AppRoutes.AUTH_LOG_IN.path,
-          element: null,
+          element: <SignInPage />,
         },
         {
           path: AppRoutes.AUTH_SEND_PASSWORD_RESET.path,
@@ -57,6 +58,6 @@ export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> 
     },
     {
       path: '*',
-      element: null, // login page
+      element: null,
     },
   ]);

@@ -1,0 +1,24 @@
+.rule-text {
+  display: flex;
+  gap: 64px;
+  justify-content: center;
+
+  width: 344px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 24px 16px;
+
+  color: #131337;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.link {
+  color: #131337;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

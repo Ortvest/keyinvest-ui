@@ -1,0 +1,42 @@
+.sign-in-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+}
+
+.auth-header {
+  margin-top: -56px;
+}
+
+.input-email {
+  margin-top: 24px;
+}
+
+.auth-proposal {
+  margin-top: 12px;
+}
+
+.auth-proposal-shifted {
+  margin-top: 4px;
+}
+
+.go-back-link {
+  margin-top: 24px;
+}
+
+.or-separator {
+  margin-top: 24px;
+}
+
+.rule-text {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+
+  width: 100%;
+
+  transform: translateX(-50%);
+}
