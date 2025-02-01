@@ -7,9 +7,7 @@ import './styles/styles.css';
 export const SocialAuth = (): JSX.Element => {
   return (
     <div className={classNames('google-button-wrapper')}>
-      <div className={classNames('divider')}>
-        <p>OR</p>
-      </div>
+      <div className={classNames('divider')}>OR</div>
 
       <button className={classNames('google-button')}>
         <img src={google} className={classNames('google-icon')} alt="Google icon" />

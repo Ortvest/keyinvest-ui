@@ -8,7 +8,7 @@ import './styles.css';
 
 export const Registration = (): JSX.Element => {
   return (
-    <div className={classNames('registration-wrappe')}>
+    <div className={classNames('registration-wrapper')}>
       <AuthHeader title={'Create an account'} />
       <RegistrationForm />
       <Privacy />

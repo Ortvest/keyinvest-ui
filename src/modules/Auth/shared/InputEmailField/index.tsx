@@ -15,7 +15,7 @@ export const InputEmailField = ({ value, onChange }: InputEmailFieldProps): JSX.
       value={value}
       name="email"
       onChange={onChange}
-      className={classNames('input-field')}
+      className={classNames('input-email-field')}
     />
   );
 };

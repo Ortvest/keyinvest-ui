@@ -4,7 +4,7 @@
   justify-content: center;
 }
 
-.privacy-wrapper a {
+.policy-link {
   position: relative;
 
   color: #131337;
@@ -14,7 +14,7 @@
   cursor: pointer;
 }
 
-.privacy-wrapper a:first-child::after {
+.privacy-wrapper .policy-link:first-child::after {
   position: absolute;
   top: 50%;
   right: -16px;

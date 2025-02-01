@@ -1,4 +1,4 @@
-.input-field {
+.input-email-field {
   width: 100%;
   padding: 16px;
 
@@ -11,6 +11,6 @@
   outline: none;
 }
 
-.input-field:focus {
+.input-email-field:focus {
   border: 1.5px solid #0500ff;
 }
