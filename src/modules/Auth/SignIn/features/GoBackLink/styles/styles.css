@@ -1,4 +1,4 @@
-.go-back-link {
+.go-back-button {
   display: inline;
 
   padding: 0;
@@ -15,10 +15,10 @@
   cursor: pointer;
 }
 
-.go-back-link:hover {
+.go-back-button:hover {
   text-decoration: underline;
 }
 
-.go-back-link:focus {
+.go-back-button:focus {
   outline: none;
 }

@@ -6,7 +6,7 @@ import { AppRoutes } from '@global/router/routes.constants';
 import './styles/styles.css';
 
 interface AuthProposalProps {
-  type: 'signin' | 'signup' | 'showPasswordInput';
+  type: 'signin' | 'signup' | 'refresh-password';
 }
 
 export const AuthProposal = ({ type }: AuthProposalProps) => {
@@ -38,7 +38,7 @@ export const AuthProposal = ({ type }: AuthProposalProps) => {
             Sign In
           </a>
         </p>
-      ) : type === 'showPasswordInput' ? (
+      ) : type === 'refresh-password' ? (
         <p className="text-description text-flex">
           <span>Forgot password?</span>
           <a href="#" className="link-restore" onClick={handleNavigation}>

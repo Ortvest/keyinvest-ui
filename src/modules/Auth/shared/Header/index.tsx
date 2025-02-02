@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import Logo from '@shared/assets/icons/Logo.png';
+import AppIcon from '@shared/assets/icons/LogoIcon.svg';
 
 import './styles/styles.css';
 
@@ -12,9 +12,9 @@ export const AuthHeader = ({ title }: AuthHeaderProps) => {
   return (
     <div className={classNames('auth-header')}>
       <div className={classNames('logo-container')}>
-        <img src={Logo} className={classNames('logo')} alt="Logo" />
+        <img src={AppIcon} className={classNames('logo')} alt="Logo" />
       </div>
-      <h1 className={classNames('title')}>{title}</h1>
+      <h1 className={classNames('auth-title')}>{title}</h1>
     </div>
   );
 };

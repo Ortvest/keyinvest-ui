@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import classNames from 'classnames';
 
-import eye from '@shared/assets/icons/eye-off.svg';
-import eyeoff from '@shared/assets/icons/eye-open.png';
+import IconEyeOff from '@shared/assets/icons/EyeClosed.svg';
+import IconEye from '@shared/assets/icons/EyeOpen.svg';
 
 import './styles/styles.css';
 
@@ -23,7 +23,7 @@ export const InputPassword = ({ password, onPasswordChange, placeholder, name, c
   };
 
   return (
-    <div className="input-group">
+    <div className="auth-input-group">
       <input
         type={showPassword ? 'text' : 'password'}
         value={password}
@@ -33,7 +33,7 @@ export const InputPassword = ({ password, onPasswordChange, placeholder, name, c
         className={classNames('input', className)}
       />
       <button type="button" className="input-icon-button" onClick={togglePasswordVisibility}>
-        <img src={showPassword ? eyeoff : eye} alt="Toggle password visibility" className="input-icon" />
+        <img src={showPassword ? IconEye : IconEyeOff} alt="Toggle password visibility" className="input-icon" />
       </button>
     </div>
   );

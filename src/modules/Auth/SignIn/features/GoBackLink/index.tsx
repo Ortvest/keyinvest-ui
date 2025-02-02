@@ -8,7 +8,7 @@ interface GoBackLinkProps {
 
 export const GoBackLink = ({ onClick }: GoBackLinkProps) => {
   return (
-    <button type="button" className={classNames('go-back-link')} onClick={onClick}>
+    <button type="button" className={classNames('go-back-button')} onClick={onClick}>
       Go Back
     </button>
   );

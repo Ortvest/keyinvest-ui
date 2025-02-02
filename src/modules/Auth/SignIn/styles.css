@@ -1,7 +1,6 @@
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 16px;
+.sign-in-container {
+  display: flex;
+  justify-content: center;
   align-items: center;
 
   height: 100vh;
@@ -12,6 +11,10 @@
   background-color: white;
 }
 
-.grid-item {
-  grid-column: span 4;
+.side-spacer {
+  flex: 1;
+}
+
+.form-container {
+  flex: 0 1 400px;
 }

@@ -66,7 +66,7 @@ export const SignInForm = () => {
       {!showPasswordInput && <ContinueButton onClick={onHandleContinueClick} />}
 
       <div className={classNames('auth-proposal', { 'auth-proposal-shifted': showPasswordInput })}>
-        <AuthProposal type={showPasswordInput ? 'showPasswordInput' : 'signin'} />
+        <AuthProposal type={showPasswordInput ? 'refresh-password' : 'signin'} />
       </div>
 
       {showPasswordInput && (

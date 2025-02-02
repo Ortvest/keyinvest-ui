@@ -10,9 +10,9 @@ interface EmailInputProps {
 
 export const EmailInput = ({ email, onChange, className }: EmailInputProps) => {
   return (
-    <div className="form-control">
+    <div className="auth-form-control">
       <input
-        className={classNames('input', { [className || '']: !!className })}
+        className={classNames('input', className)}
         name="email"
         type="email"
         placeholder="Email address"
