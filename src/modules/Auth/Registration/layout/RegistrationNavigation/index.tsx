@@ -5,8 +5,10 @@ import { SocialAuth } from '@modules/Auth/Registration/features/SocialAuth';
 
 import './styles/styles.css';
 
+type Step = 'email' | 'password' | 'confirmation';
+
 type RegistrationNavigationProps = {
-  step: 1 | 2 | 3;
+  step: Step;
   isPasswordMatch: boolean;
   onContinue: () => void;
   onGoBack: () => void;
@@ -19,7 +21,7 @@ export const RegistrationNavigation = ({
   onGoBack,
 }: RegistrationNavigationProps): JSX.Element => (
   <>
-    {step < 3 ? (
+    {step !== 'confirmation' ? (
       <button
         className={classNames('submit-button')}
         onClick={(e) => {
@@ -33,13 +35,13 @@ export const RegistrationNavigation = ({
         Submit
       </button>
     )}
-    {step === 1 && (
+    {step === 'email' && (
       <>
         <SignInLink />
         <SocialAuth />
       </>
     )}
-    {step >= 2 && (
+    {step !== 'email' && (
       <a
         href="#"
         className={classNames('back-link')}

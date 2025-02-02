@@ -1,8 +1,10 @@
 import { PasswordField } from '@modules/Auth/Registration/features/PasswordField';
 import { InputEmailField } from '@modules/Auth/shared/InputEmailField';
 
+type Step = 'email' | 'password' | 'confirmation';
+
 type RegistrationStepsProps = {
-  step: 1 | 2 | 3;
+  step: Step;
   email: string;
   setEmail: (val: string) => void;
   password: string;
@@ -22,8 +24,10 @@ export const RegistrationSteps = ({
 }: RegistrationStepsProps): JSX.Element => (
   <>
     <InputEmailField value={email} onChange={(e) => setEmail(e.target.value)} />
-    {step >= 2 && <PasswordField label="Password" value={password} onChange={(e) => setPassword(e.target.value)} />}
-    {step >= 3 && (
+    {step !== 'email' && (
+      <PasswordField label="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+    )}
+    {step === 'confirmation' && (
       <PasswordField
         label="Re-enter Password"
         value={confirmPassword}

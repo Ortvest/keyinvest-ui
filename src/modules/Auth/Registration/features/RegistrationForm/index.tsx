@@ -7,28 +7,32 @@ import { RegistrationSteps } from '@modules/Auth/Registration/layout/Registratio
 
 import './styles/styles.css';
 
-type Step = 1 | 2 | 3;
+type Step = 'email' | 'password' | 'confirmation';
 
 export const RegistrationForm = (): JSX.Element => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [step, setStep] = useState<Step>(1);
+  const [step, setStep] = useState<Step>('email');
 
   const isPasswordMatch = password === confirmPassword;
 
-  const onContinueHandler = (): void => setStep((prev) => (prev < 3 ? ((prev + 1) as Step) : prev));
+  const onContinueHandler = (): void => {
+    setStep((prev) => (prev === 'email' ? 'password' : prev === 'password' ? 'confirmation' : prev));
+  };
 
   const onGoBackHandler = (): void => {
     setStep((prev) => {
-      if (prev === 2) {
+      if (prev === 'password') {
         setEmail('');
         setPassword('');
-      } else if (prev === 3) {
+        return 'email';
+      } else if (prev === 'confirmation') {
         setPassword('');
         setConfirmPassword('');
+        return 'password';
       }
-      return prev > 1 ? ((prev - 1) as Step) : prev;
+      return prev;
     });
   };
 
