@@ -9,49 +9,50 @@ import './styles/styles.css';
 
 type Step = 'email' | 'password' | 'confirmation';
 
-export const RegistrationForm = (): JSX.Element => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [step, setStep] = useState<Step>('email');
+type FormState = {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  step: Step;
+};
 
-  const isPasswordMatch = password === confirmPassword;
+export const RegistrationForm = (): JSX.Element => {
+  const [formState, setFormState] = useState<FormState>({
+    email: '',
+    password: '',
+    confirmPassword: '',
+    step: 'email',
+  });
+
+  const isPasswordMatch = formState.password === formState.confirmPassword;
+
+  const handleChange = (key: keyof FormState, value: string | Step): void => {
+    setFormState((prev) => ({ ...prev, [key]: value }));
+  };
 
   const onContinueHandler = (): void => {
-    setStep((prev) => (prev === 'email' ? 'password' : prev === 'password' ? 'confirmation' : prev));
+    handleChange(
+      'step',
+      formState.step === 'email' ? 'password' : formState.step === 'password' ? 'confirmation' : formState.step
+    );
   };
 
   const onGoBackHandler = (): void => {
-    setStep((prev) => {
-      if (prev === 'password') {
-        setEmail('');
-        setPassword('');
-        return 'email';
-      } else if (prev === 'confirmation') {
-        setPassword('');
-        setConfirmPassword('');
-        return 'password';
-      }
-      return prev;
-    });
+    if (formState.step === 'password') {
+      setFormState({ email: '', password: '', confirmPassword: '', step: 'email' });
+    } else if (formState.step === 'confirmation') {
+      setFormState((prev) => ({ ...prev, password: '', confirmPassword: '', step: 'password' }));
+    }
   };
 
   return (
     <form>
       <div className={classNames('form-wrapper')}>
         <div className={classNames('inputs-container')}>
-          <RegistrationSteps
-            step={step}
-            email={email}
-            setEmail={setEmail}
-            password={password}
-            setPassword={setPassword}
-            confirmPassword={confirmPassword}
-            setConfirmPassword={setConfirmPassword}
-          />
+          <RegistrationSteps formState={formState} handleChange={handleChange} />
         </div>
         <RegistrationNavigation
-          step={step}
+          step={formState.step}
           isPasswordMatch={isPasswordMatch}
           onContinue={onContinueHandler}
           onGoBack={onGoBackHandler}

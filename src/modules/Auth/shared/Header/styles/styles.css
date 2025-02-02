@@ -5,7 +5,7 @@
   align-items: center;
 }
 
-.auth-header-wrapper h2 {
+.auth-header-title {
   margin-bottom: 24px;
 
   color: #131337;

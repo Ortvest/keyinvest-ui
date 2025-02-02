@@ -3,37 +3,35 @@ import { InputEmailField } from '@modules/Auth/shared/InputEmailField';
 
 type Step = 'email' | 'password' | 'confirmation';
 
-type RegistrationStepsProps = {
-  step: Step;
+type FormState = {
   email: string;
-  setEmail: (val: string) => void;
   password: string;
-  setPassword: (val: string) => void;
   confirmPassword: string;
-  setConfirmPassword: (val: string) => void;
+  step: Step;
 };
 
-export const RegistrationSteps = ({
-  step,
-  email,
-  setEmail,
-  password,
-  setPassword,
-  confirmPassword,
-  setConfirmPassword,
-}: RegistrationStepsProps): JSX.Element => (
+type RegistrationStepsProps = {
+  formState: FormState;
+  handleChange: (key: keyof FormState, value: string) => void;
+};
+
+export const RegistrationSteps = ({ formState, handleChange }: RegistrationStepsProps): JSX.Element => (
   <>
-    <InputEmailField value={email} onChange={(e) => setEmail(e.target.value)} />
-    {step !== 'email' && (
-      <PasswordField label="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+    <InputEmailField value={formState.email} onChange={(e) => handleChange('email', e.target.value)} />
+    {formState.step !== 'email' && (
+      <PasswordField
+        label="Password"
+        value={formState.password}
+        onChange={(e) => handleChange('password', e.target.value)}
+      />
     )}
-    {step === 'confirmation' && (
+    {formState.step === 'confirmation' && (
       <PasswordField
         label="Re-enter Password"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
+        value={formState.confirmPassword}
+        onChange={(e) => handleChange('confirmPassword', e.target.value)}
         checkMatch={true}
-        mainPassword={password}
+        mainPassword={formState.password}
       />
     )}
   </>
