@@ -50,8 +50,8 @@ export const AppRoutes = {
     usageScope: [UsageScopes.LANDING],
   },
 
-  AUTHED_EXAMPLE_PAGE: {
-    path: '/authed-example-page',
+  AUTHED_MAIN_PAGE: {
+    path: '/:user-id',
     isVisible: true,
     title: '',
     usageScope: [UsageScopes.SYSTEM],

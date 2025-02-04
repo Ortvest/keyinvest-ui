@@ -8,6 +8,7 @@ import { LandingPage } from '@pages/Landing';
 
 export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> =>
   createBrowserRouter([
+    //not authed user
     {
       path: '/',
       element: <AuthLayout authed={authed} />,
@@ -46,12 +47,13 @@ export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> 
         },
       ],
     },
+    //authed user
     {
       path: '/',
       element: <AppLayout authed={authed} />,
       children: [
         {
-          path: AppRoutes.AUTHED_EXAMPLE_PAGE.path,
+          path: AppRoutes.AUTHED_MAIN_PAGE.path,
           element: null,
         },
       ],
