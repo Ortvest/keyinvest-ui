@@ -7,13 +7,13 @@ interface ContinueButtonProps {
 }
 
 export const ContinueButton = ({ onClick }: ContinueButtonProps): JSX.Element => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    e.preventDefault();
+    onClick();
+  };
+
   return (
-    <button
-      className={classNames('continue-button')}
-      onClick={(e) => {
-        e.preventDefault();
-        onClick();
-      }}>
+    <button className={classNames('continue-button')} onClick={handleClick}>
       Continue
     </button>
   );
