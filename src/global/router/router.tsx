@@ -3,18 +3,20 @@ import { createBrowserRouter } from 'react-router-dom';
 import { AppLayout } from './AppLayout';
 import { AuthLayout } from './AuthLayout';
 import { AppRoutes } from './routes.constants';
+import { SignInPage } from '@pages/Authorization/SignInPage';
 import { LandingPage } from '@pages/Landing';
 import { RegistrationPage } from '@pages/Registration';
 
 export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> =>
   createBrowserRouter([
+    //not authed user
     {
       path: '/',
       element: <AuthLayout authed={authed} />,
       children: [
         {
           path: AppRoutes.AUTH_LOG_IN.path,
-          element: null,
+          element: <SignInPage />,
         },
         {
           path: AppRoutes.AUTH_REGISTER.path,
@@ -50,18 +52,19 @@ export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> 
         },
       ],
     },
+    //authed user
     {
       path: '/',
       element: <AppLayout authed={authed} />,
       children: [
         {
-          path: AppRoutes.AUTHED_EXAMPLE_PAGE.path,
+          path: AppRoutes.AUTHED_MAIN_PAGE.path,
           element: null,
         },
       ],
     },
     {
       path: '*',
-      element: null, // login page
+      element: null,
     },
   ]);

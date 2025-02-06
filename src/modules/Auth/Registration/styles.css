@@ -1,12 +1,15 @@
 .registration-wrapper {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 
+  width: 344px;
   height: 100vh;
-  padding: 32px;
+  margin: 0 auto;
 }
 
 .privacy-wrapper {
   margin-top: auto;
+  margin-bottom: 32px;
 }

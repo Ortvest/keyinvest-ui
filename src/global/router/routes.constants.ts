@@ -6,8 +6,8 @@ export const UsageScopes = {
 
 export const AppRoutes = {
   AUTH: { path: '/auth', isVisible: false, title: 'Auth', usageScope: [UsageScopes.AUTH] },
-  AUTH_LOG_IN: { path: 'login', isVisible: false, title: 'Auth', usageScope: [UsageScopes.AUTH] },
-  AUTH_REGISTER: { path: 'register', isVisible: false, title: 'Auth', usageScope: [UsageScopes.AUTH] },
+  AUTH_LOG_IN: { path: '/auth/login', isVisible: false, title: 'Auth', usageScope: [UsageScopes.AUTH] },
+  AUTH_REGISTER: { path: '/auth/register', isVisible: false, title: 'Auth', usageScope: [UsageScopes.AUTH] },
   AUTH_SEND_PASSWORD_RESET: {
     path: '/auth/password-reset',
     isVisible: false,
@@ -51,8 +51,8 @@ export const AppRoutes = {
     usageScope: [UsageScopes.LANDING],
   },
 
-  AUTHED_EXAMPLE_PAGE: {
-    path: '/authed-example-page',
+  AUTHED_MAIN_PAGE: {
+    path: '/:user-id',
     isVisible: true,
     title: '',
     usageScope: [UsageScopes.SYSTEM],

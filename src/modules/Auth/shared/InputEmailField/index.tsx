@@ -11,7 +11,7 @@ export const InputEmailField = ({ value, onChange }: InputEmailFieldProps): JSX.
   return (
     <input
       type="email"
-      placeholder="your@mail.com"
+      placeholder="Email address"
       value={value}
       name="email"
       onChange={onChange}

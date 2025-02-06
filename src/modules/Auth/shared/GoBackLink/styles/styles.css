@@ -1,0 +1,25 @@
+.go-back-button {
+  display: inline;
+
+  margin-top: 24px;
+  padding: 0;
+
+  color: #0500ff;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+
+  border: none;
+
+  background: none;
+
+  cursor: pointer;
+}
+
+.go-back-button:hover {
+  text-decoration: underline;
+}
+
+.go-back-button:focus {
+  outline: none;
+}

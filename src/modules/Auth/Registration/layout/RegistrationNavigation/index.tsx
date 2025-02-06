@@ -1,7 +1,9 @@
 import classNames from 'classnames';
 
-import { SignInLink } from '@modules/Auth/Registration/features/SignInLink';
-import { SocialAuth } from '@modules/Auth/Registration/features/SocialAuth';
+import { AuthProposal } from '@modules/Auth/shared/AuthProposal';
+import { GoBackLink } from '@modules/Auth/shared/GoBackLink';
+import { SocialAuth } from '@modules/Auth/shared/UI/SocialAuth';
+import { ContinueButton } from '@modules/Auth/shared/UI/СontinueButton';
 
 import './styles/styles.css';
 
@@ -22,14 +24,7 @@ export const RegistrationNavigation = ({
 }: RegistrationNavigationProps): JSX.Element => (
   <>
     {step !== 'confirmation' ? (
-      <button
-        className={classNames('submit-button')}
-        onClick={(e) => {
-          e.preventDefault();
-          onContinue();
-        }}>
-        Continue
-      </button>
+      <ContinueButton onClick={onContinue} />
     ) : (
       <button className={classNames('submit-button')} disabled={!isPasswordMatch}>
         Submit
@@ -37,20 +32,10 @@ export const RegistrationNavigation = ({
     )}
     {step === 'email' && (
       <>
-        <SignInLink />
+        <AuthProposal type={'signup'} />
         <SocialAuth />
       </>
     )}
-    {step !== 'email' && (
-      <a
-        href="#"
-        className={classNames('back-link')}
-        onClick={(e) => {
-          e.preventDefault();
-          onGoBack();
-        }}>
-        Go Back
-      </a>
-    )}
+    {step !== 'email' && <GoBackLink onClick={onGoBack} />}
   </>
 );

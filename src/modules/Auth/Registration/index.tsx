@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 
-import { Privacy } from '@modules/Auth/Registration/features/Privacy';
 import { RegistrationForm } from '@modules/Auth/Registration/features/RegistrationForm';
 import { AuthHeader } from '@modules/Auth/shared/Header';
+import { Privacy } from '@modules/Auth/shared/Privacy';
 
 import './styles.css';
 

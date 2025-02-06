@@ -1,0 +1,41 @@
+.auth-proposal {
+  text-align: center;
+}
+
+.text-description {
+  color: #131337;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.text-flex {
+  display: flex;
+  gap: 147px;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-proposal-signin {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-description span {
+  white-space: nowrap;
+}
+
+.link-signup,
+.link-signin,
+.link-restore {
+  color: #0500ff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link-signup:hover,
+.link-signin:hover,
+.link-restore:hover {
+  text-decoration: underline;
+}

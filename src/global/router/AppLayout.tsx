@@ -1,14 +1,23 @@
 import classNames from 'classnames';
 import { Navigate, Outlet } from 'react-router-dom';
 
-const Layout = (): JSX.Element => (
-  <main>
-    <div className={classNames('layout-wrapper')}>
-      <Outlet />
-    </div>
-  </main>
-);
+import { Header } from '@modules/Header';
+
+import { AppRoutes } from './routes.constants';
 
 export const AppLayout = ({ authed }: { authed: boolean }): JSX.Element => {
-  return authed ? <Layout /> : <Navigate to={'/auth/login'} replace />;
+  if (!authed) {
+    return <Navigate to={AppRoutes.AUTH_LOG_IN.path} replace />;
+  }
+
+  return (
+    <>
+      <Header />
+      <main>
+        <div className={classNames('layout-wrapper')}>
+          <Outlet />
+        </div>
+      </main>
+    </>
+  );
 };

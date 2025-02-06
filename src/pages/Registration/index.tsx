@@ -1,5 +1,11 @@
+import { Fragment } from 'react/jsx-runtime';
+
 import { Registration } from '@modules/Auth/Registration';
 
 export const RegistrationPage = (): JSX.Element => {
-  return <Registration />;
+  return (
+    <Fragment>
+      <Registration />
+    </Fragment>
+  );
 };

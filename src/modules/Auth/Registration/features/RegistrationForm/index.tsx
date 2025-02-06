@@ -46,18 +46,16 @@ export const RegistrationForm = (): JSX.Element => {
   };
 
   return (
-    <form>
-      <div className={classNames('form-wrapper')}>
-        <div className={classNames('inputs-container')}>
-          <RegistrationSteps formState={formState} handleChange={handleChange} />
-        </div>
-        <RegistrationNavigation
-          step={formState.step}
-          isPasswordMatch={isPasswordMatch}
-          onContinue={onContinueHandler}
-          onGoBack={onGoBackHandler}
-        />
+    <form className={classNames('form-wrapper')}>
+      <div className={classNames('inputs-container')}>
+        <RegistrationSteps formState={formState} handleChange={handleChange} />
       </div>
+      <RegistrationNavigation
+        step={formState.step}
+        isPasswordMatch={isPasswordMatch}
+        onContinue={onContinueHandler}
+        onGoBack={onGoBackHandler}
+      />
     </form>
   );
 };

@@ -3,6 +3,8 @@
   flex-direction: column;
   gap: 96px;
   align-items: center;
+
+  margin-top: 56px;
 }
 
 .auth-header-title {
