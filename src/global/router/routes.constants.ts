@@ -7,6 +7,7 @@ export const UsageScopes = {
 export const AppRoutes = {
   AUTH: { path: '/auth', isVisible: false, title: 'Auth', usageScope: [UsageScopes.AUTH] },
   AUTH_LOG_IN: { path: '/auth/login', isVisible: false, title: 'Auth', usageScope: [UsageScopes.AUTH] },
+  AUTH_REGISTER: { path: '/auth/register', isVisible: false, title: 'Auth', usageScope: [UsageScopes.AUTH] },
   AUTH_SEND_PASSWORD_RESET: {
     path: '/auth/password-reset',
     isVisible: false,

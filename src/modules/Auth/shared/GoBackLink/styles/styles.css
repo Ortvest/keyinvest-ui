@@ -1,6 +1,7 @@
 .go-back-button {
   display: inline;
 
+  margin-top: 24px;
   padding: 0;
 
   color: #0500ff;

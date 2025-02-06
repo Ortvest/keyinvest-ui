@@ -1,34 +1,21 @@
 .sign-in-form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 
   height: 100vh;
 }
 
-.auth-header {
-  position: absolute;
-  top: 35px;
-  left: 50%;
-
-  transform: translateX(-50%);
-}
-
 .input-email {
-  margin-top: 24px;
-}
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 
-.auth-proposal {
-  margin-top: 12px;
+  width: 344px;
 }
 
 .auth-proposal-shifted {
   margin-top: 4px;
-}
-
-.go-back-link {
-  margin-top: 24px;
 }
 
 .or-separator {

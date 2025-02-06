@@ -1,0 +1,55 @@
+.password-container {
+  position: relative;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.password-field {
+  width: 100%;
+  padding: 16px;
+
+  color: #131337;
+  font-size: 16px;
+
+  border: 1.5px solid rgb(19 19 55 / 12%);
+  border-radius: 12px;
+
+  outline: none;
+}
+
+.password-field:focus {
+  border: 1.5px solid #0500ff;
+}
+
+.password-field.invalid {
+  color: #131337;
+
+  border: 1.5px solid #ef4444;
+}
+
+.toggle-button {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+
+  width: 20px;
+  height: 20px;
+
+  border: none;
+
+  background: none;
+
+  cursor: pointer;
+
+  transform: translateY(-50%);
+}
+
+.error-text {
+  margin-top: 8px;
+
+  color: red;
+  font-weight: 500;
+  text-align: left;
+}

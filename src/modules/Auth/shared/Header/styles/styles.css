@@ -1,29 +1,17 @@
-.auth-header {
+.auth-header-wrapper {
   display: flex;
   flex-direction: column;
+  gap: 96px;
   align-items: center;
+
+  margin-top: 56px;
 }
 
-.logo-container {
-  margin-bottom: 96px;
-}
-
-.logo {
-  width: 40px;
-  height: 40px;
-}
-
-.auth-title {
-  width: 344px;
-  height: 40px;
+.auth-header-title {
   margin-bottom: 24px;
 
   color: #131337;
   font-weight: 600;
   font-size: 32px;
-  white-space: nowrap;
   text-align: center;
-  text-overflow: ellipsis;
-
-  overflow: hidden;
 }

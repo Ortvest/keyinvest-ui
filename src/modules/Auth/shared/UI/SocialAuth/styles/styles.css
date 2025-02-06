@@ -3,6 +3,8 @@
   flex-direction: column;
   gap: 24px;
   align-items: center;
+
+  margin-top: 24px;
 }
 
 .social-auth-divider {
