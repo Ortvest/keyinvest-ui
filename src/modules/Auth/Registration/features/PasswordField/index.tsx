@@ -28,7 +28,7 @@ export const PasswordField = ({
     setShowPassword(!showPassword);
   };
 
-  const isValid = checkMatch ? value === mainPassword : true;
+  const isValid = !checkMatch || value === mainPassword;
 
   return (
     <div className={classNames('password-container')}>

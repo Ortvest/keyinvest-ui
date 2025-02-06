@@ -39,9 +39,9 @@ export const RegistrationForm = (): JSX.Element => {
 
   const onGoBackHandler = (): void => {
     if (formState.step === 'password') {
-      setFormState({ email: '', password: '', confirmPassword: '', step: 'email' });
+      setFormState((prev) => ({ ...prev, step: 'email' }));
     } else if (formState.step === 'confirmation') {
-      setFormState((prev) => ({ ...prev, password: '', confirmPassword: '', step: 'password' }));
+      setFormState((prev) => ({ ...prev, step: 'password' }));
     }
   };
 
