@@ -1,12 +1,12 @@
 .continue-button {
   width: 344px;
-  height: 52px;
+  height: 48px;
   margin-top: 24px;
   padding: 12px 16px;
 
   color: #fff;
-  font-weight: bold;
-  font-size: 16px;
+  font-weight: 600;
+  font-size: 18px;
 
   border: none;
   border-radius: 12px;
