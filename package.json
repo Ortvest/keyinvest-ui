@@ -10,7 +10,7 @@
     "format": "prettier --config .prettierrc --write .",
     "stylelint": "stylelint \"**/*.css\" --fix",
     "preview": "vite preview",
-    "prepare": "husky"
+    "prepare": "chmod +x .husky/pre-push"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
