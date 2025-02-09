@@ -5,7 +5,7 @@
 }
 
 .text-description {
-  color: #131337;
+  color: var(--text-description-color);
   font-weight: 500;
   font-size: 16px;
 }
@@ -31,7 +31,7 @@
 .link-signup,
 .link-signin,
 .link-restore {
-  color: #0500ff;
+  color: var(--link-color);
   font-weight: 600;
   text-decoration: none;
 }

@@ -16,7 +16,9 @@ export const ThemeToggle = (): JSX.Element => {
   }, [theme]);
 
   const toggleTheme = (): void => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
   };
 
   return (

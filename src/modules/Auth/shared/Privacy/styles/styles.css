@@ -7,7 +7,7 @@
 .policy-link {
   position: relative;
 
-  color: #131337;
+  color: var(--text-color);
   font-weight: 600;
   font-size: 16px;
   text-decoration: none;
@@ -24,7 +24,7 @@
   width: 1px;
   height: 20px;
 
-  background-color: #e5e7eb;
+  background-color: var(--divider-color);
 
   transform: translateY(-50%);
 }

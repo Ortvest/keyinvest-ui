@@ -19,7 +19,7 @@
 }
 
 .social-auth-divider-text {
-  color: rgb(19 19 55 / 32%);
+  color: var(--text-or-color);
   font-weight: 500;
   font-size: 16px;
   text-align: center;
@@ -33,7 +33,7 @@
 
   height: 1px;
 
-  background-color: rgb(19 19 55 / 16%);
+  background-color: var(--divider-color);
 }
 
 .social-auth-button {
@@ -46,12 +46,12 @@
   height: 48px;
   padding: 12px 16px;
 
-  color: #131337;
+  color: var(--text-color);
   font-weight: 600;
   font-size: 16px;
   font-family: Inter, sans-serif;
 
-  border: 1px solid rgb(19 19 55 / 16%);
+  border: 1px solid var(--input-border);
   border-radius: 12px;
 
   background-color: transparent;

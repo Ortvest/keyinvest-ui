@@ -2,17 +2,17 @@
   width: 100%;
   padding: 16px;
 
-  color: #131337;
+  color: var(--text-color);
   font-size: 16px;
 
-  border: 1.5px solid rgb(19 19 55 / 12%);
+  border: 1.5px solid var(--input-border);
   border-radius: 12px;
 
-  background-color: #fff;
+  background-color: var(--input-background);
 
   outline: none;
 }
 
 .input-email-field:focus {
-  border: 1.5px solid #0500ff;
+  border: 1.5px solid var(--input-border-focus);
 }

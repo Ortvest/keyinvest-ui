@@ -6,6 +6,17 @@
   padding: 20px 40px 0;
 }
 
+.header-title {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 18px;
+}
+
 .header-actions {
   display: flex;
   gap: 48px;
