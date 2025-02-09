@@ -28,7 +28,7 @@
 .password-field.invalid {
   color: var(--text-color);
 
-  border: 1.5px solid #ef4444;
+  border: 1.5px solid var(--inpur-border-invalid);
 }
 
 .toggle-button {
@@ -52,7 +52,7 @@
 .error-text {
   margin-top: 8px;
 
-  color: red;
+  color: var(--text-error-color);
   font-weight: 500;
   text-align: left;
 }

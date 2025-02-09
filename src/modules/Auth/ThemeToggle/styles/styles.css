@@ -2,9 +2,11 @@
   --text-color: #131337;
   --text-description-color: rgb(19 19 55 / 64%);
   --text-or-color: rgb(19 19 55 / 32%);
+  --text-error-color: #e91527;
   --background-color: #fff;
   --input-background: #f6f6f6;
   --input-border: rgb(19 19 55 / 12%);
+  --inpur-border-invalid: #ef4444;
   --input-border-focus: #0500ff;
   --button-color: #fff;
   --button-bg: #0500ff;
