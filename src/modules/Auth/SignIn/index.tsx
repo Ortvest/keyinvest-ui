@@ -4,7 +4,7 @@ import { SignInForm } from '@modules/Auth/SignIn/features/SignInForm';
 
 import './styles.css';
 
-export const SignIn = () => {
+export const SignIn = (): JSX.Element => {
   return (
     <div className={classNames('sign-in-container')}>
       <div className={classNames('side-spacer')} />

@@ -8,7 +8,7 @@ import './styles/styles.css';
 export const GetStartedButton = (): JSX.Element => {
   const navigate = useNavigate();
 
-  const onHandleClick = () => {
+  const onHandleClick = (): void => {
     navigate(AppRoutes.AUTH_LOG_IN.path);
   };
 

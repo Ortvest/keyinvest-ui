@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { AppRoutes } from '@global/router/routes.constants';
 
@@ -27,16 +27,16 @@ export const AuthProposal = ({ type }: AuthProposalProps): JSX.Element => {
       {type === 'signin' ? (
         <p className="text-description auth-proposal-signin">
           You don’t have an account?
-          <a href={AppRoutes.AUTH_REGISTER.path} className="link-signup" onClick={handleNavigation}>
+          <Link to={AppRoutes.AUTH_REGISTER.path} className="link-signup" onClick={handleNavigation}>
             Sign Up
-          </a>
+          </Link>
         </p>
       ) : type === 'signup' ? (
         <p className="text-description auth-proposal-signin">
           Already have an account?
-          <a href={AppRoutes.AUTH_LOG_IN.path} className="link-signin" onClick={handleNavigation}>
+          <Link to={AppRoutes.AUTH_LOG_IN.path} className="link-signin" onClick={handleNavigation}>
             Sign In
-          </a>
+          </Link>
         </p>
       ) : type === 'refresh-password' ? (
         <p className="text-description text-flex">

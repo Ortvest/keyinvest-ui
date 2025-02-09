@@ -15,10 +15,16 @@ interface InputPasswordProps {
   className?: string;
 }
 
-export const InputPassword = ({ password, onPasswordChange, placeholder, name, className }: InputPasswordProps) => {
+export const InputPassword = ({
+  password,
+  onPasswordChange,
+  placeholder,
+  name,
+  className,
+}: InputPasswordProps): JSX.Element => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const togglePasswordVisibility = () => {
+  const togglePasswordVisibility = (): void => {
     setShowPassword(!showPassword);
   };
 
