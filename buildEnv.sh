@@ -3,18 +3,22 @@ lastTagFor() {
 }
 
 tagWork() {
-    lastTag=""
+    lastTag=$(git tag --sort=-creatordate | head -1)
+
+    if [ -z "$lastTag" ]; then
+        lastTag="v0.0.0"
+    fi
+
+    echo "Last tag is: [ $lastTag ]"
+
+    cleanTag=$(echo "$lastTag" | sed 's/^v//')
+
     echo "Select version:"
     select version in PATCH MINOR MAJOR; do
-        if [ -z "$lastTag" ]; then
-            lastTag="v0.0.0"
-        fi
-
-        echo "Last tag is: [ $lastTag ]"
         case $version in
-        "PATCH") newTag=$(echo $lastTag | awk -F. '{print $1"."$2"."$3+1}') ;;
-        "MINOR") newTag=$(echo $lastTag | awk -F. '{print $1"."$2+1".0"}') ;;
-        "MAJOR") newTag=$(echo $lastTag | awk -F. '{print $1+1".0.0"}') ;;
+        "PATCH") newTag="v$(echo $cleanTag | awk -F. '{print $1"."$2"."$3+1}')";;
+        "MINOR") newTag="v$(echo $cleanTag | awk -F. '{print $1"."$2+1".0"}')";;
+        "MAJOR") newTag="v$(echo $cleanTag | awk -F. '{print $1+1".0.0"}')";;
         esac
 
         echo " $lastTag  >>>  $newTag "
