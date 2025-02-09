@@ -8,6 +8,8 @@ fi
 
 if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
     bash ./buildEnv.sh
+    tagWork
 else
-    ./buildEnv.sh
+    source ./buildEnv.sh
+     tagWork
 fi
