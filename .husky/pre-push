@@ -1,4 +1,5 @@
 #!/bin/sh
+echo "🔥 Pre-push hook is running..."
 set -e
 
 if [ ! -x "./buildEnv.sh" ]; then
