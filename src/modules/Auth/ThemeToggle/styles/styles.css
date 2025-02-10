@@ -14,7 +14,7 @@
   --divider-color: rgb(19 19 55 / 12%);
 }
 
-/* Темна тема */
+/* dark theme */
 body.dark-theme {
   --text-color: #fff;
   --text-description-color: rgb(255 255 255 / 64%);
@@ -49,5 +49,3 @@ body.dark-theme {
 
   filter: var(--fill-theme-toggle);
 }
-
-/* dark mode for sign up and sign in */
