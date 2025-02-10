@@ -58,6 +58,7 @@ export const SignInForm = (): JSX.Element => {
               onPasswordChange={handlePasswordChange}
               placeholder="Password"
               name="password"
+              className={classNames('password-field')}
             />
           </div>
         )}
