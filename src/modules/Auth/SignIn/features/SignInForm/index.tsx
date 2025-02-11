@@ -6,10 +6,10 @@ import { AuthProposal } from '@modules/Auth/shared/AuthProposal';
 import { AuthHeader } from '@modules/Auth/shared/Header';
 import { EmailInput } from '@modules/Auth/shared/UI/InputEmail';
 import { InputPassword } from '@modules/Auth/shared/UI/InputPassword';
+import { RuleText } from '@modules/Auth/shared/UI/RuleText';
 import { SocialAuth } from '@modules/Auth/shared/UI/SocialAuth';
 import { ContinueButton } from '@modules/Auth/shared/UI/СontinueButton';
 import { GoBackLink } from '@modules/Auth/SignIn/features/GoBackLink';
-import { RuleText } from '@modules/Auth/SignIn/features/RuleText';
 
 import './styles/styles.css';
 
@@ -18,11 +18,11 @@ export const SignInForm = () => {
   const [password, setPassword] = useState('');
   const [showPasswordInput, setShowPasswordInput] = useState(false);
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onHandleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onHandlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
@@ -49,14 +49,14 @@ export const SignInForm = () => {
       </div>
 
       <div className={classNames('input-email')}>
-        <EmailInput email={email} onChange={handleEmailChange} />
+        <EmailInput email={email} onChange={onHandleEmailChange} />
       </div>
 
       {showPasswordInput && (
         <div className={classNames('input-password')}>
           <InputPassword
             password={password}
-            onPasswordChange={handlePasswordChange}
+            onPasswordChange={onHandlePasswordChange}
             placeholder="Password"
             name="password"
           />

@@ -3,8 +3,11 @@ import { createBrowserRouter } from 'react-router-dom';
 import { AppLayout } from './AppLayout';
 import { AuthLayout } from './AuthLayout';
 import { AppRoutes } from './routes.constants';
-import { SignInPage } from '@pages/Authorization/SignInPage';
+import { SignInPage } from '@pages/Authorization';
+import { ChangePasswordReset } from '@pages/ChangePasswordReset';
 import { LandingPage } from '@pages/Landing';
+import { SendPasswordReset } from '@pages/SendPasswordReset';
+import { SentPasswordReset } from '@pages/SentPasswordReset';
 
 export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> =>
   createBrowserRouter([
@@ -19,15 +22,15 @@ export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> 
         },
         {
           path: AppRoutes.AUTH_SEND_PASSWORD_RESET.path,
-          element: null,
+          element: <SendPasswordReset />,
         },
         {
           path: AppRoutes.AUTH_SENT_PASSWORD_RESET.path,
-          element: null,
+          element: <SentPasswordReset />,
         },
         {
           path: AppRoutes.AUTH_PASSWORD_RESET.path,
-          element: null,
+          element: <ChangePasswordReset />,
         },
         {
           path: AppRoutes.ABOUT.path,

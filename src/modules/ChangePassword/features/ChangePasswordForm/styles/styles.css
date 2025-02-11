@@ -1,0 +1,28 @@
+.change-in-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+}
+
+.auth-header {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+
+  transform: translateX(-50%);
+}
+
+.change-password-form {
+  margin-top: 12px;
+}
+
+.input-group {
+  margin-bottom: 16px;
+}
+
+.confirm-password-input {
+  background-color: hsl(0deg 0% 96%);
+}

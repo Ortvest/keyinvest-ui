@@ -1,0 +1,34 @@
+.send-in-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+}
+
+.auth-header {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+
+  transform: translateX(-50%);
+}
+
+.input-email {
+  margin-top: 24px;
+}
+
+.go-back-link {
+  margin-top: 24px;
+}
+
+.rule-text {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+
+  width: 100%;
+
+  transform: translateX(-50%);
+}

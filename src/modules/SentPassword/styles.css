@@ -1,0 +1,20 @@
+.sentpassword-in-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 24px;
+
+  background-color: white;
+}
+
+.side-spacer {
+  flex: 1;
+}
+
+.form-container {
+  flex: 0 1 400px;
+}

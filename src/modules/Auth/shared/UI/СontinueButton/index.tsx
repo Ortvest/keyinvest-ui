@@ -4,6 +4,7 @@ import './styles/styles.css';
 
 interface ContinueButtonProps {
   onClick: () => void;
+  disabled?: boolean;
 }
 
 export const ContinueButton = ({ onClick }: ContinueButtonProps) => {
