@@ -1,4 +1,5 @@
-import { API_ENDPOINTS, baseApi } from '@global/api/base.api';
+import { API_ENDPOINTS, baseApi } from '@modules/Auth/shared/api/base.api';
+
 import { HttpMethods } from '@shared/enums/HttpMethods.enums';
 
 export const authApi = baseApi.injectEndpoints({

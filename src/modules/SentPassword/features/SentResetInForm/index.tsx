@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { AppRoutes } from '@global/router/routes.constants';
 
-import { AuthProposal } from '@modules/Auth/shared/AuthProposal';
+import { AuthProposalDetails } from '@modules/Auth/shared/AuthProposal/Layout/AuthProposalDetails';
 import { AuthHeader } from '@modules/Auth/shared/Header';
 import { RuleText } from '@modules/Auth/shared/UI/RuleText';
 import { GoBackLink } from '@modules/Auth/SignIn/features/GoBackLink';
@@ -40,7 +40,7 @@ export const SentResetInForm = () => {
         <AuthHeader title={'Successful!'} />
       </div>
       <div className={classNames('auth-proposal')}>
-        <AuthProposal type="email-sent" email={email} />
+        <AuthProposalDetails type="email-sent" email={email} />
       </div>
       <div>
         <EmailButton onClick={onHandleContinueClick} />

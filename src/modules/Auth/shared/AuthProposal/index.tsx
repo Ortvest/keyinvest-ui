@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom';
 
 import { AppRoutes } from '@global/router/routes.constants';
 
+import { AuthProposalDetails } from '@modules/Auth/shared/AuthProposal/Layout/AuthProposalDetails';
+
 import './styles/styles.css';
 
 interface AuthProposalProps {
-  type: 'signin' | 'signup' | 'refresh-password' | 'send-reset' | 'email-sent';
+  type: 'signin' | 'signup' | 'refresh-password';
   email?: string;
 }
 
@@ -46,17 +48,9 @@ export const AuthProposal = ({ type, email }: AuthProposalProps) => {
             Restore
           </a>
         </p>
-      ) : type === 'send-reset' ? (
-        <p className="text-reset-description">
-          You will receive an email with a link to create <br />a new password by clicking on it.
-        </p>
-      ) : type === 'email-sent' ? (
-        <div className="email-sent-text">
-          <p>We have sent a link to this email:</p>
-          <p className="email-text">{email}</p>
-          <p>which you can follow to change your password.</p>
-        </div>
-      ) : null}
+      ) : (
+        <AuthProposalDetails type={type} email={email} />
+      )}
     </div>
   );
 };

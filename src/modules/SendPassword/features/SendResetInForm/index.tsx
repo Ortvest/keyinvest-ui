@@ -5,7 +5,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { AppRoutes } from '@global/router/routes.constants';
 
-import { AuthProposal } from '@modules/Auth/shared/AuthProposal';
+import { useSendPasswordResetMutation } from '@modules/Auth/shared/api/auth.api';
+import { AuthProposalDetails } from '@modules/Auth/shared/AuthProposal/Layout/AuthProposalDetails';
 import { AuthHeader } from '@modules/Auth/shared/Header';
 import { EmailInput } from '@modules/Auth/shared/UI/InputEmail';
 import { RuleText } from '@modules/Auth/shared/UI/RuleText';
@@ -13,8 +14,6 @@ import { ContinueButton } from '@modules/Auth/shared/UI/СontinueButton';
 import { GoBackLink } from '@modules/Auth/SignIn/features/GoBackLink';
 
 import './styles/styles.css';
-
-import { useSendPasswordResetMutation } from '@global/api/auth.api';
 
 export const SendResetInForm = () => {
   const [email, setEmail] = useState('');
@@ -31,7 +30,7 @@ export const SendResetInForm = () => {
       localStorage.setItem('resetEmail', email);
       navigate(AppRoutes.AUTH_SENT_PASSWORD_RESET.path.replace(':email', email));
     } catch (err) {
-      console.error('Ошибка при отправке запроса:', err);
+      console.error('Error when sending the request:', err);
     }
   };
 
@@ -48,7 +47,7 @@ export const SendResetInForm = () => {
         <EmailInput email={email} onChange={onHandleEmailChange} />
       </div>
       <div className={classNames('auth-proposal')}>
-        <AuthProposal type="send-reset" />
+        <AuthProposalDetails type="send-reset" />
       </div>
       <div>
         <ContinueButton onClick={onHandleContinueClick} disabled={isLoading} />

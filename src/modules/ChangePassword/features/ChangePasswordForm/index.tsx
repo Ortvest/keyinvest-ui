@@ -32,10 +32,8 @@ export const ChangePasswordForm = () => {
 
   const onHandleSubmit = (): void => {
     if (password !== confirmPassword) {
-      alert('Passwords do not match!');
       return;
     }
-    console.log('Password changed successfully!');
   };
 
   return (
