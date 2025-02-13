@@ -6,12 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import { AppRoutes } from '@global/router/routes.constants';
 
 import { useSendPasswordResetMutation } from '@modules/Auth/shared/api/auth.api';
-import { AuthProposalDetails } from '@modules/Auth/shared/AuthProposal/Layout/AuthProposalDetails';
 import { AuthHeader } from '@modules/Auth/shared/Header';
 import { EmailInput } from '@modules/Auth/shared/UI/InputEmail';
 import { RuleText } from '@modules/Auth/shared/UI/RuleText';
 import { ContinueButton } from '@modules/Auth/shared/UI/СontinueButton';
 import { GoBackLink } from '@modules/Auth/SignIn/features/GoBackLink';
+import { PasswordResetDetails } from '@modules/ChangePassword/features/PasswordResetDetails';
 
 import './styles/styles.css';
 
@@ -47,7 +47,7 @@ export const SendResetInForm = () => {
         <EmailInput email={email} onChange={onHandleEmailChange} />
       </div>
       <div className={classNames('auth-proposal')}>
-        <AuthProposalDetails type="send-reset" />
+        <PasswordResetDetails type="send-reset" />
       </div>
       <div>
         <ContinueButton onClick={onHandleContinueClick} disabled={isLoading} />

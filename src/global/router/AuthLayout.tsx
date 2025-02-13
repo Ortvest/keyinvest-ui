@@ -2,15 +2,18 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 import { Header } from '@modules/Header';
 
-import { AppRoutes } from './routes.constants';
+import { AppRoutes, UsageScopes } from './routes.constants';
+
+const isUsageScope = (scope: string[]): boolean => {
+  return scope.includes(UsageScopes.AUTH);
+};
 
 export const AuthLayout = ({ authed }: { authed: boolean }): JSX.Element => {
   const location = useLocation();
-  const isAuthPage =
-    location.pathname === AppRoutes.AUTH_LOG_IN.path ||
-    location.pathname.startsWith(AppRoutes.AUTH_SEND_PASSWORD_RESET.path) ||
-    location.pathname.startsWith(AppRoutes.AUTH_SENT_PASSWORD_RESET.path) ||
-    location.pathname.startsWith(AppRoutes.AUTH_PASSWORD_RESET.path);
+
+  const currentRoute = Object.values(AppRoutes).find((route) => location.pathname.startsWith(route.path));
+
+  const isAuthPage = currentRoute && isUsageScope(currentRoute.usageScope);
 
   if (authed) {
     return <Navigate to={AppRoutes.AUTHED_MAIN_PAGE.path} replace />;

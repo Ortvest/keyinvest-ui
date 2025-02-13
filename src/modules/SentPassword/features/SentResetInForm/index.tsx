@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { AppRoutes } from '@global/router/routes.constants';
 
-import { AuthProposalDetails } from '@modules/Auth/shared/AuthProposal/Layout/AuthProposalDetails';
 import { AuthHeader } from '@modules/Auth/shared/Header';
 import { RuleText } from '@modules/Auth/shared/UI/RuleText';
 import { GoBackLink } from '@modules/Auth/SignIn/features/GoBackLink';
+import { PasswordResetDetails } from '@modules/ChangePassword/features/PasswordResetDetails';
 import { EmailButton } from '@modules/SentPassword/features/EmailButton';
 
 import './styles/styles.css';
@@ -40,7 +40,7 @@ export const SentResetInForm = () => {
         <AuthHeader title={'Successful!'} />
       </div>
       <div className={classNames('auth-proposal')}>
-        <AuthProposalDetails type="email-sent" email={email} />
+        <PasswordResetDetails type="email-sent" email={email} />
       </div>
       <div>
         <EmailButton onClick={onHandleContinueClick} />

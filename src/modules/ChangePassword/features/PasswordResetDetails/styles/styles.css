@@ -1,0 +1,36 @@
+.text-reset-description {
+  position: absolute;
+  top: 47vh;
+  left: 790px;
+
+  width: max-content;
+
+  color: #131337;
+  font-weight: 500;
+  font-size: 16px;
+  white-space: pre-line;
+  text-align: left;
+}
+
+.email-sent-text {
+  position: absolute;
+  top: 35vh;
+  left: 50%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  max-width: 280px;
+
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+
+  transform: translateX(-50%);
+}
+
+.email-text {
+  font-weight: bold;
+}

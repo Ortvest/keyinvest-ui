@@ -3,16 +3,13 @@ import { useNavigate } from 'react-router-dom';
 
 import { AppRoutes } from '@global/router/routes.constants';
 
-import { AuthProposalDetails } from '@modules/Auth/shared/AuthProposal/Layout/AuthProposalDetails';
-
 import './styles/styles.css';
 
 interface AuthProposalProps {
   type: 'signin' | 'signup' | 'refresh-password';
-  email?: string;
 }
 
-export const AuthProposal = ({ type, email }: AuthProposalProps) => {
+export const AuthProposal = ({ type }: AuthProposalProps) => {
   const navigate = useNavigate();
 
   const handleNavigation = () => {
@@ -48,9 +45,7 @@ export const AuthProposal = ({ type, email }: AuthProposalProps) => {
             Restore
           </a>
         </p>
-      ) : (
-        <AuthProposalDetails type={type} email={email} />
-      )}
+      ) : null}
     </div>
   );
 };

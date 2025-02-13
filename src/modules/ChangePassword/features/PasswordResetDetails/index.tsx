@@ -1,9 +1,11 @@
-interface AuthProposalDetailsProps {
+import './styles/styles.css';
+
+interface PasswordResetDetailsProps {
   type: 'send-reset' | 'email-sent';
   email?: string;
 }
 
-export const AuthProposalDetails = ({ type, email }: AuthProposalDetailsProps) => {
+export const PasswordResetDetails = ({ type, email }: PasswordResetDetailsProps) => {
   if (type === 'send-reset') {
     return (
       <p className="text-reset-description">

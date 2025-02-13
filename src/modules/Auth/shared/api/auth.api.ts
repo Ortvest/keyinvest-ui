@@ -1,4 +1,5 @@
-import { API_ENDPOINTS, baseApi } from '@modules/Auth/shared/api/base.api';
+import { API_ENDPOINTS } from '@modules/Auth/shared/api/api.consts';
+import { baseApi } from '@modules/Auth/shared/api/base.api';
 
 import { HttpMethods } from '@shared/enums/HttpMethods.enums';
 
