@@ -15,12 +15,8 @@
   transform: translateX(-50%);
 }
 
-.input-email {
-  margin-top: 24px;
-}
-
-.go-back-link {
-  margin-top: 24px;
+.continue-button {
+  margin-top: 5px;
 }
 
 .rule-text {

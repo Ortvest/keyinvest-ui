@@ -49,7 +49,7 @@ export const SendResetInForm = () => {
       <div className={classNames('auth-proposal')}>
         <PasswordResetDetails type="send-reset" />
       </div>
-      <div>
+      <div className={classNames('continue-button')}>
         <ContinueButton onClick={onHandleContinueClick} disabled={isLoading} />
       </div>
       {error && <p className="error-message">Error sending reset email</p>}
