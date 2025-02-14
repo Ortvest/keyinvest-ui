@@ -1,4 +1,4 @@
-import './styles/styles.scss';
+import './styles/styles.css';
 
 interface PasswordResetDetailsProps {
   type: 'send-reset' | 'email-sent';
