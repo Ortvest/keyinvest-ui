@@ -1,7 +1,7 @@
 {
   "name": "keyinvest-ui",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,11 +10,12 @@
     "format": "prettier --config .prettierrc --write .",
     "stylelint": "stylelint \"**/*.css\" --fix",
     "preview": "vite preview",
-    "prepare": "husky"
+    "prepare": "chmod +x .husky/pre-push"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
     "@types/node": "^22.10.10",
+    "@uidotdev/usehooks": "^2.4.1",
     "classnames": "^2.5.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -37,6 +38,7 @@
     "eslint-plugin-react-refresh": "^0.4.16",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "husky": "^9.1.7",
+    "prettier": "^3.4.2",
     "stylelint": "^16.14.1",
     "stylelint-config-standard": "^37.0.0",
     "stylelint-order": "^6.0.4",

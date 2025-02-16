@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import AppIcon from '@shared/assets/icons/LogoIcon.svg';
+import LogoIcon from '@shared/assets/icons/LogoIcon.svg';
 
 import './styles/styles.css';
 
@@ -8,13 +8,11 @@ interface AuthHeaderProps {
   title: string;
 }
 
-export const AuthHeader = ({ title }: AuthHeaderProps) => {
+export const AuthHeader = ({ title }: AuthHeaderProps): JSX.Element => {
   return (
-    <div className={classNames('auth-header')}>
-      <div className={classNames('logo-container')}>
-        <img src={AppIcon} className={classNames('logo')} alt="Logo" />
-      </div>
-      <h1 className={classNames('auth-title')}>{title}</h1>
+    <div className={classNames('auth-header-wrapper')}>
+      <img src={LogoIcon} alt="App logo" />
+      <h2 className={classNames('auth-header-title')}>{title}</h2>
     </div>
   );
 };

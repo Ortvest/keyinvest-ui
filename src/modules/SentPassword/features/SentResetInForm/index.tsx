@@ -5,16 +5,16 @@ import { useNavigate } from 'react-router-dom';
 
 import { AppRoutes } from '@global/router/routes.constants';
 
+import { GoBackLink } from '@modules/Auth/shared/GoBackLink';
 import { AuthHeader } from '@modules/Auth/shared/Header';
-import { RuleText } from '@modules/Auth/shared/UI/RuleText';
-import { GoBackLink } from '@modules/Auth/SignIn/features/GoBackLink';
+import { Privacy } from '@modules/Auth/shared/Privacy';
 import { PasswordResetDetails } from '@modules/ChangePassword/features/PasswordResetDetails';
 import { EmailButton } from '@modules/SentPassword/features/EmailButton';
 
 import './styles/styles.css';
 
-export const SentResetInForm = () => {
-  const [email, setEmail] = useState('');
+export const SentResetInForm = (): JSX.Element => {
+  const [email, setEmail] = useState<string>('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export const SentResetInForm = () => {
         <GoBackLink onClick={onHandleGoBackClick} />
       </div>
       <div className={classNames('rule-text')}>
-        <RuleText />
+        <Privacy />
       </div>
     </div>
   );

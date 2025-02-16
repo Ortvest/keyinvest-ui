@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { AppRoutes } from '@global/router/routes.constants';
 
@@ -9,14 +9,14 @@ interface AuthProposalProps {
   type: 'signin' | 'signup' | 'refresh-password';
 }
 
-export const AuthProposal = ({ type }: AuthProposalProps) => {
+export const AuthProposal = ({ type }: AuthProposalProps): JSX.Element => {
   const navigate = useNavigate();
 
-  const handleNavigation = () => {
+  const handleNavigation = (): void => {
     if (type === 'signin') {
       navigate(AppRoutes.AUTH_LOG_IN.path);
     } else if (type === 'signup') {
-      navigate(AppRoutes.AUTH.path);
+      navigate(AppRoutes.AUTH_REGISTER.path);
     } else if (type === 'refresh-password') {
       navigate(AppRoutes.AUTH_SEND_PASSWORD_RESET.path);
     }
@@ -27,21 +27,21 @@ export const AuthProposal = ({ type }: AuthProposalProps) => {
       {type === 'signin' ? (
         <p className="text-description auth-proposal-signin">
           You don’t have an account?
-          <a href="#" className="link-signup" onClick={handleNavigation}>
+          <Link to={AppRoutes.AUTH_REGISTER.path} className="link-signup" onClick={handleNavigation}>
             Sign Up
-          </a>
+          </Link>
         </p>
       ) : type === 'signup' ? (
-        <p className="text-description">
+        <p className="text-description auth-proposal-signin">
           Already have an account?
-          <a href="#" className="link-signin" onClick={handleNavigation}>
+          <Link to={AppRoutes.AUTH_LOG_IN.path} className="link-signin" onClick={handleNavigation}>
             Sign In
-          </a>
+          </Link>
         </p>
       ) : type === 'refresh-password' ? (
         <p className="text-description text-flex">
           <span>Forgot password?</span>
-          <a href="#" className="link-restore" onClick={handleNavigation}>
+          <a href={AppRoutes.AUTH_SEND_PASSWORD_RESET.path} className="link-restore" onClick={handleNavigation}>
             Restore
           </a>
         </p>

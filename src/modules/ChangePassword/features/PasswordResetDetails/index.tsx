@@ -5,7 +5,7 @@ interface PasswordResetDetailsProps {
   email?: string;
 }
 
-export const PasswordResetDetails = ({ type, email }: PasswordResetDetailsProps) => {
+export const PasswordResetDetails = ({ type, email }: PasswordResetDetailsProps): JSX.Element => {
   return (
     <div className="password-reset-wrapper">
       {type === 'send-reset' && (

@@ -6,17 +6,17 @@ import { useNavigate } from 'react-router-dom';
 import { AppRoutes } from '@global/router/routes.constants';
 
 import { useSendPasswordResetMutation } from '@modules/Auth/shared/api/auth.api';
+import { GoBackLink } from '@modules/Auth/shared/GoBackLink';
 import { AuthHeader } from '@modules/Auth/shared/Header';
-import { EmailInput } from '@modules/Auth/shared/UI/InputEmail';
-import { RuleText } from '@modules/Auth/shared/UI/RuleText';
+import { InputEmailField } from '@modules/Auth/shared/InputEmailField';
+import { Privacy } from '@modules/Auth/shared/Privacy';
 import { ContinueButton } from '@modules/Auth/shared/UI/СontinueButton';
-import { GoBackLink } from '@modules/Auth/SignIn/features/GoBackLink';
 import { PasswordResetDetails } from '@modules/ChangePassword/features/PasswordResetDetails';
 
 import './styles/styles.css';
 
-export const SendResetInForm = () => {
-  const [email, setEmail] = useState('');
+export const SendResetInForm = (): JSX.Element => {
+  const [email, setEmail] = useState<string>('');
   const navigate = useNavigate();
   const [sendPasswordReset, { isLoading, error }] = useSendPasswordResetMutation();
 
@@ -44,7 +44,7 @@ export const SendResetInForm = () => {
         <AuthHeader title={'Restore access'} />
       </div>
       <div className={classNames('input-email')}>
-        <EmailInput email={email} onChange={onHandleEmailChange} />
+        <InputEmailField value={email} onChange={onHandleEmailChange} />
       </div>
       <div className={classNames('auth-proposal')}>
         <PasswordResetDetails type="send-reset" />
@@ -57,7 +57,7 @@ export const SendResetInForm = () => {
         <GoBackLink onClick={onHandleGoBackClick} />
       </div>
       <div className={classNames('rule-text')}>
-        <RuleText />
+        <Privacy />
       </div>
     </div>
   );

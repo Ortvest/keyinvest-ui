@@ -11,12 +11,12 @@
 
 .text-reset-description {
   position: relative;
-  bottom: 20px;
+  top: 10px;
 
   width: 344px;
   height: 40px;
 
-  color: #3e3e49;
+  color: var(--text-description-color);
   font-weight: 500;
   font-size: 16px;
   white-space: normal;

@@ -5,15 +5,15 @@ import { useNavigate } from 'react-router-dom';
 
 import { AppRoutes } from '@global/router/routes.constants';
 
+import { GoBackLink } from '@modules/Auth/shared/GoBackLink';
 import { AuthHeader } from '@modules/Auth/shared/Header';
+import { Privacy } from '@modules/Auth/shared/Privacy';
 import { InputPassword } from '@modules/Auth/shared/UI/InputPassword';
-import { RuleText } from '@modules/Auth/shared/UI/RuleText';
 import { ContinueButton } from '@modules/Auth/shared/UI/СontinueButton';
-import { GoBackLink } from '@modules/Auth/SignIn/features/GoBackLink';
 
 import './styles/styles.css';
 
-export const ChangePasswordForm = () => {
+export const ChangePasswordForm = (): JSX.Element => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ export const ChangePasswordForm = () => {
         <GoBackLink onClick={onHandleGoBackClick} />
       </div>
       <div className={classNames('rule-text')}>
-        <RuleText />
+        <Privacy />
       </div>
     </div>
   );

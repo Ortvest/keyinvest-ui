@@ -5,6 +5,7 @@
   align-items: center;
 
   height: 100vh;
+  margin-top: 10px;
 }
 
 .auth-header {
@@ -16,6 +17,11 @@
 }
 
 .input-email {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  width: 344px;
   margin-top: 24px;
 }
 
@@ -36,11 +42,6 @@
 }
 
 .rule-text {
-  position: absolute;
-  left: 50%;
-  bottom: 10px;
-
-  width: 100%;
-
-  transform: translateX(-50%);
+  width: 272px;
+  height: 20px;
 }

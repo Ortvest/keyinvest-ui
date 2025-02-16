@@ -1,0 +1,58 @@
+.password-container {
+  position: relative;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.password-field {
+  width: 100%;
+  padding: 16px;
+
+  color: var(--text-color);
+  font-size: 16px;
+
+  border: 1.5px solid var(--input-border);
+  border-radius: 12px;
+
+  background-color: var(--input-background);
+
+  outline: none;
+}
+
+.password-field:focus {
+  border: 1.5px solid var(--input-border-focus);
+}
+
+.password-field.invalid {
+  color: var(--text-color);
+
+  border: 1.5px solid var(--inpur-border-invalid);
+}
+
+.toggle-button {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+
+  width: 20px;
+  height: 20px;
+
+  border: none;
+
+  background: none;
+
+  cursor: pointer;
+
+  filter: var(--fill-toggle-button);
+  transform: translateY(-50%);
+}
+
+.error-text {
+  margin-top: 8px;
+
+  color: var(--text-error-color);
+  font-weight: 500;
+  text-align: left;
+}

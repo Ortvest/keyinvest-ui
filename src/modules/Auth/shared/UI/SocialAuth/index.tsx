@@ -4,7 +4,7 @@ import IconGoogle from '@shared/assets/icons/Google_Icon.svg';
 
 import './styles/styles.css';
 
-export const SocialAuth = () => {
+export const SocialAuth = (): JSX.Element => {
   return (
     <div className={classNames('social-auth-container')}>
       <div className={classNames('social-auth-divider')}>

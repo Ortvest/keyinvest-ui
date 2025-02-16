@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 
 import { ChangePassword } from '@modules/ChangePassword';
 
-export const ChangePasswordReset = () => {
+export const ChangePasswordReset = (): JSX.Element => {
   return (
     <Fragment>
       <ChangePassword />

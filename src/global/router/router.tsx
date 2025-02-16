@@ -1,11 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import { AppLayout } from './AppLayout';
-import { AuthLayout } from './AuthLayout';
-import { AppRoutes } from './routes.constants';
+import { AppLayout } from '@global/router/AppLayout';
+import { AuthLayout } from '@global/router/AuthLayout';
+import { AppRoutes } from '@global/router/routes.constants';
+
 import { SignInPage } from '@pages/Authorization';
 import { ChangePasswordReset } from '@pages/ChangePasswordReset';
 import { LandingPage } from '@pages/Landing';
+import { RegistrationPage } from '@pages/Registration';
 import { SendPasswordReset } from '@pages/SendPasswordReset';
 import { SentPasswordReset } from '@pages/SentPasswordReset';
 
@@ -19,6 +21,10 @@ export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> 
         {
           path: AppRoutes.AUTH_LOG_IN.path,
           element: <SignInPage />,
+        },
+        {
+          path: AppRoutes.AUTH_REGISTER.path,
+          element: <RegistrationPage />,
         },
         {
           path: AppRoutes.AUTH_SEND_PASSWORD_RESET.path,

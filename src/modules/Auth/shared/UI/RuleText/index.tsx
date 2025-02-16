@@ -2,7 +2,7 @@ import classNames from 'classnames';
 
 import './styles/styles.css';
 
-export const RuleText = () => {
+export const RuleText = (): JSX.Element => {
   return (
     <div className={classNames('rule-text')}>
       <a href="#" className={classNames('rule-link')}>

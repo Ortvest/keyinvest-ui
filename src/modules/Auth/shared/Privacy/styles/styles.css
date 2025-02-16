@@ -1,0 +1,30 @@
+.privacy-wrapper {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+}
+
+.policy-link {
+  position: relative;
+
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+.privacy-wrapper .policy-link:first-child::after {
+  position: absolute;
+  top: 50%;
+  right: -16px;
+  content: '';
+
+  width: 1px;
+  height: 20px;
+
+  background-color: var(--divider-color);
+
+  transform: translateY(-50%);
+}
