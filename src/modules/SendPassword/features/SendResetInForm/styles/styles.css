@@ -15,10 +15,6 @@
   transform: translateX(-50%);
 }
 
-.continue-button {
-  margin-top: 5px;
-}
-
 .rule-text {
   position: absolute;
   left: 50%;
