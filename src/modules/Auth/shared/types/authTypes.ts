@@ -1,7 +1,7 @@
 export const AuthTypes = {
-  signin: 'signin',
-  signup: 'signup',
-  'refresh-password': 'refresh-password',
+  SIGNIN: 'SIGNIN',
+  SIGNUP: 'SIGNUP',
+  REFRESH_PASSWORD: 'REFRESH_PASSWORD',
 } as const;
 
 export type AuthProposalType = keyof typeof AuthTypes;

@@ -6,6 +6,7 @@ import { AuthProposal } from '@modules/Auth/shared/AuthProposal';
 import { GoBackLink } from '@modules/Auth/shared/GoBackLink';
 import { AuthHeader } from '@modules/Auth/shared/Header';
 import { InputEmailField } from '@modules/Auth/shared/InputEmailField';
+import { AuthTypes } from '@modules/Auth/shared/types/authTypes';
 import { InputPassword } from '@modules/Auth/shared/UI/InputPassword';
 import { SocialAuth } from '@modules/Auth/shared/UI/SocialAuth';
 import { ContinueButton } from '@modules/Auth/shared/UI/СontinueButton';
@@ -65,7 +66,7 @@ export const SignInForm = (): JSX.Element => {
       {!showPasswordInput && <ContinueButton onClick={onHandleContinueClick} />}
 
       <div className={classNames({ 'auth-proposal-shifted': showPasswordInput })}>
-        <AuthProposal type={showPasswordInput ? 'refresh-password' : 'signin'} />
+        <AuthProposal type={showPasswordInput ? AuthTypes.REFRESH_PASSWORD : AuthTypes.SIGNIN} />
       </div>
 
       {showPasswordInput && (

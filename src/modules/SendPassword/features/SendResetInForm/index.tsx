@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
@@ -9,16 +9,22 @@ import { useSendPasswordResetMutation } from '@modules/Auth/shared/api/auth.api'
 import { GoBackLink } from '@modules/Auth/shared/GoBackLink';
 import { AuthHeader } from '@modules/Auth/shared/Header';
 import { InputEmailField } from '@modules/Auth/shared/InputEmailField';
-import { Privacy } from '@modules/Auth/shared/Privacy';
 import { ContinueButton } from '@modules/Auth/shared/UI/СontinueButton';
 import { PasswordResetDetails } from '@modules/ChangePassword/features/PasswordResetDetails';
 
 import './styles/styles.css';
 
+import { useLocalStorage } from '@uidotdev/usehooks';
+
 export const SendResetInForm = (): JSX.Element => {
-  const [email, setEmail] = useState<string>('');
+  const [email, setEmail] = useLocalStorage<string>('resetEmail', '');
+
   const navigate = useNavigate();
   const [sendPasswordReset, { isLoading, error }] = useSendPasswordResetMutation();
+
+  useEffect(() => {
+    localStorage.removeItem('resetEmail');
+  }, []);
 
   const onHandleEmailChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setEmail(e.target.value);
@@ -27,7 +33,6 @@ export const SendResetInForm = (): JSX.Element => {
   const onHandleContinueClick = async (): Promise<void> => {
     try {
       await sendPasswordReset({ email }).unwrap();
-      localStorage.setItem('resetEmail', email);
       navigate(AppRoutes.AUTH_SENT_PASSWORD_RESET.path.replace(':email', email));
     } catch (err) {
       console.error('Error when sending the request:', err);
@@ -55,9 +60,6 @@ export const SendResetInForm = (): JSX.Element => {
       {error && <p className="error-message">Error sending reset email</p>}
       <div className={classNames('go-back-link')}>
         <GoBackLink onClick={onHandleGoBackClick} />
-      </div>
-      <div className={classNames('privacy-text')}>
-        <Privacy />
       </div>
     </div>
   );

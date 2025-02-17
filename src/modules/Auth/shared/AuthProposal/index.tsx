@@ -14,39 +14,36 @@ interface AuthProposalProps {
 export const AuthProposal = ({ type }: AuthProposalProps): JSX.Element => {
   const navigate = useNavigate();
 
+  const authRoutes: Record<keyof typeof AuthTypes, string> = {
+    [AuthTypes.SIGNIN]: AppRoutes.AUTH_LOG_IN.path,
+    [AuthTypes.SIGNUP]: AppRoutes.AUTH_REGISTER.path,
+    [AuthTypes.REFRESH_PASSWORD]: AppRoutes.AUTH_SEND_PASSWORD_RESET.path,
+  };
+
   const handleNavigation = (): void => {
-    switch (type) {
-      case AuthTypes.signin:
-        navigate(AppRoutes.AUTH_LOG_IN.path);
-        break;
-      case AuthTypes.signup:
-        navigate(AppRoutes.AUTH_REGISTER.path);
-        break;
-      case AuthTypes['refresh-password']:
-        navigate(AppRoutes.AUTH_SEND_PASSWORD_RESET.path);
-        break;
-      default:
-        break;
+    const path = authRoutes[type];
+    if (path) {
+      navigate(path);
     }
   };
 
   return (
     <div className={classNames('auth-proposal', 'text-center')}>
-      {type === AuthTypes.signin ? (
+      {type === AuthTypes.SIGNIN ? (
         <p className="text-description auth-proposal-signin">
           You don’t have an account?
           <Link to={AppRoutes.AUTH_REGISTER.path} className="link-signup" onClick={handleNavigation}>
             Sign Up
           </Link>
         </p>
-      ) : type === AuthTypes.signup ? (
+      ) : type === AuthTypes.SIGNUP ? (
         <p className="text-description auth-proposal-signin">
           Already have an account?
           <Link to={AppRoutes.AUTH_LOG_IN.path} className="link-signin" onClick={handleNavigation}>
             Sign In
           </Link>
         </p>
-      ) : type === AuthTypes['refresh-password'] ? (
+      ) : type === AuthTypes.REFRESH_PASSWORD ? (
         <p className="text-description text-flex">
           <span>Forgot password?</span>
           <a href={AppRoutes.AUTH_SEND_PASSWORD_RESET.path} className="link-restore" onClick={handleNavigation}>

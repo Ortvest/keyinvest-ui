@@ -2,6 +2,7 @@ import classNames from 'classnames';
 
 import { AuthProposal } from '@modules/Auth/shared/AuthProposal';
 import { GoBackLink } from '@modules/Auth/shared/GoBackLink';
+import { AuthTypes } from '@modules/Auth/shared/types/authTypes';
 import { SocialAuth } from '@modules/Auth/shared/UI/SocialAuth';
 import { ContinueButton } from '@modules/Auth/shared/UI/СontinueButton';
 
@@ -32,7 +33,8 @@ export const RegistrationNavigation = ({
     )}
     {step === 'email' && (
       <>
-        <AuthProposal type={'signup'} />
+        <AuthProposal type={AuthTypes.SIGNUP} />
+
         <SocialAuth />
       </>
     )}

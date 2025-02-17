@@ -7,7 +7,6 @@ import { AppRoutes } from '@global/router/routes.constants';
 
 import { GoBackLink } from '@modules/Auth/shared/GoBackLink';
 import { AuthHeader } from '@modules/Auth/shared/Header';
-import { Privacy } from '@modules/Auth/shared/Privacy';
 import { InputPassword } from '@modules/Auth/shared/UI/InputPassword';
 import { ContinueButton } from '@modules/Auth/shared/UI/СontinueButton';
 
@@ -62,9 +61,6 @@ export const ChangePasswordForm = (): JSX.Element => {
       </div>
       <div className={classNames('go-back-link')}>
         <GoBackLink onClick={onHandleGoBackClick} />
-      </div>
-      <div className={classNames('rule-text')}>
-        <Privacy />
       </div>
     </div>
   );
