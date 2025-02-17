@@ -42,24 +42,20 @@ export const ChangePasswordForm = (): JSX.Element => {
         <AuthHeader title={'Change Password'} />
       </div>
       <form className={classNames('change-password-form')}>
-        <div className={classNames('input-group')}>
-          <InputPassword
-            password={password}
-            onPasswordChange={onHandlePasswordChange}
-            placeholder="Enter new password"
-            name="password"
-            className={classNames('password-input')}
-          />
-        </div>
-        <div className={classNames('input-group')}>
-          <InputPassword
-            password={confirmPassword}
-            onPasswordChange={onHandleConfirmPasswordChange}
-            placeholder="Re-enter the password"
-            name="confirmPassword"
-            className={classNames('confirm-password-input')}
-          />
-        </div>
+        <InputPassword
+          password={password}
+          onPasswordChange={onHandlePasswordChange}
+          placeholder="Enter new password"
+          name="password"
+          className={classNames('password-input')}
+        />
+        <InputPassword
+          password={confirmPassword}
+          onPasswordChange={onHandleConfirmPasswordChange}
+          placeholder="Re-enter the password"
+          name="confirmPassword"
+          className={classNames('confirm-password-input')}
+        />
       </form>
       <div className={classNames('button-container')}>
         <ContinueButton onClick={onHandleSubmit} />

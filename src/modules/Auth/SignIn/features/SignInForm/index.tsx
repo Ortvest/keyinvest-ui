@@ -6,7 +6,6 @@ import { AuthProposal } from '@modules/Auth/shared/AuthProposal';
 import { GoBackLink } from '@modules/Auth/shared/GoBackLink';
 import { AuthHeader } from '@modules/Auth/shared/Header';
 import { InputEmailField } from '@modules/Auth/shared/InputEmailField';
-import { Privacy } from '@modules/Auth/shared/Privacy';
 import { InputPassword } from '@modules/Auth/shared/UI/InputPassword';
 import { SocialAuth } from '@modules/Auth/shared/UI/SocialAuth';
 import { ContinueButton } from '@modules/Auth/shared/UI/СontinueButton';
@@ -79,10 +78,6 @@ export const SignInForm = (): JSX.Element => {
       )}
 
       {!showPasswordInput && <SocialAuth />}
-
-      <div className={classNames('rule-text')}>
-        <Privacy />
-      </div>
     </div>
   );
 };

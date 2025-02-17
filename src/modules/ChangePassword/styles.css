@@ -9,10 +9,7 @@
   padding: 0 24px;
 }
 
-.side-spacer {
-  flex: 1;
-}
-
 .form-container {
-  flex: 0 1 400px;
+  width: 100%;
+  max-width: 400px;
 }

@@ -16,13 +16,20 @@
 }
 
 .change-password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
   margin-top: 12px;
 }
 
-.input-group {
-  margin-bottom: 16px;
-}
+.input-password-field {
+  width: 344px;
+  height: 52px;
+  padding: 10px 16px;
+  box-sizing: border-box;
 
-.confirm-password-input {
-  background-color: hsl(0deg 0% 96%);
+  font-size: 16px;
+
+  border-radius: 8px;
 }

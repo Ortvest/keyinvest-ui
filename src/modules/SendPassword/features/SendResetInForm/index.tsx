@@ -56,7 +56,7 @@ export const SendResetInForm = (): JSX.Element => {
       <div className={classNames('go-back-link')}>
         <GoBackLink onClick={onHandleGoBackClick} />
       </div>
-      <div className={classNames('rule-text')}>
+      <div className={classNames('privacy-text')}>
         <Privacy />
       </div>
     </div>
