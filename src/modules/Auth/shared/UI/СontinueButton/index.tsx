@@ -8,7 +8,7 @@ interface ContinueButtonProps {
 }
 
 export const ContinueButton = ({ onHandleContinueClick }: ContinueButtonProps): JSX.Element => (
-  <button className={classNames('continue-button')} onClick={onHandleContinueClick}>
+  <button className={classNames('continue-button')} onClick={(e) => onHandleContinueClick(e)}>
     Continue
   </button>
 );

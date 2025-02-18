@@ -1,13 +1,12 @@
 import { PasswordField } from '@modules/Auth/Registration/features/PasswordField';
 import { InputEmailField } from '@modules/Auth/shared/InputEmailField';
-
-type Step = 'email' | 'password' | 'confirmation';
+import { StepNames } from '@modules/Auth/shared/types/stepNames';
 
 type FormState = {
   email: string;
   password: string;
   confirmPassword: string;
-  step: Step;
+  step: StepNames;
 };
 
 type RegistrationStepsProps = {
@@ -18,14 +17,14 @@ type RegistrationStepsProps = {
 export const RegistrationSteps = ({ formState, handleChange }: RegistrationStepsProps): JSX.Element => (
   <>
     <InputEmailField value={formState.email} onChange={(e) => handleChange('email', e.target.value)} />
-    {formState.step !== 'email' && (
+    {formState.step !== StepNames.EMAIL && (
       <PasswordField
         label="Password"
         value={formState.password}
         onChange={(e) => handleChange('password', e.target.value)}
       />
     )}
-    {formState.step === 'confirmation' && (
+    {formState.step === StepNames.CONFIRMATION && (
       <PasswordField
         label="Re-enter Password"
         value={formState.confirmPassword}

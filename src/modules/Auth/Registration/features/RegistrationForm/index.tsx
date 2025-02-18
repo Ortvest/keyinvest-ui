@@ -4,16 +4,15 @@ import classNames from 'classnames';
 
 import { RegistrationNavigation } from '@modules/Auth/Registration/layout/RegistrationNavigation';
 import { RegistrationSteps } from '@modules/Auth/Registration/layout/RegistrationSteps';
+import { StepNames } from '@modules/Auth/shared/types/stepNames';
 
 import './styles/styles.css';
-
-type Step = 'email' | 'password' | 'confirmation';
 
 type FormState = {
   email: string;
   password: string;
   confirmPassword: string;
-  step: Step;
+  step: StepNames;
 };
 
 export const RegistrationForm = (): JSX.Element => {
@@ -21,27 +20,31 @@ export const RegistrationForm = (): JSX.Element => {
     email: '',
     password: '',
     confirmPassword: '',
-    step: 'email',
+    step: StepNames.EMAIL,
   });
 
   const isPasswordMatch = formState.password === formState.confirmPassword;
 
-  const handleChange = (key: keyof FormState, value: string | Step): void => {
+  const handleChange = (key: keyof FormState, value: string | StepNames): void => {
     setFormState((prev) => ({ ...prev, [key]: value }));
   };
 
   const onContinueHandler = (): void => {
     handleChange(
       'step',
-      formState.step === 'email' ? 'password' : formState.step === 'password' ? 'confirmation' : formState.step
+      formState.step === StepNames.EMAIL
+        ? StepNames.PASSWORD
+        : formState.step === StepNames.PASSWORD
+          ? StepNames.CONFIRMATION
+          : formState.step
     );
   };
 
   const onGoBackHandler = (): void => {
-    if (formState.step === 'password') {
-      setFormState((prev) => ({ ...prev, step: 'email' }));
-    } else if (formState.step === 'confirmation') {
-      setFormState((prev) => ({ ...prev, step: 'password' }));
+    if (formState.step === StepNames.PASSWORD) {
+      setFormState((prev) => ({ ...prev, step: StepNames.EMAIL }));
+    } else if (formState.step === StepNames.CONFIRMATION) {
+      setFormState((prev) => ({ ...prev, step: StepNames.PASSWORD }));
     }
   };
 
