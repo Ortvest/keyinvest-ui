@@ -26,7 +26,8 @@ export const SignInForm = (): JSX.Element => {
     setPassword(e.target.value);
   };
 
-  const onHandleContinueClick = (): void => {
+  const onHandleContinueClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    e.preventDefault();
     if (!showPasswordInput) {
       setShowPasswordInput(true);
     } else {
@@ -63,15 +64,16 @@ export const SignInForm = (): JSX.Element => {
           </div>
         )}
       </div>
-      {!showPasswordInput && <ContinueButton onClick={onHandleContinueClick} />}
+
+      {!showPasswordInput && <ContinueButton onHandleContinueClick={onHandleContinueClick} />}
 
       <div className={classNames({ 'auth-proposal-shifted': showPasswordInput })}>
-        <AuthProposal type={showPasswordInput ? AuthTypes.REFRESH_PASSWORD : AuthTypes.SIGNIN} />
+        <AuthProposal type={showPasswordInput ? AuthTypes.REFRESH_PASSWORD : AuthTypes.SIGN_IN} />
       </div>
 
       {showPasswordInput && (
         <>
-          <ContinueButton onClick={onHandleContinueClick} />
+          <ContinueButton onHandleContinueClick={onHandleContinueClick} />
           <div>
             <GoBackLink onClick={onHandleGoBackClick} />
           </div>

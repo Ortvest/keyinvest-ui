@@ -4,14 +4,16 @@
   justify-content: center;
   align-items: center;
 
-  height: 100vh;
-  margin-top: 10px;
+  min-height: 100vh;
+  padding: 10px;
 }
 
 .auth-header {
   position: absolute;
   top: 35px;
   left: 50%;
+
+  white-space: nowrap;
 
   transform: translateX(-50%);
 }
@@ -24,9 +26,4 @@
   width: 90%;
   max-width: 344px;
   margin-top: 24px;
-}
-
-.rule-text {
-  width: 272px;
-  height: 20px;
 }

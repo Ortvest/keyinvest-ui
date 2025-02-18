@@ -13,7 +13,7 @@ type Step = 'email' | 'password' | 'confirmation';
 type RegistrationNavigationProps = {
   step: Step;
   isPasswordMatch: boolean;
-  onContinue: () => void;
+  onContinue: (event: React.MouseEvent<HTMLButtonElement>) => void;
   onGoBack: () => void;
 };
 
@@ -22,22 +22,28 @@ export const RegistrationNavigation = ({
   isPasswordMatch,
   onContinue,
   onGoBack,
-}: RegistrationNavigationProps): JSX.Element => (
-  <>
-    {step !== 'confirmation' ? (
-      <ContinueButton onClick={onContinue} />
-    ) : (
-      <button className={classNames('submit-button')} disabled={!isPasswordMatch}>
-        Submit
-      </button>
-    )}
-    {step === 'email' && (
-      <>
-        <AuthProposal type={AuthTypes.SIGNUP} />
+}: RegistrationNavigationProps): JSX.Element => {
+  const onHandleContinueClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    e.preventDefault();
+    onContinue(e);
+  };
 
-        <SocialAuth />
-      </>
-    )}
-    {step !== 'email' && <GoBackLink onClick={onGoBack} />}
-  </>
-);
+  return (
+    <>
+      {step !== 'confirmation' ? (
+        <ContinueButton onHandleContinueClick={onHandleContinueClick} />
+      ) : (
+        <button className={classNames('submit-button')} disabled={!isPasswordMatch}>
+          Submit
+        </button>
+      )}
+      {step === 'email' && (
+        <>
+          <AuthProposal type={AuthTypes.SIGN_UP} />
+          <SocialAuth />
+        </>
+      )}
+      {step !== 'email' && <GoBackLink onClick={onGoBack} />}
+    </>
+  );
+};

@@ -15,8 +15,8 @@ export const AuthProposal = ({ type }: AuthProposalProps): JSX.Element => {
   const navigate = useNavigate();
 
   const authRoutes: Record<keyof typeof AuthTypes, string> = {
-    [AuthTypes.SIGNIN]: AppRoutes.AUTH_LOG_IN.path,
-    [AuthTypes.SIGNUP]: AppRoutes.AUTH_REGISTER.path,
+    [AuthTypes.SIGN_IN]: AppRoutes.AUTH_LOG_IN.path,
+    [AuthTypes.SIGN_UP]: AppRoutes.AUTH_REGISTER.path,
     [AuthTypes.REFRESH_PASSWORD]: AppRoutes.AUTH_SEND_PASSWORD_RESET.path,
   };
 
@@ -29,14 +29,14 @@ export const AuthProposal = ({ type }: AuthProposalProps): JSX.Element => {
 
   return (
     <div className={classNames('auth-proposal', 'text-center')}>
-      {type === AuthTypes.SIGNIN ? (
+      {type === AuthTypes.SIGN_IN ? (
         <p className="text-description auth-proposal-signin">
           You don’t have an account?
           <Link to={AppRoutes.AUTH_REGISTER.path} className="link-signup" onClick={handleNavigation}>
             Sign Up
           </Link>
         </p>
-      ) : type === AuthTypes.SIGNUP ? (
+      ) : type === AuthTypes.SIGN_UP ? (
         <p className="text-description auth-proposal-signin">
           Already have an account?
           <Link to={AppRoutes.AUTH_LOG_IN.path} className="link-signin" onClick={handleNavigation}>

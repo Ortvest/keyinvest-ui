@@ -55,7 +55,7 @@ export const SendResetInForm = (): JSX.Element => {
         <PasswordResetDetails type="send-reset" />
       </div>
       <div>
-        <ContinueButton onClick={onHandleContinueClick} disabled={isLoading} />
+        <ContinueButton onHandleContinueClick={onHandleContinueClick} disabled={isLoading} />
       </div>
       {error && <p className="error-message">Error sending reset email</p>}
       <div className={classNames('go-back-link')}>

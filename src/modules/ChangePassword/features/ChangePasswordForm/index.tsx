@@ -57,7 +57,7 @@ export const ChangePasswordForm = (): JSX.Element => {
         />
       </form>
       <div className={classNames('button-container')}>
-        <ContinueButton onClick={onHandleSubmit} />
+        <ContinueButton onHandleContinueClick={onHandleSubmit} />
       </div>
       <div className={classNames('go-back-link')}>
         <GoBackLink onClick={onHandleGoBackClick} />

@@ -1,6 +1,6 @@
 export const AuthTypes = {
-  SIGNIN: 'SIGNIN',
-  SIGNUP: 'SIGNUP',
+  SIGN_IN: 'SIGN_IN',
+  SIGN_UP: 'SIGN_UP',
   REFRESH_PASSWORD: 'REFRESH_PASSWORD',
 } as const;
 
