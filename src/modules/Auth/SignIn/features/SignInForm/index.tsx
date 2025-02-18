@@ -6,7 +6,7 @@ import { AuthProposal } from '@modules/Auth/shared/AuthProposal';
 import { GoBackLink } from '@modules/Auth/shared/GoBackLink';
 import { AuthHeader } from '@modules/Auth/shared/Header';
 import { InputEmailField } from '@modules/Auth/shared/InputEmailField';
-import { Privacy } from '@modules/Auth/shared/Privacy';
+import { AuthTypes } from '@modules/Auth/shared/types/authTypes';
 import { InputPassword } from '@modules/Auth/shared/UI/InputPassword';
 import { SocialAuth } from '@modules/Auth/shared/UI/SocialAuth';
 import { ContinueButton } from '@modules/Auth/shared/UI/СontinueButton';
@@ -26,7 +26,8 @@ export const SignInForm = (): JSX.Element => {
     setPassword(e.target.value);
   };
 
-  const onHandleContinueClick = (): void => {
+  const onHandleContinueClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    e.preventDefault();
     if (!showPasswordInput) {
       setShowPasswordInput(true);
     } else {
@@ -63,15 +64,16 @@ export const SignInForm = (): JSX.Element => {
           </div>
         )}
       </div>
-      {!showPasswordInput && <ContinueButton onClick={onHandleContinueClick} />}
+
+      {!showPasswordInput && <ContinueButton onHandleContinueClick={onHandleContinueClick} />}
 
       <div className={classNames({ 'auth-proposal-shifted': showPasswordInput })}>
-        <AuthProposal type={showPasswordInput ? 'refresh-password' : 'signin'} />
+        <AuthProposal type={showPasswordInput ? AuthTypes.REFRESH_PASSWORD : AuthTypes.SIGN_IN} />
       </div>
 
       {showPasswordInput && (
         <>
-          <ContinueButton onClick={onHandleContinueClick} />
+          <ContinueButton onHandleContinueClick={onHandleContinueClick} />
           <div>
             <GoBackLink onClick={onHandleGoBackClick} />
           </div>
@@ -79,8 +81,6 @@ export const SignInForm = (): JSX.Element => {
       )}
 
       {!showPasswordInput && <SocialAuth />}
-
-      <Privacy />
     </div>
   );
 };

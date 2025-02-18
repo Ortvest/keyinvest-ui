@@ -1,4 +1,4 @@
-.sign-in-container {
+.changepassword-in-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,5 +10,6 @@
 }
 
 .form-container {
-  flex: 1 1 400px;
+  width: 100%;
+  max-width: 400px;
 }

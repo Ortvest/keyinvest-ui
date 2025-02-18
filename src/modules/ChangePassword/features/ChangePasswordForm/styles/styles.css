@@ -1,0 +1,35 @@
+.change-in-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+}
+
+.auth-header {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+
+  transform: translateX(-50%);
+}
+
+.change-password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  margin-top: 12px;
+}
+
+.input-password-field {
+  width: 344px;
+  height: 52px;
+  padding: 10px 16px;
+  box-sizing: border-box;
+
+  font-size: 16px;
+
+  border-radius: 8px;
+}

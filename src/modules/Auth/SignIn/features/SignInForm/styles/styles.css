@@ -1,9 +1,21 @@
 .sign-in-form {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 
-  height: 100vh;
+  min-height: 100vh;
+  padding: 10px;
+}
+
+.auth-header {
+  position: absolute;
+  top: 35px;
+  left: 50%;
+
+  white-space: nowrap;
+
+  transform: translateX(-50%);
 }
 
 .input-email {
@@ -11,23 +23,7 @@
   flex-direction: column;
   gap: 16px;
 
-  width: 344px;
-}
-
-.auth-proposal-shifted {
-  margin-top: 4px;
-}
-
-.or-separator {
+  width: 90%;
+  max-width: 344px;
   margin-top: 24px;
-}
-
-.rule-text {
-  position: absolute;
-  left: 50%;
-  bottom: 10px;
-
-  width: 100%;
-
-  transform: translateX(-50%);
 }

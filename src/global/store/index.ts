@@ -1,4 +1,4 @@
-// import { exampleApi } from '@global/api/example.api';
+import { authApi } from '@modules/Auth/shared/api/auth.api';
 
 import { ModalReducer as modalReducer } from './slices/modal.slice';
 import { UserReducer as userReducer } from './slices/user.slice';
@@ -8,9 +8,9 @@ export const store = configureStore({
   reducer: {
     modalReducer,
     userReducer,
-    // [exampleApi.reducerPath]: exampleApi.reducer,
+    [authApi.reducerPath]: authApi.reducer,
   },
-  // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(exampleApi.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
