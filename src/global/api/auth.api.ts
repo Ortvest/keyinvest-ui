@@ -1,7 +1,9 @@
-import { API_ENDPOINTS } from '@modules/Auth/shared/api/api.consts';
-import { baseApi } from '@modules/Auth/shared/api/base.api';
+import { setUser } from '@global/store/slices/login.slice';
 
+import { API_ENDPOINTS } from '@global/api/api.consts';
+import { baseApi } from '@global/api/base.api';
 import { HttpMethods } from '@shared/enums/HttpMethods.enums';
+import { AuthCredentials, AuthResponse } from '@shared/interfaces/Auth.interfaces';
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -12,15 +14,22 @@ export const authApi = baseApi.injectEndpoints({
         body: { email },
       }),
     }),
-    authenticateUser: builder.mutation<
-      { user: { username: string; email: string; region: string } },
-      { email: string; password: string }
-    >({
+    authenticateUser: builder.mutation<AuthResponse, AuthCredentials>({
       query: ({ email, password }) => ({
         url: API_ENDPOINTS.AUTH_SIGN_IN,
         method: HttpMethods.POST,
         body: { email, password },
       }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          if (data.user) {
+            dispatch(setUser(data.user));
+          }
+        } catch (error) {
+          console.error('Authentication failed:', error);
+        }
+      },
     }),
   }),
 });

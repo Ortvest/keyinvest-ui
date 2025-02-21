@@ -3,11 +3,10 @@ import { useState } from 'react';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 
-import { setError, setLoading, setUser } from '@global/store/slices/login.slice';
+import { setError, setLoading } from '@global/store/slices/login.slice';
 
 import { AppRoutes } from '@global/router/routes.constants';
 
-import { useAuthenticateUserMutation } from '@modules/Auth/shared/api/auth.api';
 import { AuthProposal } from '@modules/Auth/shared/AuthProposal';
 import { GoBackLink } from '@modules/Auth/shared/GoBackLink';
 import { AuthHeader } from '@modules/Auth/shared/Header';
@@ -19,6 +18,8 @@ import { ContinueButton } from '@modules/Auth/shared/UI/СontinueButton';
 import { useTypedDispatch } from '@shared/hooks/useTypedDispatch';
 
 import './styles/styles.css';
+
+import { useAuthenticateUserMutation } from '@global/api/auth.api';
 
 export const SignInForm = (): JSX.Element => {
   const dispatch = useTypedDispatch();
@@ -62,14 +63,8 @@ export const SignInForm = (): JSX.Element => {
     dispatch(setError(null));
 
     try {
-      const result = await authenticateUser({ email, password }).unwrap();
-
-      const { user } = result;
-
-      if (user) {
-        dispatch(setUser(user));
-        navigate(AppRoutes.MAIN.path);
-      }
+      await authenticateUser({ email, password }).unwrap();
+      navigate(AppRoutes.MAIN.path);
     } catch (err: unknown) {
       if (err instanceof Error) {
         dispatch(setError(err.message || 'Something went wrong'));

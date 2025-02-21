@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { AppRoutes } from '@global/router/routes.constants';
 
-import { useSendPasswordResetMutation } from '@modules/Auth/shared/api/auth.api';
 import { GoBackLink } from '@modules/Auth/shared/GoBackLink';
 import { AuthHeader } from '@modules/Auth/shared/Header';
 import { InputEmailField } from '@modules/Auth/shared/InputEmailField';
@@ -14,6 +13,7 @@ import { PasswordResetDetails } from '@modules/ChangePassword/features/PasswordR
 
 import './styles/styles.css';
 
+import { useSendPasswordResetMutation } from '@global/api/auth.api';
 import { useLocalStorage } from '@uidotdev/usehooks';
 
 export const SendResetInForm = (): JSX.Element => {
