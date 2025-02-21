@@ -1,14 +1,2 @@
 #!/bin/sh
-set -e
-
-if [ ! -x "./buildEnv.sh" ]; then
-    chmod +x ./buildEnv.sh
-fi
-
-if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
-    bash ./buildEnv.sh
-    tagWork
-else
-    source ./buildEnv.sh
-     tagWork
-fi
+ 

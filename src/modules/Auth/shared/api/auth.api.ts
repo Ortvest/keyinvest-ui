@@ -12,7 +12,17 @@ export const authApi = baseApi.injectEndpoints({
         body: { email },
       }),
     }),
+    authenticateUser: builder.mutation<
+      { user: { username: string; email: string; region: string }; data: unknown },
+      { email: string; password: string }
+    >({
+      query: ({ email, password }) => ({
+        url: API_ENDPOINTS.AUTH_SIGN_IN,
+        method: HttpMethods.POST,
+        body: { email, password },
+      }),
+    }),
   }),
 });
 
-export const { useSendPasswordResetMutation } = authApi;
+export const { useSendPasswordResetMutation, useAuthenticateUserMutation } = authApi;

@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
 import classNames from 'classnames';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { setError, setLoading, setUser } from '@global/store/slices/login.slice';
 
 import { AppRoutes } from '@global/router/routes.constants';
 
+import { useAuthenticateUserMutation } from '@modules/Auth/shared/api/auth.api';
 import { AuthProposal } from '@modules/Auth/shared/AuthProposal';
 import { GoBackLink } from '@modules/Auth/shared/GoBackLink';
 import { AuthHeader } from '@modules/Auth/shared/Header';
@@ -15,18 +15,20 @@ import { InputEmailField } from '@modules/Auth/shared/InputEmailField';
 import { AuthTypes } from '@modules/Auth/shared/types/authTypes';
 import { InputPassword } from '@modules/Auth/shared/UI/InputPassword';
 import { ContinueButton } from '@modules/Auth/shared/UI/СontinueButton';
-import { authenticateUser } from '@modules/Auth/SignIn/features/LoginUser';
+
+import { useTypedDispatch } from '@shared/hooks/useTypedDispatch';
 
 import './styles/styles.css';
 
 export const SignInForm = (): JSX.Element => {
-  const dispatch = useDispatch();
+  const dispatch = useTypedDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPasswordInput, setShowPasswordInput] = useState(false);
-  const [loading] = useState(false);
   const [error, setErrorState] = useState<string | null>(null);
+
+  const [authenticateUser, { isLoading }] = useAuthenticateUserMutation();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setEmail(e.target.value);
@@ -60,20 +62,21 @@ export const SignInForm = (): JSX.Element => {
     dispatch(setError(null));
 
     try {
-      const result = await authenticateUser(email, password);
+      const result = await authenticateUser({ email, password }).unwrap();
 
-      const { data, user } = result;
+      const { user } = result;
 
       if (user) {
-        console.log('Login successful:', data);
         dispatch(setUser(user));
         navigate(AppRoutes.MAIN.path);
-      } else {
-        console.log('User not found');
       }
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Something went wrong';
-      dispatch(setError(errorMessage));
+    } catch (err: unknown) {
+      console.log('Something went wrong');
+      if (err instanceof Error) {
+        dispatch(setError(err.message || 'Something went wrong'));
+      } else {
+        dispatch(setError('An unknown error occurred'));
+      }
     } finally {
       dispatch(setLoading(false));
     }
@@ -111,7 +114,7 @@ export const SignInForm = (): JSX.Element => {
 
       {showPasswordInput && (
         <>
-          <ContinueButton onHandleContinueClick={onHandleContinueClick} disabled={loading} />
+          <ContinueButton onHandleContinueClick={onHandleContinueClick} disabled={isLoading} />
           <div>
             <GoBackLink onClick={onHandleGoBackClick} />
           </div>
