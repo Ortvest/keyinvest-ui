@@ -71,7 +71,6 @@ export const SignInForm = (): JSX.Element => {
         navigate(AppRoutes.MAIN.path);
       }
     } catch (err: unknown) {
-      console.log('Something went wrong');
       if (err instanceof Error) {
         dispatch(setError(err.message || 'Something went wrong'));
       } else {

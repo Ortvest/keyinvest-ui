@@ -13,7 +13,7 @@ export const authApi = baseApi.injectEndpoints({
       }),
     }),
     authenticateUser: builder.mutation<
-      { user: { username: string; email: string; region: string }; data: unknown },
+      { user: { username: string; email: string; region: string } },
       { email: string; password: string }
     >({
       query: ({ email, password }) => ({
