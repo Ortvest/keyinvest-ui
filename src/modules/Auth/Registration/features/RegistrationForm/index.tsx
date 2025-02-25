@@ -25,8 +25,12 @@ export const RegistrationForm = (): JSX.Element => {
 
   const isPasswordMatch = formState.password === formState.confirmPassword;
 
-  const handleChange = (key: keyof FormState, value: string | StepNames): void => {
-    setFormState((prev) => ({ ...prev, [key]: value }));
+  const handleChange = (key: keyof FormState, value: string): void => {
+    setFormState((prev) => ({
+      ...prev,
+      [key]: value,
+      step: key === 'email' && value ? StepNames.PASSWORD : prev.step,
+    }));
   };
 
   const onContinueHandler = (): void => {

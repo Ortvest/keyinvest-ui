@@ -31,7 +31,24 @@ export const authApi = baseApi.injectEndpoints({
         }
       },
     }),
+    authenticateWithGoogle: builder.mutation<AuthResponse, { token: string }>({
+      query: ({ token }) => ({
+        url: API_ENDPOINTS.AUTH_GOOGLE,
+        method: HttpMethods.POST,
+        body: { idToken: token },
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          if (data.user) {
+            dispatch(setUser(data.user));
+          }
+        } catch (error) {
+          console.error('Google Authentication failed:', error);
+        }
+      },
+    }),
   }),
 });
 
-export const { useSendPasswordResetMutation, useAuthenticateUserMutation } = authApi;
+export const { useSendPasswordResetMutation, useAuthenticateUserMutation, useAuthenticateWithGoogleMutation } = authApi;
