@@ -36,12 +36,14 @@ export const RegistrationNavigation = ({
           Submit
         </button>
       )}
+
       {step === StepNames.EMAIL && (
         <>
           <AuthProposal type={AuthTypes.SIGN_UP} />
           <SocialAuth />
         </>
       )}
+
       {step !== StepNames.EMAIL && <GoBackLink onClick={onGoBack} />}
     </>
   );
