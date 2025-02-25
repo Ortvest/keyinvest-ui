@@ -1,7 +1,8 @@
 .auth-input-group {
   position: relative;
 
-  width: 344px;
+  width: 100%;
+  max-width: 344px;
 }
 
 .input-icon-button {

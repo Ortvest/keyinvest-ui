@@ -1,0 +1,19 @@
+.send-in-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+}
+
+.auth-header {
+  position: absolute;
+  left: 50%;
+
+  transform: translateX(-50%);
+}
+
+.auth-proposal {
+  top: 20px;
+}

@@ -1,24 +1,19 @@
-import { useEffect, useState } from 'react';
-
 import classNames from 'classnames';
+
+import { RootState } from '@global/store';
 
 import { ThemeToggle } from '@modules/Auth/ThemeToggle';
 import { GetStartedButton } from '@modules/Header/features/GetStartedButton';
 import { Navigation } from '@modules/Header/layout/Navigation';
+
+import { useTypedSelector } from '@shared/hooks/useTypedSelector';
 
 import IconLogo from '@shared/assets/icons/IconLogo.svg';
 
 import './styles.css';
 
 export const Header = (): JSX.Element => {
-  const [user, setUser] = useState<{ name: string; email: string; avatar: string } | null>(null);
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem('userData');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+  const user = useTypedSelector((state: RootState) => state.login.user);
 
   return (
     <header className={classNames('header')}>
@@ -31,13 +26,11 @@ export const Header = (): JSX.Element => {
 
         {user ? (
           <div className="user-info">
-            <img src={user.avatar} alt="User avatar" className="user-avatar" />
-            <p>{user.name}</p>
+            <span>{user.username}</span>
           </div>
         ) : (
           <GetStartedButton />
         )}
-
         <ThemeToggle />
       </div>
     </header>
