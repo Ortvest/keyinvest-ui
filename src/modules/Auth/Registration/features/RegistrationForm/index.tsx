@@ -10,6 +10,7 @@ import './styles/styles.css';
 
 type FormState = {
   email: string;
+  username: string;
   password: string;
   confirmPassword: string;
   step: StepNames;
@@ -18,6 +19,7 @@ type FormState = {
 export const RegistrationForm = (): JSX.Element => {
   const [formState, setFormState] = useState<FormState>({
     email: '',
+    username: '',
     password: '',
     confirmPassword: '',
     step: StepNames.EMAIL,
@@ -33,16 +35,20 @@ export const RegistrationForm = (): JSX.Element => {
     handleChange(
       'step',
       formState.step === StepNames.EMAIL
-        ? StepNames.PASSWORD
-        : formState.step === StepNames.PASSWORD
-          ? StepNames.CONFIRMATION
-          : formState.step
+        ? StepNames.USERNAME
+        : formState.step === StepNames.USERNAME
+          ? StepNames.PASSWORD
+          : formState.step === StepNames.PASSWORD
+            ? StepNames.CONFIRMATION
+            : formState.step
     );
   };
 
   const onGoBackHandler = (): void => {
-    if (formState.step === StepNames.PASSWORD) {
+    if (formState.step === StepNames.USERNAME) {
       setFormState((prev) => ({ ...prev, step: StepNames.EMAIL }));
+    } else if (formState.step === StepNames.PASSWORD) {
+      setFormState((prev) => ({ ...prev, step: StepNames.USERNAME })); // Возвращаемся на username
     } else if (formState.step === StepNames.CONFIRMATION) {
       setFormState((prev) => ({ ...prev, step: StepNames.PASSWORD }));
     }

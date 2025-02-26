@@ -34,9 +34,7 @@ export const SentResetInForm = (): JSX.Element => {
 
   return (
     <div className={classNames('send-in-form')}>
-      <div className={classNames('auth-header')}>
-        <AuthHeader title="Successful!" />
-      </div>
+      <AuthHeader title="Successful!" />
       <div className={classNames('auth-proposal')}>
         <PasswordResetDetails type="email-sent" email={email} />
       </div>

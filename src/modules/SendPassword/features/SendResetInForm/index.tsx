@@ -45,9 +45,7 @@ export const SendResetInForm = (): JSX.Element => {
 
   return (
     <div className={classNames('send-in-form')}>
-      <div className={classNames('auth-header')}>
-        <AuthHeader title={'Restore access'} />
-      </div>
+      <AuthHeader title={'Restore access'} />
       <div className={classNames('input-email')}>
         <InputEmailField value={email} onChange={onHandleEmailChange} />
       </div>

@@ -7,14 +7,6 @@
   height: 100vh;
 }
 
-.auth-header {
-  position: absolute;
-  top: 60px;
-  left: 50%;
-
-  transform: translateX(-50%);
-}
-
 .change-password-form {
   display: flex;
   flex-direction: column;

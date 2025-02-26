@@ -1,26 +1,9 @@
 .send-in-form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 
-  height: 100vh;
-}
-
-.auth-header {
-  position: absolute;
-  top: 60px;
-  left: 50%;
-
-  transform: translateX(-50%);
-}
-
-.privacy-text {
-  position: absolute;
-  left: 50%;
-  bottom: 10px;
-
-  width: 100%;
-
-  transform: translateX(-50%);
+  min-height: 100vh;
+  padding: 10px;
 }

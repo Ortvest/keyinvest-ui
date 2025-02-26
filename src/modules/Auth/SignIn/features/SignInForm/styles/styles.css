@@ -1,21 +1,11 @@
 .sign-in-form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 
   min-height: 100vh;
   padding: 10px;
-}
-
-.auth-header {
-  position: absolute;
-  top: 35px;
-  left: 50%;
-
-  white-space: nowrap;
-
-  transform: translateX(-50%);
 }
 
 .input-email {
