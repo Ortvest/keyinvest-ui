@@ -18,17 +18,14 @@ type RegistrationStepsProps = {
 
 export const RegistrationSteps = ({ formState, handleChange }: RegistrationStepsProps): JSX.Element => (
   <>
-    {/* Email остаётся на всех шагах */}
     <InputEmailField value={formState.email} onChange={(e) => handleChange('email', e.target.value)} />
 
-    {/* Username появляется после нажатия Continue на email */}
     {(formState.step === StepNames.USERNAME ||
       formState.step === StepNames.PASSWORD ||
       formState.step === StepNames.CONFIRMATION) && (
       <InputUsernameField value={formState.username} onChange={(e) => handleChange('username', e.target.value)} />
     )}
 
-    {/* Password появляется только после username */}
     {(formState.step === StepNames.PASSWORD || formState.step === StepNames.CONFIRMATION) && (
       <PasswordField
         label="Password"
@@ -37,7 +34,6 @@ export const RegistrationSteps = ({ formState, handleChange }: RegistrationSteps
       />
     )}
 
-    {/* Подтверждение пароля на последнем шаге */}
     {formState.step === StepNames.CONFIRMATION && (
       <PasswordField
         label="Re-enter Password"

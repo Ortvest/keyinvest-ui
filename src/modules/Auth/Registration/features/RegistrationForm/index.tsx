@@ -48,7 +48,7 @@ export const RegistrationForm = (): JSX.Element => {
     if (formState.step === StepNames.USERNAME) {
       setFormState((prev) => ({ ...prev, step: StepNames.EMAIL }));
     } else if (formState.step === StepNames.PASSWORD) {
-      setFormState((prev) => ({ ...prev, step: StepNames.USERNAME })); // Возвращаемся на username
+      setFormState((prev) => ({ ...prev, step: StepNames.USERNAME }));
     } else if (formState.step === StepNames.CONFIRMATION) {
       setFormState((prev) => ({ ...prev, step: StepNames.PASSWORD }));
     }
