@@ -37,9 +37,7 @@ export const ChangePasswordForm = (): JSX.Element => {
 
   return (
     <div className={classNames('change-in-form')}>
-      <div className={classNames('auth-header')}>
-        <AuthHeader title={'Change Password'} />
-      </div>
+      <AuthHeader title={'Change Password'} />
       <form className={classNames('change-password-form')}>
         <InputPassword
           password={password}

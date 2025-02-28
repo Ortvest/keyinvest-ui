@@ -79,10 +79,7 @@ export const SignInForm = (): JSX.Element => {
 
   return (
     <div className={classNames('sign-in-form')}>
-      <div className={classNames('auth-header')}>
-        <AuthHeader title="Welcome" />
-      </div>
-
+      <AuthHeader title="Welcome" />
       <div className={classNames('input-email')}>
         <InputEmailField value={email} onChange={handleEmailChange} />
 
