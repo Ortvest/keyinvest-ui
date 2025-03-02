@@ -8,20 +8,26 @@ import { StepNames } from '@modules/Auth/shared/types/stepNames';
 
 import './styles/styles.css';
 
+import { useSendVerificationCodeMutation, useVerifyCodeMutation } from '@global/api/auth.api';
+
 type FormState = {
   email: string;
   username: string;
   password: string;
   confirmPassword: string;
+  verificationCode: string;
   step: StepNames;
 };
 
 export const RegistrationForm = (): JSX.Element => {
+  const [sendVerificationCode] = useSendVerificationCodeMutation();
+  const [verifyCode] = useVerifyCodeMutation();
   const [formState, setFormState] = useState<FormState>({
     email: '',
     username: '',
     password: '',
     confirmPassword: '',
+    verificationCode: '',
     step: StepNames.EMAIL,
   });
 
@@ -31,26 +37,52 @@ export const RegistrationForm = (): JSX.Element => {
     setFormState((prev) => ({
       ...prev,
       [key]: value,
-      step: key === 'email' && value ? StepNames.PASSWORD : prev.step,
     }));
   };
 
+  const onSendVerificationCode = async (): Promise<void> => {
+    try {
+      const response = await sendVerificationCode({ email: formState.email }).unwrap();
+      console.log('Kod send:', response);
+
+      setFormState((prev) => ({ ...prev, step: StepNames.VERIFICATION }));
+    } catch (error) {
+      console.error('Failed to send verification code:', error);
+    }
+  };
+
+  const onVerifyCode = async (): Promise<void> => {
+    try {
+      await verifyCode({ email: formState.email, code: formState.verificationCode }).unwrap();
+      setFormState((prev) => ({ ...prev, step: StepNames.USERNAME }));
+    } catch (error) {
+      console.error('Verification failed:', error);
+      alert('Invalid code. Please try again.');
+    }
+  };
+
   const onContinueHandler = (): void => {
-    handleChange(
-      'step',
-      formState.step === StepNames.EMAIL
-        ? StepNames.USERNAME
-        : formState.step === StepNames.USERNAME
+    if (formState.step === StepNames.EMAIL) {
+      onSendVerificationCode();
+    } else if (formState.step === StepNames.VERIFICATION) {
+      onVerifyCode();
+    } else {
+      handleChange(
+        'step',
+        formState.step === StepNames.USERNAME
           ? StepNames.PASSWORD
           : formState.step === StepNames.PASSWORD
             ? StepNames.CONFIRMATION
             : formState.step
-    );
+      );
+    }
   };
 
   const onGoBackHandler = (): void => {
-    if (formState.step === StepNames.USERNAME) {
+    if (formState.step === StepNames.VERIFICATION) {
       setFormState((prev) => ({ ...prev, step: StepNames.EMAIL }));
+    } else if (formState.step === StepNames.USERNAME) {
+      setFormState((prev) => ({ ...prev, step: StepNames.VERIFICATION }));
     } else if (formState.step === StepNames.PASSWORD) {
       setFormState((prev) => ({ ...prev, step: StepNames.USERNAME }));
     } else if (formState.step === StepNames.CONFIRMATION) {
