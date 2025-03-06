@@ -3,7 +3,7 @@ import { useState } from 'react';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 
-import { setError, setLoading, setUser } from '@global/store/slices/register.slice';
+import { setError, setLoading } from '@global/store/slices/register.slice';
 
 import { AppRoutes } from '@global/router/routes.constants';
 
@@ -53,13 +53,11 @@ export const RegistrationForm = (): JSX.Element => {
       try {
         dispatch(setLoading(true));
 
-        const response = await registerUser({
+        await registerUser({
           username: formState.username,
           email: formState.email,
           password: formState.password,
         }).unwrap();
-
-        dispatch(setUser(response.user));
 
         navigate(AppRoutes.AUTH_LOG_IN.path);
       } catch (err) {
