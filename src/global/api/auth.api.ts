@@ -15,6 +15,20 @@ export const authApi = baseApi.injectEndpoints({
         body: { email },
       }),
     }),
+    sendVerificationCode: builder.mutation<void, { email: string }>({
+      query: ({ email }) => ({
+        url: API_ENDPOINTS.SEND_VERIFICATION_CODE,
+        method: HttpMethods.POST,
+        body: { email },
+      }),
+    }),
+    verifyCode: builder.mutation<void, { email: string; code: string }>({
+      query: ({ email, code }) => ({
+        url: API_ENDPOINTS.VERIFY_CODE,
+        method: HttpMethods.POST,
+        body: { email, code },
+      }),
+    }),
     authenticateUser: builder.mutation<AuthResponse, AuthCredentials>({
       query: ({ email, password }) => ({
         url: API_ENDPOINTS.AUTH_SIGN_IN,
@@ -73,5 +87,7 @@ export const {
   useSendPasswordResetMutation,
   useAuthenticateUserMutation,
   useAuthenticateWithGoogleMutation,
+  useSendVerificationCodeMutation,
   useRegisterUserMutation,
+  useVerifyCodeMutation,
 } = authApi;
