@@ -1,20 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User } from '@shared/interfaces/Auth.interfaces';
 
-interface LoginState {
+interface RegisterState {
   user: User | null;
   loading: boolean;
   error: string | null;
 }
 
-const initialState: LoginState = {
+const initialState: RegisterState = {
   user: null,
   loading: false,
   error: null,
 };
 
-const loginSlice = createSlice({
-  name: 'login',
+const registerSlice = createSlice({
+  name: 'register',
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<User>) => {
@@ -32,6 +32,5 @@ const loginSlice = createSlice({
   },
 });
 
-export const { setUser, clearUser, setLoading, setError } = loginSlice.actions;
-
-export const LoginReducer = loginSlice.reducer;
+export const { setUser, clearUser, setLoading, setError } = registerSlice.actions;
+export const RegisterReducer = registerSlice.reducer;

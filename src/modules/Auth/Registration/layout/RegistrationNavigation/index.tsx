@@ -12,8 +12,9 @@ import './styles/styles.css';
 type RegistrationNavigationProps = {
   step: keyof typeof StepNames;
   isPasswordMatch: boolean;
-  onContinue: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onContinue: (event: React.FormEvent) => void;
   onGoBack: () => void;
+  isLoading?: boolean;
 };
 
 export const RegistrationNavigation = ({
@@ -32,7 +33,7 @@ export const RegistrationNavigation = ({
       {step !== StepNames.CONFIRMATION ? (
         <ContinueButton onHandleContinueClick={onHandleContinueClick} />
       ) : (
-        <button className={classNames('submit-button')} disabled={!isPasswordMatch}>
+        <button type="submit" className={classNames('submit-button')} disabled={!isPasswordMatch}>
           Submit
         </button>
       )}

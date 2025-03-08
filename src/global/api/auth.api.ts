@@ -1,4 +1,5 @@
-import { setUser } from '@global/store/slices/login.slice';
+import { setUser as setLoginUser } from '@global/store/slices/login.slice';
+import { setUser as setRegisterUser } from '@global/store/slices/register.slice';
 
 import { API_ENDPOINTS } from '@global/api/api.consts';
 import { baseApi } from '@global/api/base.api';
@@ -38,7 +39,7 @@ export const authApi = baseApi.injectEndpoints({
         try {
           const { data } = await queryFulfilled;
           if (data.user) {
-            dispatch(setUser(data.user));
+            dispatch(setLoginUser(data.user));
           }
         } catch (error) {
           console.error('Authentication failed:', error);
@@ -55,10 +56,27 @@ export const authApi = baseApi.injectEndpoints({
         try {
           const { data } = await queryFulfilled;
           if (data.user) {
-            dispatch(setUser(data.user));
+            dispatch(setLoginUser(data.user));
           }
         } catch (error) {
           console.error('Google Authentication failed:', error);
+        }
+      },
+    }),
+    registerUser: builder.mutation<AuthResponse, { username: string; email: string; password: string }>({
+      query: ({ username, email, password }) => ({
+        url: API_ENDPOINTS.AUTH_SIGN_UP,
+        method: HttpMethods.POST,
+        body: { username, email, password },
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          if (data.user) {
+            dispatch(setRegisterUser(data.user));
+          }
+        } catch (error) {
+          console.error('Registration failed:', error);
         }
       },
     }),
@@ -70,5 +88,6 @@ export const {
   useAuthenticateUserMutation,
   useAuthenticateWithGoogleMutation,
   useSendVerificationCodeMutation,
+  useRegisterUserMutation,
   useVerifyCodeMutation,
 } = authApi;

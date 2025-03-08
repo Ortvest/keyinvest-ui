@@ -1,14 +1,21 @@
 import { useState } from 'react';
 
 import classNames from 'classnames';
+import { useNavigate } from 'react-router-dom';
+
+import { setError, setLoading } from '@global/store/slices/register.slice';
+
+import { AppRoutes } from '@global/router/routes.constants';
 
 import { RegistrationNavigation } from '@modules/Auth/Registration/layout/RegistrationNavigation';
 import { RegistrationSteps } from '@modules/Auth/Registration/layout/RegistrationSteps';
 import { StepNames } from '@modules/Auth/shared/types/stepNames';
 
+import { useTypedDispatch } from '@shared/hooks/useTypedDispatch';
+
 import './styles/styles.css';
 
-import { useSendVerificationCodeMutation, useVerifyCodeMutation } from '@global/api/auth.api';
+import { useRegisterUserMutation, useSendVerificationCodeMutation, useVerifyCodeMutation } from '@global/api/auth.api';
 
 type FormState = {
   email: string;
@@ -20,8 +27,13 @@ type FormState = {
 };
 
 export const RegistrationForm = (): JSX.Element => {
+  const dispatch = useTypedDispatch();
+  const navigate = useNavigate();
+
   const [sendVerificationCode] = useSendVerificationCodeMutation();
   const [verifyCode] = useVerifyCodeMutation();
+  const [registerUser, { isLoading }] = useRegisterUserMutation();
+
   const [formState, setFormState] = useState<FormState>({
     email: '',
     username: '',
@@ -42,9 +54,7 @@ export const RegistrationForm = (): JSX.Element => {
 
   const onSendVerificationCode = async (): Promise<void> => {
     try {
-      const response = await sendVerificationCode({ email: formState.email }).unwrap();
-      console.log('Kod send:', response);
-
+      await sendVerificationCode({ email: formState.email }).unwrap();
       setFormState((prev) => ({ ...prev, step: StepNames.VERIFICATION }));
     } catch (error) {
       console.error('Failed to send verification code:', error);
@@ -61,37 +71,67 @@ export const RegistrationForm = (): JSX.Element => {
     }
   };
 
-  const onContinueHandler = (): void => {
+  const onRegisterUser = async (): Promise<void> => {
+    if (!isPasswordMatch) return;
+
+    try {
+      dispatch(setLoading(true));
+
+      await registerUser({
+        username: formState.username,
+        email: formState.email,
+        password: formState.password,
+      }).unwrap();
+
+      navigate(AppRoutes.AUTH_LOG_IN.path);
+    } catch (err) {
+      console.error('Registration failed:', err);
+      dispatch(setError(err instanceof Error ? err.message || 'Something went wrong' : 'An unknown error occurred'));
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+
+  const onContinueHandler = async (e: React.FormEvent): Promise<void> => {
+    e.preventDefault();
+
     if (formState.step === StepNames.EMAIL) {
-      onSendVerificationCode();
+      await onSendVerificationCode();
     } else if (formState.step === StepNames.VERIFICATION) {
-      onVerifyCode();
+      await onVerifyCode();
+    } else if (formState.step === StepNames.CONFIRMATION) {
+      await onRegisterUser();
     } else {
-      handleChange(
-        'step',
-        formState.step === StepNames.USERNAME
-          ? StepNames.PASSWORD
-          : formState.step === StepNames.PASSWORD
-            ? StepNames.CONFIRMATION
-            : formState.step
-      );
+      setFormState((prev) => ({
+        ...prev,
+        step:
+          prev.step === StepNames.USERNAME
+            ? StepNames.PASSWORD
+            : prev.step === StepNames.PASSWORD
+              ? StepNames.CONFIRMATION
+              : prev.step,
+      }));
     }
   };
 
   const onGoBackHandler = (): void => {
-    if (formState.step === StepNames.VERIFICATION) {
-      setFormState((prev) => ({ ...prev, step: StepNames.EMAIL }));
-    } else if (formState.step === StepNames.USERNAME) {
-      setFormState((prev) => ({ ...prev, step: StepNames.VERIFICATION }));
-    } else if (formState.step === StepNames.PASSWORD) {
-      setFormState((prev) => ({ ...prev, step: StepNames.USERNAME }));
-    } else if (formState.step === StepNames.CONFIRMATION) {
-      setFormState((prev) => ({ ...prev, step: StepNames.PASSWORD }));
-    }
+    setFormState((prev) => ({
+      ...prev,
+      step:
+        prev.step === StepNames.VERIFICATION
+          ? StepNames.EMAIL
+          : prev.step === StepNames.USERNAME
+            ? StepNames.VERIFICATION
+            : prev.step === StepNames.PASSWORD
+              ? StepNames.USERNAME
+              : prev.step === StepNames.CONFIRMATION
+                ? StepNames.PASSWORD
+                : prev.step,
+    }));
   };
 
   return (
-    <form className={classNames('form-wrapper')}>
+    <form className={classNames('form-wrapper')} onSubmit={onContinueHandler}>
       <div className={classNames('inputs-container')}>
         <RegistrationSteps formState={formState} handleChange={handleChange} />
       </div>
@@ -100,6 +140,7 @@ export const RegistrationForm = (): JSX.Element => {
         isPasswordMatch={isPasswordMatch}
         onContinue={onContinueHandler}
         onGoBack={onGoBackHandler}
+        isLoading={isLoading}
       />
     </form>
   );
