@@ -23,20 +23,18 @@ type RegistrationStepsProps = {
   handleChange: (key: keyof FormState, value: string) => void;
 };
 
-export const RegistrationSteps = ({ formState, handleChange }: RegistrationStepsProps): JSX.Element => {
-  const getTitle = (): string => {
-    if (formState.step === StepNames.VERIFICATION) {
-      return 'Account Verification';
-    }
-    return 'Create an account';
-  };
+const getTitle = (step: StepNames): string =>
+  step === StepNames.VERIFICATION ? 'Account Verification' : 'Create an account';
 
+export const RegistrationSteps = ({ formState, handleChange }: RegistrationStepsProps): JSX.Element => {
   return (
     <>
-      <AuthHeader title={getTitle()} />
+      <AuthHeader title={getTitle(formState.step)} />
+
       {formState.step === StepNames.EMAIL && (
         <InputEmailField value={formState.email} onChange={(e) => handleChange('email', e.target.value)} />
       )}
+
       {formState.step === StepNames.VERIFICATION && (
         <>
           <p className={classNames('confirm-email-text')}>
@@ -48,11 +46,13 @@ export const RegistrationSteps = ({ formState, handleChange }: RegistrationSteps
           />
         </>
       )}
+
       {(formState.step === StepNames.USERNAME ||
         formState.step === StepNames.PASSWORD ||
         formState.step === StepNames.CONFIRMATION) && (
         <InputUsernameField value={formState.username} onChange={(e) => handleChange('username', e.target.value)} />
       )}
+
       {(formState.step === StepNames.PASSWORD || formState.step === StepNames.CONFIRMATION) && (
         <PasswordField
           label="Password"
@@ -60,6 +60,7 @@ export const RegistrationSteps = ({ formState, handleChange }: RegistrationSteps
           onChange={(e) => handleChange('password', e.target.value)}
         />
       )}
+
       {formState.step === StepNames.CONFIRMATION && (
         <PasswordField
           label="Re-enter Password"
