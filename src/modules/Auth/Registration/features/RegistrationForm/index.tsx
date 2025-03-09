@@ -97,8 +97,10 @@ export const RegistrationForm = (): JSX.Element => {
 
     if (formState.step === StepNames.EMAIL) {
       await onSendVerificationCode();
+      setFormState((prev) => ({ ...prev, step: StepNames.VERIFICATION }));
     } else if (formState.step === StepNames.VERIFICATION) {
       await onVerifyCode();
+      setFormState((prev) => ({ ...prev, step: StepNames.USERNAME }));
     } else if (formState.step === StepNames.CONFIRMATION) {
       await onRegisterUser();
     } else {

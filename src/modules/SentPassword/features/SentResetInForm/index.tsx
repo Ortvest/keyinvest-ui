@@ -38,9 +38,7 @@ export const SentResetInForm = (): JSX.Element => {
       <div className={classNames('auth-proposal')}>
         <PasswordResetDetails type="email-sent" email={email} />
       </div>
-      <div className={classNames('email-button')}>
-        <EmailButton onOpenEmailClick={onHandleContinueClick} />
-      </div>
+      <EmailButton onOpenEmailClick={onHandleContinueClick} />
       <div className={classNames('go-back-link')}>
         <GoBackLink onClick={onHandleGoBackClick} />
       </div>
