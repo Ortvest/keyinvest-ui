@@ -16,6 +16,7 @@ import { useTypedDispatch } from '@shared/hooks/useTypedDispatch';
 import './styles/styles.css';
 
 import { useRegisterUserMutation, useSendVerificationCodeMutation, useVerifyCodeMutation } from '@global/api/auth.api';
+import { registrationSchema } from '@shared/validation/validationSchema';
 
 type FormState = {
   email: string;
@@ -33,6 +34,7 @@ export const RegistrationForm = (): JSX.Element => {
   const [sendVerificationCode] = useSendVerificationCodeMutation();
   const [verifyCode] = useVerifyCodeMutation();
   const [registerUser, { isLoading }] = useRegisterUserMutation();
+  const [errors, setErrors] = useState<{ password?: string; confirmPassword?: string }>({});
 
   const [formState, setFormState] = useState<FormState>({
     email: '',
@@ -46,6 +48,17 @@ export const RegistrationForm = (): JSX.Element => {
   const isPasswordMatch = formState.password === formState.confirmPassword;
 
   const handleChange = (key: keyof FormState, value: string): void => {
+    if (key === 'password' || key === 'confirmPassword') {
+      registrationSchema
+        .validateAt(key, { ...formState, [key]: value })
+        .then(() => {
+          setErrors((prev) => ({ ...prev, [key]: undefined }));
+        })
+        .catch((error) => {
+          setErrors((prev) => ({ ...prev, [key]: error.message }));
+        });
+    }
+
     setFormState((prev) => ({
       ...prev,
       [key]: value,
@@ -97,10 +110,8 @@ export const RegistrationForm = (): JSX.Element => {
 
     if (formState.step === StepNames.EMAIL) {
       await onSendVerificationCode();
-      setFormState((prev) => ({ ...prev, step: StepNames.VERIFICATION }));
     } else if (formState.step === StepNames.VERIFICATION) {
       await onVerifyCode();
-      setFormState((prev) => ({ ...prev, step: StepNames.USERNAME }));
     } else if (formState.step === StepNames.CONFIRMATION) {
       await onRegisterUser();
     } else {
@@ -135,7 +146,7 @@ export const RegistrationForm = (): JSX.Element => {
   return (
     <form className={classNames('form-wrapper')} onSubmit={onContinueHandler}>
       <div className={classNames('inputs-container')}>
-        <RegistrationSteps formState={formState} handleChange={handleChange} />
+        <RegistrationSteps formState={formState} handleChange={handleChange} errors={errors} />
       </div>
       <RegistrationNavigation
         step={formState.step}

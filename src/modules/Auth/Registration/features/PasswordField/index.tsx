@@ -13,6 +13,7 @@ interface PasswordFieldProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   checkMatch?: boolean;
   mainPassword?: string;
+  error?: string;
 }
 
 export const PasswordField = ({
@@ -21,6 +22,7 @@ export const PasswordField = ({
   onChange,
   checkMatch,
   mainPassword,
+  error,
 }: PasswordFieldProps): JSX.Element => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -29,6 +31,7 @@ export const PasswordField = ({
   };
 
   const isValid = !checkMatch || value === mainPassword;
+  const hasError = !!error || (!isValid && checkMatch);
 
   return (
     <div className={classNames('password-container')}>
@@ -39,13 +42,13 @@ export const PasswordField = ({
           value={value}
           name="password"
           onChange={onChange}
-          className={classNames('password-field', { invalid: !isValid })}
+          className={classNames('password-field', { invalid: hasError })}
         />
         <button type="button" onClick={toggleVisibility} className={classNames('toggle-button')}>
           <img src={showPassword ? EyeOpen : EyeClosed} alt={showPassword ? 'Hide password' : 'Show password'} />
         </button>
       </div>
-      {!isValid && <p className={classNames('error-text')}>Re-password is not valid</p>}
+      {hasError && <p className={classNames('error-text')}>{error || 'Passwords do not match'}</p>}
     </div>
   );
 };

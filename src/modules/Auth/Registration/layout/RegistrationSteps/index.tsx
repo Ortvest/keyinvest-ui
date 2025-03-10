@@ -21,12 +21,13 @@ type FormState = {
 type RegistrationStepsProps = {
   formState: FormState;
   handleChange: (key: keyof FormState, value: string) => void;
+  errors: { password?: string; confirmPassword?: string };
 };
 
 const getTitle = (step: StepNames): string =>
   step === StepNames.VERIFICATION ? 'Account Verification' : 'Create an account';
 
-export const RegistrationSteps = ({ formState, handleChange }: RegistrationStepsProps): JSX.Element => {
+export const RegistrationSteps = ({ formState, handleChange, errors }: RegistrationStepsProps): JSX.Element => {
   return (
     <>
       <AuthHeader title={getTitle(formState.step)} />
@@ -58,6 +59,7 @@ export const RegistrationSteps = ({ formState, handleChange }: RegistrationSteps
           label="Password"
           value={formState.password}
           onChange={(e) => handleChange('password', e.target.value)}
+          error={errors.password}
         />
       )}
 
@@ -68,6 +70,7 @@ export const RegistrationSteps = ({ formState, handleChange }: RegistrationSteps
           onChange={(e) => handleChange('confirmPassword', e.target.value)}
           checkMatch={true}
           mainPassword={formState.password}
+          error={errors.confirmPassword}
         />
       )}
     </>
