@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import classNames from 'classnames';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { AppRoutes } from '@global/router/routes.constants';
 
@@ -12,10 +12,15 @@ import { ContinueButton } from '@modules/Auth/shared/UI/СontinueButton';
 
 import './styles/styles.css';
 
+import { useResetPasswordMutation } from '@global/api/auth.api';
+
 export const ChangePasswordForm = (): JSX.Element => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const { token } = useParams<{ token: string }>();
   const navigate = useNavigate();
+
+  const [resetPassword, { isLoading, error }] = useResetPasswordMutation();
 
   const onHandlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setPassword(e.target.value);
@@ -29,15 +34,22 @@ export const ChangePasswordForm = (): JSX.Element => {
     navigate(AppRoutes.AUTH_SENT_PASSWORD_RESET.path);
   };
 
-  const onHandleSubmit = (): void => {
-    if (password !== confirmPassword) {
+  const onHandleSubmit = async (): Promise<void> => {
+    if (password !== confirmPassword || !token) {
       return;
+    }
+
+    try {
+      await resetPassword({ token, password }).unwrap();
+      navigate(AppRoutes.AUTH_LOG_IN.path);
+    } catch (err) {
+      console.error('Error resetting password:', err);
     }
   };
 
   return (
     <div className={classNames('change-in-form')}>
-      <AuthHeader title={'Change Password'} />
+      <AuthHeader title="Change Password" />
       <form className={classNames('change-password-form')}>
         <InputPassword
           password={password}
@@ -55,8 +67,9 @@ export const ChangePasswordForm = (): JSX.Element => {
         />
       </form>
       <div className={classNames('button-container')}>
-        <ContinueButton onHandleContinueClick={onHandleSubmit} />
+        <ContinueButton onHandleContinueClick={onHandleSubmit} disabled={isLoading} />
       </div>
+      {error && <p className="error-message">Error resetting password</p>}
       <div className={classNames('go-back-link')}>
         <GoBackLink onClick={onHandleGoBackClick} />
       </div>

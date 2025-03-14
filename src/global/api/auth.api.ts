@@ -29,6 +29,16 @@ export const authApi = baseApi.injectEndpoints({
         body: { email, code },
       }),
     }),
+    resetPassword: builder.mutation<void, { token: string; password: string }>({
+      query: ({ token, password }) => ({
+        url: API_ENDPOINTS.PASSWORD_RESET,
+        method: HttpMethods.POST,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: { password },
+      }),
+    }),
     authenticateUser: builder.mutation<AuthResponse, AuthCredentials>({
       query: ({ email, password }) => ({
         url: API_ENDPOINTS.AUTH_SIGN_IN,
@@ -90,4 +100,5 @@ export const {
   useSendVerificationCodeMutation,
   useRegisterUserMutation,
   useVerifyCodeMutation,
+  useResetPasswordMutation,
 } = authApi;
