@@ -10,23 +10,25 @@
   width: 100%;
   padding: 16px;
 
-  color: #131337;
+  color: var(--text-color);
   font-size: 16px;
 
-  border: 1.5px solid rgb(19 19 55 / 12%);
+  border: 1.5px solid var(--input-border);
   border-radius: 12px;
+
+  background-color: var(--input-background);
 
   outline: none;
 }
 
 .password-field:focus {
-  border: 1.5px solid #0500ff;
+  border: 1.5px solid var(--input-border-focus);
 }
 
 .password-field.invalid {
-  color: #131337;
+  color: var(--text-color);
 
-  border: 1.5px solid #ef4444;
+  border: 1.5px solid var(--inpur-border-invalid);
 }
 
 .toggle-button {
@@ -43,13 +45,14 @@
 
   cursor: pointer;
 
+  filter: var(--fill-toggle-button);
   transform: translateY(-50%);
 }
 
 .error-text {
   margin-top: 8px;
 
-  color: red;
+  color: var(--text-error-color);
   font-weight: 500;
   text-align: left;
 }

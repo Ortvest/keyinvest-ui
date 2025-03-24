@@ -11,9 +11,12 @@
 }
 
 body {
+  color: var(--text-color);
   font-family:
     Inter,
     -apple-system,
     'Helvetica Neue',
     sans-serif;
+
+  background-color: var(--background-color);
 }

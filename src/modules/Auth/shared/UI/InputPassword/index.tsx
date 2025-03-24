@@ -15,13 +15,7 @@ interface InputPasswordProps {
   className?: string;
 }
 
-export const InputPassword = ({
-  password,
-  onPasswordChange,
-  placeholder,
-  name,
-  className,
-}: InputPasswordProps): JSX.Element => {
+export const InputPassword = ({ password, onPasswordChange, placeholder, name }: InputPasswordProps): JSX.Element => {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = (): void => {
@@ -36,9 +30,9 @@ export const InputPassword = ({
         onChange={onPasswordChange}
         placeholder={placeholder}
         name={name}
-        className={classNames('input', className)}
+        className={classNames('input-password-field')}
       />
-      <button type="button" className="input-icon-button" onClick={togglePasswordVisibility}>
+      <button type="button" className="toggle-button" onClick={togglePasswordVisibility}>
         <img src={showPassword ? IconEye : IconEyeOff} alt="Toggle password visibility" className="input-icon" />
       </button>
     </div>
