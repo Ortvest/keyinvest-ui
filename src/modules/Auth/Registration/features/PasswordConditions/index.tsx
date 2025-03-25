@@ -4,11 +4,17 @@ import React from 'react';
 
 import classNames from 'classnames';
 
+import IconCheck from '@shared/assets/icons/CheckIcon.svg';
+import IconCheckSuccess from '@shared/assets/icons/CheckIconGreen.svg';
+
+import './styles.css';
+
 type PasswordConditionsProps = {
   conditions: {
     minLength: boolean;
     hasDigit: boolean;
     hasSpecialChar: boolean;
+    passwordsMatch: boolean;
   };
 };
 
@@ -26,6 +32,10 @@ export const PasswordConditions: React.FC<PasswordConditionsProps> = ({ conditio
       isValid: conditions.hasSpecialChar,
       label: 'Minimum one special character (@, ?, %...)',
     },
+    {
+      isValid: conditions.passwordsMatch,
+      label: 'Passwords must match',
+    },
   ];
 
   return (
@@ -37,7 +47,8 @@ export const PasswordConditions: React.FC<PasswordConditionsProps> = ({ conditio
             valid: item.isValid,
             invalid: !item.isValid,
           })}>
-          {item.isValid ? '✔' : '✘'} {item.label}
+          {item.isValid ? <img src={IconCheckSuccess} alt="IconCheck" /> : <img src={IconCheck} alt="IconCheck" />}{' '}
+          {item.label}
         </div>
       ))}
     </div>

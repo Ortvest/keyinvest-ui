@@ -1,160 +1,196 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import classNames from 'classnames';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-
-import { setError, setLoading } from '@global/store/slices/register.slice';
 
 import { AppRoutes } from '@global/router/routes.constants';
 
-import { RegistrationNavigation } from '@modules/Auth/Registration/layout/RegistrationNavigation';
-import { RegistrationSteps } from '@modules/Auth/Registration/layout/RegistrationSteps';
+import { PasswordConditions } from '@modules/Auth/Registration/features/PasswordConditions';
+import { VerificationCodeInput } from '@modules/Auth/Registration/features/VerificationCodeInput';
 import { StepNames } from '@modules/Auth/shared/types/stepNames';
-
-import { useTypedDispatch } from '@shared/hooks/useTypedDispatch';
 
 import './styles/styles.css';
 
 import { useRegisterUserMutation, useSendVerificationCodeMutation, useVerifyCodeMutation } from '@global/api/auth.api';
-import { registrationSchema } from '@shared/validation/validationSchema';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { signUpSchema } from '@shared/validation/sign-up.schema';
 
-type FormState = {
+type SignUpFormInputs = {
   email: string;
   username: string;
   password: string;
   confirmPassword: string;
   verificationCode: string;
-  step: StepNames;
+};
+
+const getNextStep = (step: StepNames): StepNames | null => {
+  switch (step) {
+    case 'EMAIL':
+      return 'VERIFICATION';
+    case 'VERIFICATION':
+      return 'USERNAME';
+    case 'USERNAME':
+      return 'PASSWORD';
+    case 'PASSWORD':
+      return 'CONFIRMATION';
+    case 'CONFIRMATION':
+      return 'VERIFICATION';
+    default:
+      return null;
+  }
 };
 
 export const RegistrationForm = (): JSX.Element => {
-  const dispatch = useTypedDispatch();
   const navigate = useNavigate();
 
   const [sendVerificationCode] = useSendVerificationCodeMutation();
-  const [verifyCode] = useVerifyCodeMutation();
-  const [registerUser, { isLoading }] = useRegisterUserMutation();
-  const [errors, setErrors] = useState<{ password?: string; confirmPassword?: string }>({});
+  const [verifyCode, { isSuccess: isVerifyCodeSuccess }] = useVerifyCodeMutation();
+  const [registerUser] = useRegisterUserMutation();
 
-  const [formState, setFormState] = useState<FormState>({
-    email: '',
-    username: '',
-    password: '',
-    confirmPassword: '',
-    verificationCode: '',
-    step: StepNames.EMAIL,
+  const {
+    register,
+    handleSubmit,
+    trigger,
+    getValues,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm<SignUpFormInputs>({
+    resolver: yupResolver(signUpSchema),
+    mode: 'onTouched',
   });
 
-  const isPasswordMatch = formState.password === formState.confirmPassword;
+  const watchAllFields = watch();
 
-  const handleChange = (key: keyof FormState, value: string): void => {
-    if (key === 'password' || key === 'confirmPassword') {
-      registrationSchema
-        .validateAt(key, { ...formState, [key]: value })
-        .then(() => {
-          setErrors((prev) => ({ ...prev, [key]: undefined }));
-        })
-        .catch((error) => {
-          setErrors((prev) => ({ ...prev, [key]: error.message }));
-        });
+  const [currentStep, setCurrentStep] = useState<StepNames>(StepNames.EMAIL);
+
+  const handleNextStep = useCallback(async (): Promise<void> => {
+    let fieldToValidate: keyof SignUpFormInputs;
+    switch (currentStep) {
+      case 'EMAIL':
+        fieldToValidate = 'email';
+        break;
+      case 'USERNAME':
+        fieldToValidate = 'username';
+        break;
+      case 'PASSWORD':
+        fieldToValidate = 'password';
+        break;
+      case 'CONFIRMATION':
+        fieldToValidate = 'confirmPassword';
+        break;
+      default:
+        fieldToValidate = 'email';
     }
 
-    setFormState((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-  };
-
-  const onSendVerificationCode = async (): Promise<void> => {
-    try {
-      await sendVerificationCode({ email: formState.email }).unwrap();
-      setFormState((prev) => ({ ...prev, step: StepNames.VERIFICATION }));
-    } catch (error) {
-      console.error('Failed to send verification code:', error);
+    if (currentStep === StepNames.EMAIL) {
+      await sendVerificationCode({ email: getValues('email') }).unwrap();
     }
-  };
 
-  const onVerifyCode = async (): Promise<void> => {
-    try {
-      await verifyCode({ email: formState.email, code: formState.verificationCode }).unwrap();
-      setFormState((prev) => ({ ...prev, step: StepNames.USERNAME }));
-    } catch (error) {
-      console.error('Verification failed:', error);
-      alert('Invalid code. Please try again.');
+    const isValid = await trigger(fieldToValidate);
+    if (isValid) {
+      const nextStep = getNextStep(currentStep);
+      if (nextStep) {
+        setCurrentStep(nextStep);
+      }
     }
-  };
+  }, [currentStep, getValues, sendVerificationCode, trigger]);
 
-  const onRegisterUser = async (): Promise<void> => {
-    if (!isPasswordMatch) return;
-
-    try {
-      dispatch(setLoading(true));
-
-      await registerUser({
-        username: formState.username,
-        email: formState.email,
-        password: formState.password,
-      }).unwrap();
-
-      navigate(AppRoutes.AUTH_LOG_IN.path);
-    } catch (err) {
-      console.error('Registration failed:', err);
-      dispatch(setError(err instanceof Error ? err.message || 'Something went wrong' : 'An unknown error occurred'));
-    } finally {
-      dispatch(setLoading(false));
+  useEffect(() => {
+    if (isVerifyCodeSuccess) {
+      handleNextStep();
     }
+  }, [isVerifyCodeSuccess, handleNextStep]);
+
+  const onVerifyEmailHandler = async (): Promise<void> => {
+    await verifyCode({ email: getValues('email'), code: getValues('verificationCode') });
   };
 
-  const onContinueHandler = async (e: React.FormEvent): Promise<void> => {
-    e.preventDefault();
-
-    if (formState.step === StepNames.EMAIL) {
-      await onSendVerificationCode();
-    } else if (formState.step === StepNames.VERIFICATION) {
-      await onVerifyCode();
-    } else if (formState.step === StepNames.CONFIRMATION) {
-      await onRegisterUser();
-    } else {
-      setFormState((prev) => ({
-        ...prev,
-        step:
-          prev.step === StepNames.USERNAME
-            ? StepNames.PASSWORD
-            : prev.step === StepNames.PASSWORD
-              ? StepNames.CONFIRMATION
-              : prev.step,
-      }));
-    }
-  };
-
-  const onGoBackHandler = (): void => {
-    setFormState((prev) => ({
-      ...prev,
-      step:
-        prev.step === StepNames.VERIFICATION
-          ? StepNames.EMAIL
-          : prev.step === StepNames.USERNAME
-            ? StepNames.VERIFICATION
-            : prev.step === StepNames.PASSWORD
-              ? StepNames.USERNAME
-              : prev.step === StepNames.CONFIRMATION
-                ? StepNames.PASSWORD
-                : prev.step,
-    }));
+  const onSubmit = (data: SignUpFormInputs): void => {
+    registerUser(data)
+      .unwrap()
+      .then(() => {
+        navigate(AppRoutes.MAIN.path);
+      });
   };
 
   return (
-    <form className={classNames('form-wrapper')} onSubmit={onContinueHandler}>
-      <div className={classNames('inputs-container')}>
-        <RegistrationSteps formState={formState} handleChange={handleChange} errors={errors} />
-      </div>
-      <RegistrationNavigation
-        step={formState.step}
-        isPasswordMatch={isPasswordMatch}
-        onContinue={onContinueHandler}
-        onGoBack={onGoBackHandler}
-        isLoading={isLoading}
-      />
-    </form>
+    <div className="inputs-container">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {currentStep === 'EMAIL' && (
+          <>
+            <input
+              className={classNames('input-email-field', { error: errors.email })}
+              {...register('email')}
+              placeholder="Email"
+            />
+            {errors.email && <span className={classNames('error-field-label')}>{errors.email.message}</span>}
+          </>
+        )}
+
+        {currentStep === 'USERNAME' && (
+          <>
+            <input
+              className={classNames('input-email-field', { error: errors.username })}
+              {...register('username')}
+              placeholder="Username"
+            />
+            {errors.username && <span className={classNames('error-field-label')}>{errors.username.message}</span>}
+          </>
+        )}
+
+        {currentStep === 'PASSWORD' && (
+          <div className={classNames('passwords-container')}>
+            <input
+              className={classNames('input-email-field')}
+              {...register('password')}
+              placeholder="Password"
+              type="password"
+            />
+            <input
+              className={classNames('input-email-field')}
+              {...register('confirmPassword')}
+              placeholder="Confirm Password"
+              type="password"
+            />
+            {errors.confirmPassword && (
+              <span className={classNames('error-field-label')}>{errors.confirmPassword.message}</span>
+            )}
+            <PasswordConditions
+              conditions={{
+                minLength: (watchAllFields.password || '').length >= 8,
+                hasDigit: /\d/.test(watchAllFields.password || ''),
+                hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(watchAllFields.password || ''),
+                passwordsMatch: watchAllFields.password === watchAllFields.confirmPassword,
+              }}
+            />
+          </div>
+        )}
+
+        {currentStep === 'VERIFICATION' && (
+          <>
+            <VerificationCodeInput
+              onVerificationCodeChange={(newCode) => setValue('verificationCode', newCode)}
+              verificationCode={getValues('verificationCode') || ''}
+            />
+          </>
+        )}
+
+        {currentStep === 'VERIFICATION' ? (
+          <button className={classNames('submit-button')} type="button" onClick={onVerifyEmailHandler}>
+            Verify
+          </button>
+        ) : currentStep === 'PASSWORD' ? (
+          <button className={classNames('submit-button')} type="submit">
+            Create
+          </button>
+        ) : (
+          <button className={classNames('submit-button')} type="button" onClick={handleNextStep}>
+            Continue
+          </button>
+        )}
+      </form>
+    </div>
   );
 };

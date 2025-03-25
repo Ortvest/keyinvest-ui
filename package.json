@@ -13,6 +13,7 @@
     "prepare": "chmod +x .husky/pre-push"
   },
   "dependencies": {
+    "@hookform/resolvers": "^4.1.3",
     "@reduxjs/toolkit": "^2.5.0",
     "@types/node": "^22.10.10",
     "@uidotdev/usehooks": "^2.4.1",
