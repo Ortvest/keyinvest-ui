@@ -1,11 +1,11 @@
 .condition {
-    display: flex;
-    gap: 12px;
-    align-items: center;
+  display: flex;
+  gap: 12px;
+  align-items: center;
 
-    color: #1313377A;
+  color: #1313377a;
 }
 
-.condition .isValid{
-    color: #131337;
+.condition .isValid {
+  color: #131337;
 }
