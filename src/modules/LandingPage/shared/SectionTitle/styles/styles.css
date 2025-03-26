@@ -1,0 +1,39 @@
+.problem-title-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+}
+
+.problem-title-h2 {
+  color: var(--text-color);
+  font-weight: 500;
+  font-size: 40px;
+}
+
+.problem-title {
+  color: #0501ff;
+  font-weight: 500;
+  font-size: 36px;
+}
+
+.problem-description {
+  width: 790px;
+  margin-top: 10px;
+
+  color: var(--text-color);
+  font-size: 20px;
+}
+
+.color-title {
+  color: var(--text-color);
+}
+
+.color-h2 {
+  background: linear-gradient(267.03deg, #47fc94, #0501ff 50%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

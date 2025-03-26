@@ -1,0 +1,43 @@
+.faq-section-item {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  padding: 24px;
+
+  color: var(--text-color);
+
+  border: 1px solid var(--input-border-focus);
+  border-radius: 5px;
+
+  background-color: var(--background-color);
+
+  cursor: pointer;
+
+  transition: background-color 0.3s ease-in-out;
+}
+
+.faq-section-title {
+  display: flex;
+  justify-content: space-between;
+
+  font-weight: 500;
+  font-size: 25px;
+}
+
+.faq-section-description {
+  color: var(--text-color);
+  font-size: 18px;
+
+  opacity: 1;
+
+  transition: opacity 0.3s ease-in-out;
+}
+
+.faq-section-icon {
+  transition: transform 0.3s ease-in-out;
+}
+
+.faq-section-icon.rotated {
+  transform: rotate(180deg);
+}

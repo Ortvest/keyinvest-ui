@@ -1,0 +1,14 @@
+.benefits-section-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  justify-content: center;
+
+  padding: 130px 190px 0;
+}
+
+.benefits-items-list {
+  display: flex;
+  gap: 150px;
+  justify-content: center;
+}

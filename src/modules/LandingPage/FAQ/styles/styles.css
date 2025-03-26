@@ -1,0 +1,14 @@
+.faq-section-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  justify-content: center;
+
+  padding: 130px 198px 0;
+}
+
+.faq-section-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}

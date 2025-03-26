@@ -1,0 +1,52 @@
+.solution-card {
+  display: flex;
+  gap: 127px;
+  justify-content: center;
+  align-items: end;
+}
+
+.reverse-order {
+  flex-direction: row-reverse;
+}
+
+.market-text {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.market-main-text {
+  font-weight: 400;
+  font-size: 40px;
+
+  background: linear-gradient(267.03deg, #47fc94, #0500ff 49.9%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.market-title {
+  font-weight: 400;
+  font-size: 40px;
+}
+
+.market-text-discripton {
+  width: 575px;
+  padding: 10px;
+
+  color: var(--text-color);
+  font-size: 20px;
+  line-height: 196.9%;
+}
+
+.market-title-info {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.solution-line-div {
+  width: 575px;
+  height: 1px;
+
+  background: linear-gradient(267.03deg, #47fc94, #0500ff 50.4%);
+}

@@ -1,0 +1,33 @@
+.timer-section-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  justify-content: center;
+
+  padding: 80px 198px 0;
+}
+
+.timer {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: bold;
+  font-size: 48px;
+}
+
+.time-block {
+  padding: 20px 30px;
+
+  color: var(--text-color);
+  font-weight: bold;
+  font-size: 48px;
+
+  border: 2px solid var(--input-border-focus);
+  border-radius: 12px;
+
+  background: var(--button-b);
+
+  box-shadow: 0 4px 10px rgb(0 0 0 / 10%);
+}
