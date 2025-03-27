@@ -3,6 +3,8 @@
   flex-direction: column;
   gap: 20px;
   align-items: center;
+
+  width: 300px;
 }
 
 .newspapper {
@@ -50,16 +52,4 @@
   color: var(--text-color);
   font-size: 20px;
   text-align: center;
-}
-
-.problem-description-newspapper {
-  width: 337px;
-}
-
-.problem-description-graph {
-  width: 295px;
-}
-
-.problem-description-slash {
-  width: 300px;
 }

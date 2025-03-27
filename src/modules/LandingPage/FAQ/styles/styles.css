@@ -4,11 +4,13 @@
   gap: 40px;
   justify-content: center;
 
-  padding: 130px 198px 0;
+  padding: 130px 0 0;
 }
 
 .faq-section-list {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  justify-content: center;
+  align-items: center;
 }

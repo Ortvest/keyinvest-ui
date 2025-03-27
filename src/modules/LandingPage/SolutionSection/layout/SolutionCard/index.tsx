@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import { LendingButton } from '@modules/LandingPage/shared/LendingButton';
+import { LandingButton } from '@modules/LandingPage/shared/LandingButton';
 
 import './styles/styles.css';
 
@@ -13,20 +13,21 @@ interface SolutionCardProps {
 }
 
 export const SolutionCard = ({ image, alt, title, description, reverse = false }: SolutionCardProps): JSX.Element => (
-  <div className={classNames('solution-card', { 'reverse-order': reverse })}>
+  <article className={classNames('solution-card', { 'reverse-order': reverse })}>
     <div className={classNames('market-title-info')}>
       <div className={classNames('market-text')}>
         <h2 className={classNames('market-main-text')}>KeyInvest – AI</h2>
         <h2 className={classNames('market-title')}>{title}</h2>
       </div>
-      <div className={classNames('market-text-discripton')}>
+      <section className={classNames('market-text-discripton')}>
         <p>{description}</p>
-      </div>
+      </section>
       <div className={classNames('solution-line-div')}></div>
-      <div>
-        <LendingButton title="Learn more" />
-      </div>
+
+      <LandingButton title="Learn more" />
     </div>
-    <img className={classNames('target-img')} src={image} alt={alt} />
-  </div>
+    <figure className={classNames('target-img')}>
+      <img src={image} alt={alt} />
+    </figure>
+  </article>
 );

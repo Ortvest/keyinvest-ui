@@ -4,11 +4,11 @@
   gap: 60px;
   justify-content: center;
 
-  padding: 130px 105px 0;
+  padding: 130px 0 0;
 }
 
 .problem-cards-wrapper {
   display: flex;
-  gap: 150px;
+  gap: 130px;
   justify-content: center;
 }

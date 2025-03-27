@@ -11,7 +11,7 @@ interface LendingButtonProps {
   title: string;
 }
 
-export const LendingButton = ({ title }: LendingButtonProps): JSX.Element => {
+export const LandingButton = ({ title }: LendingButtonProps): JSX.Element => {
   const navigate = useNavigate();
 
   const onHandleClick = (): void => {

@@ -12,19 +12,19 @@ import './styles/styles.css';
 const benefitsData = [
   {
     icon: Rocket,
-    alt: 'Rocket icon',
+    alt: 'Rocket icon representing smart investment strategies',
     title: 'Smart Investment Strategies',
     description: 'Our AI-driven algorithms analyze market trends to help you make data-backed investment decisions.',
   },
   {
     icon: Lock,
-    alt: 'Lock icon',
+    alt: 'Lock icon symbolizing security and reliability',
     title: 'Reliable & Secure',
     description: 'We prioritize data security and accuracy to ensure your investments are protected and well-informed.',
   },
   {
     icon: Stroke,
-    alt: 'Stroke icon',
+    alt: 'Graph icon representing real-time market insights',
     title: 'Real-Time Market Insights',
     description: 'Stay ahead with up-to-the-minute analysis and predictions from our AI-powered system.',
   },
@@ -32,7 +32,7 @@ const benefitsData = [
 
 export const BenefitsSection = (): JSX.Element => {
   return (
-    <section className={classNames('benefits-section-wrapper')}>
+    <section className={classNames('benefits-section-wrapper')} aria-labelledby="benefits-heading">
       <SectionTitle
         section="Unlock Your Investment Potential"
         title="with KeyInvest’s AI-Powered Insights"

@@ -11,16 +11,16 @@ interface BenefitItemProps {
 
 export const BenefitItem = ({ icon, alt, title, description }: BenefitItemProps): JSX.Element => {
   return (
-    <div className={classNames('benefits-items')}>
-      <div className={classNames('benefits-icon')}>
+    <article className={classNames('benefits-items')}>
+      <figure className={classNames('benefits-icon')}>
         <img src={icon} alt={alt} />
-      </div>
-      <div>
-        <h3 className={classNames('benefits-title')}>{title}</h3>
-      </div>
-      <div className={classNames('benefits-description')}>
-        <p>{description}</p>
-      </div>
-    </div>
+      </figure>
+
+      <h3 id={`benefit-title-${title.replace(/\s+/g, '-').toLowerCase()}`} className={classNames('benefits-title')}>
+        {title}
+      </h3>
+
+      <p className={classNames('benefits-description')}>{description}</p>
+    </article>
   );
 };

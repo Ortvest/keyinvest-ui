@@ -9,32 +9,28 @@ const FaqData = [
   {
     title: 'How does KeyInvest’s AI work?',
     description: `Our AI analyzes real-time market data, trends, 
-	  and historical patterns to provide investment recommendations with high accuracy.`,
+      and historical patterns to provide investment recommendations with high accuracy.`,
+  },
+  {
+    title: 'Is KeyInvest AI suitable for beginners?',
+    description: 'Absolutely! Our AI simplifies investment decisions, making it easy for beginners to get started.',
+  },
+  {
+    title: 'How secure is my data with KeyInvest?',
+    description: 'We use advanced encryption and security measures to keep your data safe and confidential.',
   },
   {
     title: 'How does KeyInvest’s AI work?',
     description: `Our AI analyzes real-time market data, trends, 
-	  and historical patterns to provide investment recommendations with high accuracy.`,
+      and historical patterns to provide investment recommendations with high accuracy.`,
   },
   {
-    title: 'How does KeyInvest’s AI work?',
-    description: `Our AI analyzes real-time market data, trends, 
-	  and historical patterns to provide investment recommendations with high accuracy.`,
+    title: 'Is KeyInvest AI suitable for beginners?',
+    description: 'Absolutely! Our AI simplifies investment decisions, making it easy for beginners to get started.',
   },
   {
-    title: 'How does KeyInvest’s AI work?',
-    description: `Our AI analyzes real-time market data, trends, 
-	  and historical patterns to provide investment recommendations with high accuracy.`,
-  },
-  {
-    title: 'How does KeyInvest’s AI work?',
-    description: `Our AI analyzes real-time market data, trends, 
-	  and historical patterns to provide investment recommendations with high accuracy.`,
-  },
-  {
-    title: 'How does KeyInvest’s AI work?',
-    description: `Our AI analyzes real-time market data, trends, 
-	  and historical patterns to provide investment recommendations with high accuracy.`,
+    title: 'How secure is my data with KeyInvest?',
+    description: 'We use advanced encryption and security measures to keep your data safe and confidential.',
   },
 ];
 
@@ -47,11 +43,11 @@ export const FaqSection = (): JSX.Element => {
         description="Here are some common questions about making smarter investments with KeyInvest AI."
       />
 
-      <div className={classNames('faq-section-list')}>
-        {FaqData.map((benefit, index) => (
-          <FaqCards key={index} {...benefit} />
+      <dl className={classNames('faq-section-list')}>
+        {FaqData.map((faq, index) => (
+          <FaqCards key={index} {...faq} />
         ))}
-      </div>
+      </dl>
     </section>
   );
 };

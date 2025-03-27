@@ -4,7 +4,7 @@
   gap: 40px;
   justify-content: center;
 
-  padding: 80px 198px 0;
+  padding: 80px 0 0;
 }
 
 .timer {
@@ -15,6 +15,20 @@
 
   font-weight: bold;
   font-size: 48px;
+}
+
+.timer-line {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.timer-items {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
 }
 
 .time-block {

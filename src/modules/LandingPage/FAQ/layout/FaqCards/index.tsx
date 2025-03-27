@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import classNames from 'classnames';
 
 import Triangle from '@shared/assets/icons/triangle.svg';
@@ -12,19 +10,15 @@ interface FaqCardsProps {
 }
 
 export const FaqCards = ({ title, description }: FaqCardsProps): JSX.Element => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const onToggleHandler = (): void => {
-    setIsOpen((prev) => !prev);
-  };
-
   return (
-    <div className={classNames('faq-section-item', { open: isOpen })} onClick={onToggleHandler}>
-      <div className={classNames('faq-section-title')}>
+    <details className={classNames('faq-section-item')}>
+      <summary className={classNames('faq-section-title')}>
         <p>{title}</p>
-        <img src={Triangle} alt="triangle icon" className={classNames('faq-section-icon', { rotated: isOpen })} />
+        <img src={Triangle} alt="Expand" className={classNames('faq-section-icon')} />
+      </summary>
+      <div className={classNames('faq-section-content')}>
+        <p className={classNames('faq-section-description')}>{description}</p>
       </div>
-      {isOpen && <p className={classNames('faq-section-description')}>{description}</p>}
-    </div>
+    </details>
   );
 };

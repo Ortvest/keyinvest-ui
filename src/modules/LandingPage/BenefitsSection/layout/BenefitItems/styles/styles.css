@@ -2,9 +2,10 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  justify-content: space-between;
   align-items: center;
 
-  width: 250px;
+  width: 300px;
 }
 
 .benefits-icon {

@@ -1,6 +1,6 @@
 .solution-card {
   display: flex;
-  gap: 127px;
+  gap: 60px;
   justify-content: center;
   align-items: end;
 }

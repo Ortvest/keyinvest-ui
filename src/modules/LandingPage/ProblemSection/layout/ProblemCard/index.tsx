@@ -18,17 +18,17 @@ export const ProblemCard = ({
   titleClass,
   descriptionClass,
 }: ProblemCardProps): JSX.Element => (
-  <div className={classNames('problem-card')}>
-    <div className={classNames('newspapper')}>
+  <article className={classNames('problem-card')}>
+    <figure className={classNames('newspapper')}>
       <div className={classNames('newspapper-wrapper')}>
         <img src={icon} alt={alt} />
       </div>
-    </div>
+    </figure>
     <div className={classNames(titleClass)}>
       <h3 className={classNames('problem-cards-title')}>{title}</h3>
     </div>
     <div className={classNames(descriptionClass)}>
       <p>{description}</p>
     </div>
-  </div>
+  </article>
 );

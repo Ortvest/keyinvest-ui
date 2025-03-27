@@ -3,7 +3,7 @@
   gap: 9px;
   justify-content: center;
 
-  padding: 115px 77px 0;
+  padding: 115px 0 0;
 }
 
 .main-title {
@@ -46,6 +46,8 @@
 .main-line {
   width: 615px;
   height: 1px;
+
+  border: none;
 
   background: linear-gradient(267.03deg, #47fc94, #0500ff 50.4%);
 }

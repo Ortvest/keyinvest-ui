@@ -1,8 +1,8 @@
 .faq-section-item {
   display: flex;
   flex-direction: column;
-  gap: 20px;
 
+  width: 1043px;
   padding: 24px;
 
   color: var(--text-color);
@@ -26,6 +26,8 @@
 }
 
 .faq-section-description {
+  padding-top: 20px;
+
   color: var(--text-color);
   font-size: 18px;
 
@@ -34,10 +36,28 @@
   transition: opacity 0.3s ease-in-out;
 }
 
+.faq-section-content {
+  max-height: 0;
+
+  opacity: 0;
+
+  overflow: hidden;
+
+  transition:
+    max-height 0.3s ease-in-out,
+    opacity 0.3s ease-in-out;
+}
+
+.faq-section-item[open] .faq-section-content {
+  max-height: 500px;
+
+  opacity: 1;
+}
+
 .faq-section-icon {
   transition: transform 0.3s ease-in-out;
 }
 
-.faq-section-icon.rotated {
+.faq-section-item[open] .faq-section-icon {
   transform: rotate(180deg);
 }

@@ -12,10 +12,12 @@ interface TestimonialCardProps {
 }
 
 export const TestimonialCard = ({ name, role, text }: TestimonialCardProps): JSX.Element => (
-  <div className={classNames('testimonials-item')}>
+  <article className={classNames('testimonials-item')}>
     <div className={classNames('testimonials-text-mark')}>
       <div className={classNames('testimonials-text')}>
-        <img src={avatar} alt="avatar" />
+        <figure>
+          <img src={avatar} alt={`${name}'s avatar`} />
+        </figure>
         <div className={classNames('testimonials-title')}>
           <p className={classNames('testimonials-name')}>{name}</p>
           <p className={classNames('testimonials-role')}>{role}</p>
@@ -25,12 +27,12 @@ export const TestimonialCard = ({ name, role, text }: TestimonialCardProps): JSX
         {Array(5)
           .fill(null)
           .map((_, i) => (
-            <img key={i} className={classNames('star')} alt="star" src={star} />
+            <img key={i} className={classNames('star')} alt="star rating" src={star} />
           ))}
       </div>
     </div>
-    <div className={classNames('testimonials-description')}>
+    <blockquote className={classNames('testimonials-description')}>
       <p>&quot;{text}&quot;</p>
-    </div>
-  </div>
+    </blockquote>
+  </article>
 );
