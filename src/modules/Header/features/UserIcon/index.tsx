@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
+import { AppRoutes } from '@global/router/routes.constants';
+
 import './styles/styles.css';
 
 interface UserIconProps {
@@ -22,7 +24,7 @@ export const UserIcon = ({ email }: UserIconProps): JSX.Element => {
   const backgroundColor = getStableColor(email);
 
   const onHandleClick: React.MouseEventHandler<HTMLDivElement> = (): void => {
-    navigate('/system');
+    navigate(AppRoutes.SYSTEM.path);
   };
 
   return (
