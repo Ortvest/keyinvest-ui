@@ -7,7 +7,7 @@ interface InputEmailFieldProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const InputEmailField = ({ value, onChange }: InputEmailFieldProps): JSX.Element => {
+export const InputEmailField = ({ value, onChange, ...rest }: InputEmailFieldProps): JSX.Element => {
   return (
     <input
       type="email"
@@ -16,6 +16,7 @@ export const InputEmailField = ({ value, onChange }: InputEmailFieldProps): JSX.
       name="email"
       onChange={onChange}
       className={classNames('input-email-field')}
+      {...rest}
     />
   );
 };
