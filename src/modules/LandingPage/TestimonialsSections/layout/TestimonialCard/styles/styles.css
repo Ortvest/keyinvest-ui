@@ -1,0 +1,56 @@
+.testimonials-item {
+  display: flex;
+  flex-direction: column;
+  gap: 27px;
+
+  width: 510px;
+  padding: 46px 25px 65px;
+
+  border: 1px solid #0500ff;
+  border-radius: 12px;
+
+  background-color: #fff;
+}
+
+.testimonials-text-mark {
+  display: flex;
+  justify-content: space-between;
+}
+
+.star {
+  width: 26px;
+  height: 25px;
+}
+
+.testimonials-text {
+  display: flex;
+  gap: 10px;
+}
+
+.testimonials-title {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  color: #131337;
+}
+
+.testimonials-name {
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.testimonials-role {
+  color: rgb(19 19 55 / 64%);
+  font-size: 18px;
+}
+
+.testimonials-mark {
+  display: flex;
+  gap: 6px;
+}
+
+.testimonials-description {
+  color: #131337;
+  font-size: 20px;
+}

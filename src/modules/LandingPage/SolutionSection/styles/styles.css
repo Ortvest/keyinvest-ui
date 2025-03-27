@@ -1,0 +1,14 @@
+.solution-section-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  justify-content: center;
+
+  padding: 130px 0 0;
+}
+
+.solution-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 130px;
+}

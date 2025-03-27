@@ -1,0 +1,36 @@
+.testimonials-section-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  justify-content: center;
+
+  width: 100%;
+  padding: 130px 0 0;
+
+  overflow: hidden;
+}
+
+.testimonials-items-columns {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.testimonials-slider {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.slick-slide {
+  width: 510px !important;
+}
+
+.slick-list {
+  width: 100vw !important;
+}
+
+.slick-track {
+  display: flex;
+  gap: 20px;
+}
