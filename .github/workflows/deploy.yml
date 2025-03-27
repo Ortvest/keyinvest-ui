@@ -28,6 +28,7 @@ jobs:
       - name: Install dependencies
         run: |
           pnpm install
+          # Если у вас есть pre-push хуки, делаем их исполняемыми
           [ -f .husky/pre-push ] && chmod +x .husky/pre-push
 
       - name: Build project
