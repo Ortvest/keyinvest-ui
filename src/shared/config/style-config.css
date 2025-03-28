@@ -11,7 +11,17 @@
   --red: #e91527;
 }
 
+button {
+  border: none;
+
+  background-color: inherit;
+
+  cursor: pointer;
+}
+
 body {
+  width: 100%;
+
   color: var(--text-color);
   font-family:
     Inter,
@@ -20,4 +30,6 @@ body {
     sans-serif;
 
   background-color: var(--background-color);
+
+  overflow-x: hidden;
 }

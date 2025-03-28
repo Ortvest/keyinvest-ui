@@ -10,7 +10,7 @@ import './styles/styles.css';
 import { useLocalStorage } from '@uidotdev/usehooks';
 
 export const ThemeToggle = (): JSX.Element => {
-  const [theme, setTheme] = useLocalStorage('theme', 'light');
+  const [theme, setTheme] = useLocalStorage('"theme"', '"light"');
 
   const isDark = useCallback(() => theme === 'dark', [theme]);
 

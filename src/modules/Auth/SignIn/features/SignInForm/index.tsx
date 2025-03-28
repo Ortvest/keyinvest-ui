@@ -3,7 +3,6 @@ import { useState } from 'react';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 
-
 import { AuthProposal } from '@modules/Auth/shared/AuthProposal';
 import { AuthHeader } from '@modules/Auth/shared/Header';
 import { AuthTypes } from '@modules/Auth/shared/types/authTypes';
@@ -51,7 +50,7 @@ export const SignInForm = (): JSX.Element => {
     await authenticateUser({ ...data, password: data.password || '' })
       .unwrap()
       .then(() => {
-        navigate(AppRoutes.MAIN.path);
+        navigate(AppRoutes.SYSTEM.path);
       })
       .catch((err: Error) => {
         if (err) {

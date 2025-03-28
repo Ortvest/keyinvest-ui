@@ -1,0 +1,19 @@
+.get-started-main-button {
+  width: 220px;
+  padding: 11px 35px;
+
+  color: var(--text-color);
+  font-size: 20px;
+
+  border: 0.8px solid #0500ff;
+  border-radius: 24px;
+
+  cursor: pointer;
+}
+
+.button-text-arrow {
+  display: flex;
+  gap: 20px;
+
+  color: var(--text-color);
+}
