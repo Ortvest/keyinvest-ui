@@ -50,6 +50,12 @@ export const AppRoutes = {
     title: 'Support',
     usageScope: [UsageScopes.LANDING],
   },
+  SYSTEM: {
+    path: '/system',
+    isVisible: false,
+    title: 'System',
+    usageScope: [UsageScopes.LANDING],
+  },
 
   AUTHED_MAIN_PAGE: {
     path: '/:user-id',

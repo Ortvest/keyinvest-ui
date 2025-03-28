@@ -39,6 +39,10 @@ export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> 
           element: <ChangePasswordReset />,
         },
         {
+          path: AppRoutes.SYSTEM.path,
+          element: null,
+        },
+        {
           path: AppRoutes.ABOUT.path,
           element: null,
         },

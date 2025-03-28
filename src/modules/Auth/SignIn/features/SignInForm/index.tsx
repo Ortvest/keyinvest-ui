@@ -3,7 +3,7 @@ import { useState } from 'react';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 
-import { setError, setLoading } from '@global/store/slices/login.slice';
+import { setError, setLoading, setUser } from '@global/store/slices/login.slice';
 
 import { AppRoutes } from '@global/router/routes.constants';
 
@@ -64,7 +64,12 @@ export const SignInForm = (): JSX.Element => {
     dispatch(setError(null));
 
     try {
-      await authenticateUser({ email, password }).unwrap();
+      const userData = await authenticateUser({ email, password }).unwrap();
+
+      localStorage.setItem('user', JSON.stringify(userData.user));
+
+      dispatch(setUser(userData.user));
+
       navigate(AppRoutes.MAIN.path);
     } catch (err: unknown) {
       if (err instanceof Error) {
