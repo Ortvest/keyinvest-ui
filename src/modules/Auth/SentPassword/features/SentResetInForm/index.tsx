@@ -7,10 +7,11 @@ import { AppRoutes } from '@global/router/routes.constants';
 
 import { GoBackLink } from '@modules/Auth/shared/GoBackLink';
 import { AuthHeader } from '@modules/Auth/shared/Header';
-import { PasswordResetDetails } from '@modules/ChangePassword/features/PasswordResetDetails';
-import { EmailButton } from '@modules/SentPassword/features/EmailButton';
+import { PasswordResetDetails } from '@modules/Auth/ChangePassword/features/PasswordResetDetails';
+import { EmailButton } from '@modules/Auth/SentPassword/features/EmailButton';
 
 import './styles/styles.css';
+import '../../styles.css';
 
 import { useLocalStorage } from '@uidotdev/usehooks';
 

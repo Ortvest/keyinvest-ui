@@ -13,3 +13,11 @@
   width: 100%;
   max-width: 400px;
 }
+
+.error-field-label {
+  color: var(--red);
+}
+
+.input-email-field.error {
+  border: 1px solid var(--red);
+}

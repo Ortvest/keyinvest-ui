@@ -11,6 +11,7 @@ import { VerificationCodeInput } from '@modules/Auth/Registration/features/Verif
 import { StepNames } from '@modules/Auth/shared/types/stepNames';
 
 import './styles/styles.css';
+import '../../styles.css';
 
 import { useRegisterUserMutation, useSendVerificationCodeMutation, useVerifyCodeMutation } from '@global/api/auth.api';
 import { yupResolver } from '@hookform/resolvers/yup';
