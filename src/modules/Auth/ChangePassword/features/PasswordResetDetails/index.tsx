@@ -8,7 +8,6 @@ interface PasswordResetDetailsProps {
 }
 
 export const PasswordResetDetails = ({ type, email }: PasswordResetDetailsProps): JSX.Element => {
-  console.log(email, 'email');
   return (
     <div className="password-reset-wrapper">
       {type === PasswordResetTypes.SEND_RESET && (
