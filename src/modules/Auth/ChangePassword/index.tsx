@@ -2,9 +2,9 @@ import { Fragment } from 'react';
 
 import classNames from 'classnames';
 
+import { ChangePasswordForm } from '@modules/Auth/ChangePassword/features/ChangePasswordForm';
 import { Privacy } from '@modules/Auth/shared/Privacy';
 import { ThemeToggle } from '@modules/Auth/ThemeToggle';
-import { ChangePasswordForm } from '@modules/Auth/ChangePassword/features/ChangePasswordForm';
 
 import './styles.css';
 

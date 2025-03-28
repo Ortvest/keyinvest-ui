@@ -55,6 +55,8 @@
 }
 
 .faq-section-icon {
+  filter: var(--fill-theme-toggle);
+
   transition: transform 0.3s ease-in-out;
 }
 

@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { AppRoutes } from '@global/router/routes.constants';
 
-import { GoBackLink } from '@modules/Auth/shared/GoBackLink';
-import { AuthHeader } from '@modules/Auth/shared/Header';
 import { PasswordResetDetails } from '@modules/Auth/ChangePassword/features/PasswordResetDetails';
 import { EmailButton } from '@modules/Auth/SentPassword/features/EmailButton';
+import { GoBackLink } from '@modules/Auth/shared/GoBackLink';
+import { AuthHeader } from '@modules/Auth/shared/Header';
 
 import './styles/styles.css';
 import '../../styles.css';
