@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { Navigate, Outlet } from 'react-router-dom';
 
+import { Footer } from '@modules/Footer';
 import { Header } from '@modules/Header';
 
 import { AppRoutes } from './routes.constants';
@@ -18,6 +19,7 @@ export const AppLayout = ({ authed }: { authed: boolean }): JSX.Element => {
           <Outlet />
         </div>
       </main>
+      <Footer />
     </>
   );
 };

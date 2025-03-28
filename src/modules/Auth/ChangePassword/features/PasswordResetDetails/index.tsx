@@ -1,4 +1,4 @@
-import { PasswordResetTypes } from '@modules/Auth/shared/types/passwordResetTypes.ts';
+import { PasswordResetTypes } from '@modules/Auth/shared/types/passwordResetTypes';
 
 import './styles/styles.css';
 
@@ -8,7 +8,6 @@ interface PasswordResetDetailsProps {
 }
 
 export const PasswordResetDetails = ({ type, email }: PasswordResetDetailsProps): JSX.Element => {
-  console.log(email, 'email')
   return (
     <div className="password-reset-wrapper">
       {type === PasswordResetTypes.SEND_RESET && (

@@ -1,0 +1,37 @@
+.company-category {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.category-name {
+  color: var(--text-color);
+  font-weight: 500;
+  font-size: 25px;
+}
+
+.item-company-columns {
+  display: flex;
+  gap: 70px;
+}
+
+.items-company {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  margin: 0;
+  padding: 0;
+
+  color: var(--text-description-color);
+  font-size: 20px;
+
+  list-style: none;
+
+  cursor: pointer;
+}
+
+.footer-link {
+  color: inherit;
+  text-decoration: none;
+}

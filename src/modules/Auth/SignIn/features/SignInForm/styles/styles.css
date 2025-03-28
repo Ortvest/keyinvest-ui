@@ -12,7 +12,7 @@
   width: 344px;
 }
 
-.sign-in-form-inputs-group{
+.sign-in-form-inputs-group {
   display: flex;
   flex-direction: column;
   gap: 16px;

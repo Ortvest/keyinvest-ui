@@ -1,0 +1,43 @@
+footer {
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+  justify-content: center;
+
+  padding: 130px 40px 32px;
+}
+
+.name-and-category {
+  display: flex;
+  justify-content: space-between;
+}
+
+.list-categories {
+  display: flex;
+  gap: 100px;
+}
+
+.logo-and-socials {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo-title {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.socials-media {
+  display: flex;
+  gap: 50px;
+  align-items: center;
+}
+
+.footer-social-icon {
+  filter: var(--fill-theme-toggle);
+}

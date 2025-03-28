@@ -1,5 +1,6 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
+import { Footer } from '@modules/Footer';
 import { Header } from '@modules/Header';
 
 import { AppRoutes, UsageScopes } from './routes.constants';
@@ -23,6 +24,7 @@ export const AuthLayout = ({ authed }: { authed: boolean }): JSX.Element => {
     <>
       {!isAuthPage && <Header />}
       <Outlet />
+      {!isAuthPage && <Footer />}
     </>
   );
 };
