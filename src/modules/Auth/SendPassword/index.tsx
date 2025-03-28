@@ -4,17 +4,18 @@ import classNames from 'classnames';
 
 import { Privacy } from '@modules/Auth/shared/Privacy';
 import { ThemeToggle } from '@modules/Auth/ThemeToggle';
-import { SentResetInForm } from '@modules/SentPassword/features/SentResetInForm';
+import { SendResetInForm } from '@modules/Auth/SendPassword/features/SendResetInForm';
 
 import './styles.css';
+import '../styles.css';
 
-export const SentPassword = (): JSX.Element => {
+export const SendPassword = (): JSX.Element => {
   return (
     <Fragment>
       <ThemeToggle />
-      <div className={classNames('sentpassword-in-container')}>
+      <div className={classNames('sendpassword-in-container')}>
         <div className={classNames('form-container')}>
-          <SentResetInForm />
+          <SendResetInForm />
           <Privacy />
         </div>
       </div>

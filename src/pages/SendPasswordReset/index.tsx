@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 
-import { SendPassword } from '@modules/SendPassword';
+import { SendPassword } from '@modules/Auth/SendPassword';
 
 export const SendPasswordReset = (): JSX.Element => {
   return (
