@@ -1,4 +1,4 @@
-.sign-in-form {
+.sign-in-form-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -8,12 +8,21 @@
   padding: 10px;
 }
 
+.sign-in-form-container form {
+  width: 344px;
+}
+
+.sign-in-form-inputs-group{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .input-email {
   display: flex;
   flex-direction: column;
   gap: 16px;
 
-  width: 90%;
   max-width: 344px;
   margin-top: 24px;
 }

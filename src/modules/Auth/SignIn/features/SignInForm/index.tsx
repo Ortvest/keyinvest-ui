@@ -3,120 +3,95 @@ import { useState } from 'react';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 
-import { setError, setLoading, setUser } from '@global/store/slices/login.slice';
-
-import { AppRoutes } from '@global/router/routes.constants';
-
 import { AuthProposal } from '@modules/Auth/shared/AuthProposal';
-import { GoBackLink } from '@modules/Auth/shared/GoBackLink';
 import { AuthHeader } from '@modules/Auth/shared/Header';
-import { InputEmailField } from '@modules/Auth/shared/InputEmailField';
 import { AuthTypes } from '@modules/Auth/shared/types/authTypes';
-import { InputPassword } from '@modules/Auth/shared/UI/InputPassword';
 import { SocialAuth } from '@modules/Auth/shared/UI/SocialAuth';
-import { ContinueButton } from '@modules/Auth/shared/UI/СontinueButton';
-
-import { useTypedDispatch } from '@shared/hooks/useTypedDispatch';
 
 import './styles/styles.css';
 
 import { useAuthenticateUserMutation } from '@global/api/auth.api';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { signInEmailOnlySchema, signInSchema } from '@shared/validation/sign-in.schema';
+import { AppRoutes } from '@global/router/routes.constants';
+
+type SignInFormInputs = {
+  email: string;
+  password?: string;
+};
+
+
 
 export const SignInForm = (): JSX.Element => {
-  const dispatch = useTypedDispatch();
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [showPasswordInput, setShowPasswordInput] = useState(false);
-  const [error, setErrorState] = useState<string | null>(null);
 
-  const [authenticateUser, { isLoading }] = useAuthenticateUserMutation();
+  const [authenticateUser, { isError }] = useAuthenticateUserMutation();
+  const [authError, setAuthError] = useState<string | null>(null);
+  const schema = showPasswordInput ? signInSchema : signInEmailOnlySchema;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignInFormInputs>({
+    resolver: yupResolver(schema),
+    mode: 'onTouched',
+  });
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setEmail(e.target.value);
-  };
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setPassword(e.target.value);
-  };
 
-  const onHandleContinueClick = async (e: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
-    e.preventDefault();
-    if (!showPasswordInput) {
+  const onSubmit = async (data: SignInFormInputs): Promise<void> => {
+    if (!showPasswordInput && data.email) {
       setShowPasswordInput(true);
-    } else {
-      await handleLogin();
-    }
-  };
-
-  const onHandleGoBackClick = (): void => {
-    setShowPasswordInput(false);
-    setErrorState(null);
-  };
-
-  const handleLogin = async (): Promise<void> => {
-    if (!email || !password) {
-      setErrorState('Please fill in both email and password.');
       return;
     }
 
-    dispatch(setLoading(true));
-    dispatch(setError(null));
-
-    try {
-      const userData = await authenticateUser({ email, password }).unwrap();
-
-      localStorage.setItem('user', JSON.stringify(userData.user));
-
-      dispatch(setUser(userData.user));
-
-      navigate(AppRoutes.MAIN.path);
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        dispatch(setError(err.message || 'Something went wrong'));
-      } else {
-        dispatch(setError('An unknown error occurred'));
-      }
-    } finally {
-      dispatch(setLoading(false));
-    }
+    await authenticateUser({ ...data, password: data.password || '' })
+      .unwrap()
+      .then(() => {
+        navigate(AppRoutes.SYSTEM.path);
+      })
+      .catch((err: Error) => {
+        if (err) {
+          setAuthError('Email or password is incorrect');
+        }
+      });
   };
 
   return (
-    <div className={classNames('sign-in-form')}>
+    <div className={classNames('sign-in-form-container')}>
       <AuthHeader title="Welcome" />
-      <div className={classNames('input-email')}>
-        <InputEmailField value={email} onChange={handleEmailChange} />
-
-        {showPasswordInput && (
-          <div className={classNames('input-password')}>
-            <InputPassword
-              password={password}
-              onPasswordChange={handlePasswordChange}
-              placeholder="Password"
-              name="password"
-              className={classNames('password-field')}
+      <form onSubmit={handleSubmit(onSubmit)} >
+        <div className={classNames('sign-in-form-inputs-group')}>
+          <>
+            <input
+              className={classNames('input-email-field', { error: errors.email || isError })}
+              {...register('email')}
+              placeholder="Email"
             />
-          </div>
-        )}
-      </div>
-
-      {error && <p className="error-message">{error}</p>}
-
-      {!showPasswordInput && <ContinueButton onHandleContinueClick={onHandleContinueClick} />}
-
+            {errors.email && <span className={classNames('error-field-label')}>{errors.email.message}</span>}
+          </>
+          {showPasswordInput ? (
+            <>
+              <input
+                className={classNames('input-email-field', { error: errors.email || isError })}
+                {...register('password')}
+                type={'password'}
+                placeholder="Password"
+              />
+              {errors.password && <span className={classNames('error-field-label')}>{errors.password.message}</span>}
+            </>
+          ) : null}
+        </div>
+        {isError && <span className={classNames('error-field-label')}>{authError}</span>}
+        <button className={classNames('continue-button')} type={'submit'}>
+          {showPasswordInput ? 'Login' : 'Continue'}
+        </button>
+      </form>
       <div className={classNames({ 'auth-proposal-shifted': showPasswordInput })}>
         <AuthProposal type={showPasswordInput ? AuthTypes.REFRESH_PASSWORD : AuthTypes.SIGN_IN} />
       </div>
-
-      {showPasswordInput && (
-        <>
-          <ContinueButton onHandleContinueClick={onHandleContinueClick} disabled={isLoading} />
-          <div>
-            <GoBackLink onClick={onHandleGoBackClick} />
-          </div>
-        </>
-      )}
 
       {!showPasswordInput && <SocialAuth />}
     </div>
