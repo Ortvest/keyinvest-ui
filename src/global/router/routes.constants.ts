@@ -63,6 +63,12 @@ export const AppRoutes = {
     title: '',
     usageScope: [UsageScopes.SYSTEM],
   },
+  BRIEF: {
+    path: '/system/briefing',
+    isVisible: true,
+    title: 'Briefing',
+    usageScope: [UsageScopes.LANDING],
+  },
 };
 
 export type AppRoute = { path: string; isVisible: boolean; title: string; usageScope: string[] };

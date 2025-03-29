@@ -9,6 +9,10 @@
   --blue: #0500ff;
   --white: #fff;
   --red: #e91527;
+  --color-midnight: #131337;
+  --color-blue-hover: #3f3bff;
+  --color-midnight-48: rgb(19 19 55 / 48%);
+  --color-blue-50: rgb(5 0 255 / 50%);
 }
 
 button {
