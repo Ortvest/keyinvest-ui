@@ -20,3 +20,22 @@ export interface BriefStepComponentProps {
 export interface BriefCard {
   value: string;
 }
+
+export interface Company {
+  logo: string
+  ticker: string
+  weburl: string
+  name: string
+  marketCapitalization: number
+  finnhubIndustry: string
+}
+
+export interface BrokerInfo {
+  name: string;
+  domain: string;
+  website: string;
+}
+export interface StocksPicks {
+  companies: Company[],
+  brokers: BrokerInfo[]
+}

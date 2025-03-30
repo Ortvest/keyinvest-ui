@@ -7,8 +7,7 @@ import { signInWithGoogle } from '@modules/Auth/shared/UI/Firebase';
 import IconGoogle from '@shared/assets/icons/Google_Icon.svg';
 
 import './styles/styles.css';
-
-import { useAuthenticateWithGoogleMutation } from '@global/api/auth.api';
+import { useAuthenticateWithGoogleMutation } from '@global/api/auth/auth.api';
 
 export const SocialAuth = (): JSX.Element => {
   const navigate = useNavigate();

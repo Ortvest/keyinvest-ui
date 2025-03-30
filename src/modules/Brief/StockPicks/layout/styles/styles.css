@@ -1,0 +1,26 @@
+.stock-card-logo {
+    width: 30px;
+    height: 30px;
+
+    border-radius: 12px;
+}
+
+.stock-card-ticker {
+    font-size: 14px;
+}
+
+.stock-card-name {
+    font-size: 12px
+}
+
+.stock-card {
+    display: flex;
+    gap: 12px;
+
+    width: 210px;
+    padding: 10px;
+
+    border-radius: 4px;
+
+    background-color: var(--white);
+}

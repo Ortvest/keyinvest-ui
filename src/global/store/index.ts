@@ -2,18 +2,22 @@ import { LoginReducer as loginReducer } from './slices/login.slice';
 import { ModalReducer as modalReducer } from './slices/modal.slice';
 import { RegisterReducer as registerReducer } from './slices/register.slice';
 import { UserReducer as userReducer } from './slices/user.slice';
-import { authApi } from '@global/api/auth.api';
+import { BriefReducer as briefReducer } from './slices/brief.slice';
 import { configureStore } from '@reduxjs/toolkit';
+import { authApi } from '@global/api/auth/auth.api';
+import { briefApi } from '@global/api/brief/brief.api';
 
 export const store = configureStore({
   reducer: {
     modalReducer,
     userReducer,
+    briefReducer,
     login: loginReducer,
     register: registerReducer,
     [authApi.reducerPath]: authApi.reducer,
+    [briefApi.reducerPath]: briefApi.reducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authApi.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authApi.middleware).concat(briefApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

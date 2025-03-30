@@ -14,6 +14,7 @@ import { InvestmentGoals } from '@modules/Brief/Steps/InvestmentGoals';
 import { InterestedSectors } from '@modules/Brief/Steps/InterestedSectors';
 import { CompaniesNumber } from '@modules/Brief/Steps/CompaniesNumber';
 import { StockPicks } from '@modules/Brief/StockPicks';
+import { useSendBriefDataMutation } from '@global/api/brief/brief.api.ts';
 
 const briefingSteps = [
   {
@@ -38,7 +39,7 @@ const briefingSteps = [
   },
   {
     step: IBriefSteps.STOCK_PICKS,
-    component: (props: BriefStepComponentProps): React.ReactElement => <StockPicks {...props} />,
+    component: (): React.ReactElement => <StockPicks />,
   },
 ];
 
@@ -83,6 +84,8 @@ export const BriefSteps = (): React.ReactNode => {
 
   const current = briefingSteps.find((step) => step.step === currentStep);
 
+  const [sendBriefData] = useSendBriefDataMutation();
+
   const onSubmit = async (data: CollectBriefDataInputs): Promise<void> => {
     // const fieldsToValidate = stepFieldsMap[currentStep];
     // const isValid = await trigger(fieldsToValidate);
@@ -95,6 +98,9 @@ export const BriefSteps = (): React.ReactNode => {
       console.log('Briefing finished or no next step.');
     };
 
+    if (nextStep === IBriefSteps.STOCK_PICKS) {
+      await sendBriefData(data);
+    }
   };
   return <>{current?.component({ onUpdateStepHandler, register, onSubmit, handleSubmit })}</>;
 };

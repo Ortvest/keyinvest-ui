@@ -21,6 +21,12 @@
     transition: .3s all;
 }
 
+.brief-button:hover {
+    color: var(--blue);
+
+    background-color: var(--white);
+}
+
 
 .brief-form {
     display: flex;
