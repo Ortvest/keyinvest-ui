@@ -4,6 +4,11 @@
   gap: 30px;
 }
 
+.columned-category .columns-wrapper {
+  display: flex;
+  gap: 70px;
+}
+
 .category-name {
   color: var(--text-color);
   font-weight: 500;
@@ -34,4 +39,24 @@
 .footer-link {
   color: inherit;
   text-decoration: none;
+}
+
+@media (width< 768px) {
+  .item-company-columns {
+    gap: 20px;
+  }
+
+  .columned-category .columns-wrapper {
+    gap: 30px;
+  }
+}
+
+@media (width <= 479px) {
+  .company-category {
+    gap: 10px;
+  }
+
+  .list-categories {
+    flex-direction: column;
+  }
 }

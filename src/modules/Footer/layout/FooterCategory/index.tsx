@@ -8,30 +8,46 @@ interface FooterCategoryProps {
   isColumned?: boolean;
 }
 
-export const FooterCategory = ({ title, links, isColumned = false }: FooterCategoryProps): JSX.Element => (
-  <article className={classNames('company-category')}>
-    <h3 className={classNames('category-name')}>{title}</h3>
-    <div className={classNames({ 'item-company-columns': isColumned })}>
-      <ul className={classNames('items-company')}>
-        {links.slice(0, Math.ceil(links.length / 2)).map(({ label, href }) => (
-          <li key={label}>
-            <a className={classNames('footer-link')} href={href}>
-              {label}
-            </a>
-          </li>
-        ))}
-      </ul>
-      {isColumned && (
-        <ul className={classNames('items-company')}>
-          {links.slice(Math.ceil(links.length / 2)).map(({ label, href }) => (
-            <li key={label}>
-              <a className={classNames('footer-link')} href={href}>
-                {label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  </article>
-);
+export const FooterCategory = ({ title, links, isColumned = false }: FooterCategoryProps): JSX.Element => {
+  const middleIndex = Math.ceil(links.length / 2);
+
+  return (
+    <article className={classNames('company-category', { 'columned-category': isColumned })}>
+      <h3 className={classNames('category-name')}>{title}</h3>
+      <div className={classNames({ 'item-company-columns': isColumned })}>
+        {isColumned ? (
+          <div className="columns-wrapper">
+            <ul className={classNames('items-company')}>
+              {links.slice(0, middleIndex).map(({ label, href }) => (
+                <li key={label}>
+                  <a className={classNames('footer-link')} href={href}>
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <ul className={classNames('items-company')}>
+              {links.slice(middleIndex).map(({ label, href }) => (
+                <li key={label}>
+                  <a className={classNames('footer-link')} href={href}>
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <ul className={classNames('items-company')}>
+            {links.map(({ label, href }) => (
+              <li key={label}>
+                <a className={classNames('footer-link')} href={href}>
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </article>
+  );
+};

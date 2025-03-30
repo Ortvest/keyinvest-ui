@@ -1,0 +1,19 @@
+.burger-menu {
+  position: relative;
+
+  display: none;
+}
+
+.burger-button {
+  cursor: pointer;
+}
+
+.burger-nav {
+  display: none;
+}
+
+@media (width <= 1024px) {
+  .burger-menu {
+    display: block;
+  }
+}
