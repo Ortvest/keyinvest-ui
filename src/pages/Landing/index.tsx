@@ -1,5 +1,3 @@
-import classNames from 'classnames';
-
 import { BenefitsSection } from '@modules/LandingPage/BenefitsSection';
 import { CountdownTimer } from '@modules/LandingPage/CountdownTimer';
 import { FaqSection } from '@modules/LandingPage/FAQ';
@@ -9,11 +7,9 @@ import { ProblemSection } from '@modules/LandingPage/ProblemSection';
 import { SolutionSection } from '@modules/LandingPage/SolutionSection';
 import { TestimonialsSection } from '@modules/LandingPage/TestimonialsSections';
 
-import './styles/styles.css';
-
 export const LandingPage = (): JSX.Element => {
   return (
-    <div className={classNames('landing-section-wrapper')}>
+    <div>
       <MainSection />
       <CountdownTimer targetTime={'2025-04-30 00:00:00'} />
       <ProblemSection />

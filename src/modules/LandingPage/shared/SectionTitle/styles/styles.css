@@ -37,3 +37,49 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+@media (width<= 1440px) {
+  .problem-title {
+    font-size: 32px;
+  }
+
+  .problem-title-h2 {
+    font-size: 36px;
+  }
+}
+
+@media (width < 1024px) {
+  .problem-title-h2 {
+    font-size: 32px;
+  }
+
+  .problem-title {
+    font-size: 28px;
+  }
+
+  .problem-description {
+    width: 80%;
+
+    font-size: 18px;
+  }
+}
+
+@media (width< 768px) {
+  .problem-title-wrapper {
+    padding: 0 40px;
+  }
+
+  .problem-title {
+    font-size: 24px;
+  }
+
+  .problem-title-h2 {
+    font-size: 28px;
+  }
+}
+
+@media (width <= 479px) {
+  .problem-title-wrapper {
+    padding: 0 20px;
+  }
+}

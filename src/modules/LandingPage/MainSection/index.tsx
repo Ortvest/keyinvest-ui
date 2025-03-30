@@ -22,7 +22,11 @@ export const MainSection = (): JSX.Element => {
         <LandingButton title={'Get Started'} />
       </article>
       <figure className={classNames('photo-ai')}>
-        <img src={AiRobot} alt="AI-generated investment insights representation" />
+        <img
+          className={classNames('photo-ai-img')}
+          src={AiRobot}
+          alt="AI-generated investment insights representation"
+        />
       </figure>
     </section>
   );

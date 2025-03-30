@@ -34,3 +34,19 @@
   font-size: 20px;
   text-align: center;
 }
+
+@media (width <= 1440px) {
+  .benefits-title {
+    font-size: 22px;
+  }
+}
+
+@media (width <= 1024px) {
+  .benefits-title {
+    font-size: 20px;
+  }
+
+  .benefits-description {
+    font-size: 18px;
+  }
+}

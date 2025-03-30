@@ -6,6 +6,7 @@ import { RootState } from '@global/store';
 import { setUser } from '@global/store/slices/login.slice';
 
 import { ThemeToggle } from '@modules/Auth/ThemeToggle';
+import { BurgerMenu } from '@modules/Header/features/BurgerMenu';
 import { GetStartedButton } from '@modules/Header/features/GetStartedButton';
 import { UserIcon } from '@modules/Header/features/UserIcon';
 import { Navigation } from '@modules/Header/layout/Navigation';
@@ -38,6 +39,7 @@ export const Header = (): JSX.Element => {
       <div className={classNames('header-actions')}>
         <Navigation />
         {user ? <UserIcon email={user.email} /> : <GetStartedButton />}
+        <BurgerMenu />
         <ThemeToggle />
       </div>
     </header>

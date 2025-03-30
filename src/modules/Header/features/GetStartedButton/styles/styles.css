@@ -14,3 +14,9 @@
 
   cursor: pointer;
 }
+
+@media (width <= 1024px) {
+  .get-started-button {
+    display: none;
+  }
+}

@@ -98,3 +98,21 @@
 
   transform: translateY(-50%);
 }
+
+@media (width<= 1440px) {
+  .plan-section-title,
+  .plan-section-name {
+    font-size: 22px;
+  }
+}
+
+@media (width< 1024px) {
+  .plan-section-title,
+  .plan-section-name {
+    font-size: 20px;
+  }
+
+  .plan-section-price {
+    font-size: 28px;
+  }
+}

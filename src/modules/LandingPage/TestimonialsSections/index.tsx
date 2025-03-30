@@ -73,7 +73,7 @@ export const TestimonialsSection = (): JSX.Element => {
             <TestimonialCard key={index} {...testimonial} />
           ))}
         </Slider>
-        <Slider {...sliderSettingsRTL}>
+        <Slider {...sliderSettingsRTL} className="testimonials-slider-rtl">
           {extendedTestimonials.map((testimonial, index) => (
             <TestimonialCard key={index} {...testimonial} />
           ))}

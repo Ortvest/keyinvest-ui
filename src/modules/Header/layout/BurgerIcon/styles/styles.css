@@ -1,0 +1,19 @@
+.burger-icon-container {
+  position: relative;
+
+  width: 30px;
+  height: 30px;
+}
+
+.burger-icon {
+  width: 24px;
+  height: 24px;
+
+  filter: var(--fill-theme-toggle);
+
+  transition: opacity 0.3s ease-in-out;
+}
+
+.burger-icon-hidden {
+  display: none;
+}

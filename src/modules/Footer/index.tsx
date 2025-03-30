@@ -16,17 +16,17 @@ const companyLinks = [
 ];
 
 const productLinks = [
-  { label: 'Pricing', href: '/pricing' },
-  { label: 'Reviews', href: '/reviews' },
-  { label: 'About us', href: '/about' },
-  { label: 'Contact us', href: '/contact' },
-  { label: 'Benefits', href: '/benefits' },
+  { label: 'Pricing', href: '/#' },
+  { label: 'Reviews', href: '/#' },
+  { label: 'About us', href: '/#' },
+  { label: 'Contact us', href: '/#' },
+  { label: 'Benefits', href: '/#' },
 ];
 
 const pagesLinks = [
-  { label: 'About', href: '/about' },
-  { label: 'Pricing', href: '/pricing' },
-  { label: 'Support', href: '/support' },
+  { label: 'About', href: '/#' },
+  { label: 'Pricing', href: '/#' },
+  { label: 'Support', href: '/#' },
 ];
 
 const socialLinks = [
@@ -40,9 +40,9 @@ export const Footer = (): JSX.Element => {
   return (
     <footer className={classNames('footer')}>
       <div className={classNames('name-and-category')}>
-        <div className={classNames('market-text')}>
-          <h2 className={classNames('market-main-text')}>KeyInvest – AI</h2>
-          <p className={classNames('market-title')}>AI-Driven Market Analysis</p>
+        <div className={classNames('footer-text')}>
+          <h2 className={classNames('footer-main-text')}>KeyInvest – AI</h2>
+          <p className={classNames('footer-title')}>AI-Driven Market Analysis</p>
         </div>
 
         <nav className={classNames('list-categories')} aria-label="Footer Navigation">
