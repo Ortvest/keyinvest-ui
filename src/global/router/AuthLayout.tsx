@@ -1,6 +1,6 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
-import { Footer } from '@modules/Footer';
+import { Footer } from '@modules/Auth/Footer';
 import { Header } from '@modules/Header';
 
 import { AppRoutes, UsageScopes } from './routes.constants';

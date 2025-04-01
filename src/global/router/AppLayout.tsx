@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { Footer } from '@modules/Footer';
+import { Footer } from '@modules/Auth/Footer';
 import { Header } from '@modules/Header';
 
 import { AppRoutes } from './routes.constants';
