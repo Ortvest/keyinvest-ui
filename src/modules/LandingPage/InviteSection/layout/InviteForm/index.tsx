@@ -4,16 +4,13 @@ import { useForm } from 'react-hook-form';
 import './styles/styles.css';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import { InvestmentExperience } from '@shared/enums/InvestmentExperience.enums';
 import { inviteSendSchema } from '@shared/validation/invite-send.schema';
 
 type InviteFormInputs = {
   fullName: string;
   email: string;
-  investmentExperience:
-    | 'I`m just starting out'
-    | 'I have some experience'
-    | 'I`m a confident investor'
-    | 'I`m an investment expert';
+  investmentExperience: InvestmentExperience;
 };
 
 export const InviteForm = (): JSX.Element => {
@@ -35,37 +32,41 @@ export const InviteForm = (): JSX.Element => {
       <h2 className="invite-title">Introduce yourself and join the beta</h2>
       <form className="invite-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group">
-          <h3>Your full name</h3>
+          <label htmlFor="fullName">Your full name</label>
           <input
+            id="fullName"
             className={classNames({ error: errors.fullName })}
             {...register('fullName')}
             placeholder="John Doe"
             type="text"
-            name="fullName"
           />
           {errors.fullName && <span className="error-message">{errors.fullName.message}</span>}
         </div>
 
         <div className="form-group">
-          <h3>Your email</h3>
+          <label htmlFor="email">Your email</label>
           <input
+            id="email"
             className={classNames({ error: errors.email })}
             {...register('email')}
             placeholder="your@mail.com"
             type="email"
-            name="email"
           />
           {errors.email && <span className="error-message">{errors.email.message}</span>}
         </div>
 
         <div className="form-group">
-          <h3>Your investment experience</h3>
-          <select className={classNames({ error: errors.investmentExperience })} {...register('investmentExperience')}>
+          <label htmlFor="investmentExperience">Your investment experience</label>
+          <select
+            id="investmentExperience"
+            className={classNames({ error: errors.investmentExperience })}
+            {...register('investmentExperience')}>
             <option value="">Select your investment experience</option>
-            <option value="I'm just starting out">I`m just starting out</option>
-            <option value="I have some experience">I have some experience</option>
-            <option value="I'm a confident investor">I`m a confident investor</option>
-            <option value="I'm an investment expert">I`m an investment expert</option>
+            {Object.values(InvestmentExperience).map((exp) => (
+              <option key={exp} value={exp}>
+                {exp}
+              </option>
+            ))}
           </select>
           {errors.investmentExperience && <span className="error-message">{errors.investmentExperience.message}</span>}
         </div>

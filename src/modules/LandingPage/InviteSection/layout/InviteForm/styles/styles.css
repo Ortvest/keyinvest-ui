@@ -15,7 +15,9 @@
   margin-bottom: 42px;
 }
 
-.form-group h3 {
+.form-group label {
+  display: block;
+
   margin-bottom: 8px;
 
   color: var(--text-color);
