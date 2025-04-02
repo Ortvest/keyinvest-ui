@@ -1,0 +1,16 @@
+.invite-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 60px 20px;
+
+  text-align: center;
+}
+
+.invite-form-wrapper {
+  margin-top: 24px;
+}

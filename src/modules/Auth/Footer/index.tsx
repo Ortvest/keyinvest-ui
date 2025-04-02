@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import { FooterCategory } from '@modules/Footer/layout/FooterCategory';
+import { FooterCategory } from '@modules/Auth/Footer/layout/FooterCategory';
 
 import IconLogo from '@shared/assets/icons/IconLogo.svg';
 import In from '@shared/assets/icons/in.svg';
