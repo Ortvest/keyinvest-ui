@@ -4,13 +4,13 @@ import { useForm } from 'react-hook-form';
 import './styles/styles.css';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { InvestmentExperience } from '@shared/enums/InvestmentExperience.enums';
+import { InviteStatus, InviteStatuses } from '@shared/enums/InvestmentExperience.enums';
 import { inviteSendSchema } from '@shared/validation/invite-send.schema';
 
 type InviteFormInputs = {
   fullName: string;
   email: string;
-  investmentExperience: InvestmentExperience;
+  investmentExperience: InviteStatus;
 };
 
 export const InviteForm = (): JSX.Element => {
@@ -60,11 +60,14 @@ export const InviteForm = (): JSX.Element => {
           <select
             id="investmentExperience"
             className={classNames({ error: errors.investmentExperience })}
+            defaultValue=""
             {...register('investmentExperience')}>
-            <option value="">Select your investment experience</option>
-            {Object.values(InvestmentExperience).map((exp) => (
-              <option key={exp} value={exp}>
-                {exp}
+            <option value="" disabled>
+              Select your investment experience
+            </option>
+            {Object.entries(InviteStatuses).map(([key, value]) => (
+              <option key={key} value={key}>
+                {value}
               </option>
             ))}
           </select>

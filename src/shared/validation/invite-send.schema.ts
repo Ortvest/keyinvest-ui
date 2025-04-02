@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-import { InvestmentExperience } from '@shared/enums/InvestmentExperience.enums';
+import { InviteStatus, InviteStatuses } from '@shared/enums/InvestmentExperience.enums';
 
 export const inviteSendSchema = yup.object().shape({
   fullName: yup
@@ -13,7 +13,7 @@ export const inviteSendSchema = yup.object().shape({
   email: yup.string().trim().email('Invalid email format').required('Email is required'),
 
   investmentExperience: yup
-    .mixed<InvestmentExperience>()
-    .oneOf(Object.values(InvestmentExperience), 'Invalid experience level')
+    .mixed<InviteStatus>()
+    .oneOf(Object.values(InviteStatuses), 'Invalid experience level')
     .required('Investment Experience is required'),
 });
