@@ -7,9 +7,10 @@ interface PlanCardProps {
   title: string;
   price: string;
   details?: boolean;
+  features: string[];
 }
 
-export const PlanCard = ({ name, title, price, details = false }: PlanCardProps): JSX.Element => {
+export const PlanCard = ({ name, title, price, details = false, features }: PlanCardProps): JSX.Element => {
   return (
     <article className={classNames('plan-section-item')}>
       <p className={classNames('plan-section-name')}>{name}</p>
@@ -17,9 +18,9 @@ export const PlanCard = ({ name, title, price, details = false }: PlanCardProps)
       <section>
         <p className={classNames('plan-section-includes')}>Includes</p>
         <ul className={classNames('plan-includes-items')}>
-          <li>Demo strategy: 1 request</li>
-          <li>Portfolio analysis</li>
-          <li>Al-investment assistant (chat with Al)</li>
+          {features.map((feature, index) => (
+            <li key={index}>{feature}</li>
+          ))}
         </ul>
       </section>
       {!details && <div style={{ marginTop: '21px' }}></div>}

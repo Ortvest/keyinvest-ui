@@ -1,7 +1,10 @@
 import { useState } from 'react';
 
 import classNames from 'classnames';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+
+import { AppRoutes } from '@global/router/routes.constants';
 
 import { AuthProposal } from '@modules/Auth/shared/AuthProposal';
 import { AuthHeader } from '@modules/Auth/shared/Header';
@@ -9,7 +12,6 @@ import { AuthTypes } from '@modules/Auth/shared/types/authTypes';
 import { SocialAuth } from '@modules/Auth/shared/UI/SocialAuth';
 
 import './styles/styles.css';
-
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -21,8 +23,6 @@ type SignInFormInputs = {
   email: string;
   password?: string;
 };
-
-
 
 export const SignInForm = (): JSX.Element => {
   const navigate = useNavigate();
@@ -39,8 +39,6 @@ export const SignInForm = (): JSX.Element => {
     resolver: yupResolver(schema),
     mode: 'onTouched',
   });
-
-
 
   const onSubmit = async (data: SignInFormInputs): Promise<void> => {
     if (!showPasswordInput && data.email) {
@@ -63,7 +61,7 @@ export const SignInForm = (): JSX.Element => {
   return (
     <div className={classNames('sign-in-form-container')}>
       <AuthHeader title="Welcome" />
-      <form onSubmit={handleSubmit(onSubmit)} >
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className={classNames('sign-in-form-inputs-group')}>
           <>
             <input

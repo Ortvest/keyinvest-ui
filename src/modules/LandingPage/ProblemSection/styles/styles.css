@@ -12,3 +12,23 @@
   gap: 130px;
   justify-content: center;
 }
+
+@media (width<= 1440px) {
+  .problem-cards-wrapper {
+    gap: 80px;
+
+    padding: 0 40px;
+  }
+}
+
+@media (width < 1024px) {
+  .problem-cards-wrapper {
+    flex-wrap: wrap;
+  }
+}
+
+@media (width <= 479px) {
+  .problem-cards-wrapper {
+    padding: 0 20px;
+  }
+}

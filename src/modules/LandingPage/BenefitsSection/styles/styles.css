@@ -12,3 +12,23 @@
   gap: 130px;
   justify-content: center;
 }
+
+@media (width <= 1440px) {
+  .benefits-items-list {
+    gap: 80px;
+
+    padding: 0 40px;
+  }
+}
+
+@media (width < 1024px) {
+  .benefits-items-list {
+    flex-wrap: wrap;
+  }
+}
+
+@media (width <= 479px) {
+  .benefits-items-list {
+    padding: 0 20px;
+  }
+}

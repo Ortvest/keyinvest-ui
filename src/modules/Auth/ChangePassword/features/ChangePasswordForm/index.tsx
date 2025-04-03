@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import classNames from 'classnames';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -16,12 +18,12 @@ import { resetPasswordSchema } from '@shared/validation/reset-password.schema';
 import { useState } from 'react';
 import { useResetPasswordMutation } from '@global/api/auth/auth.api';
 
+
 type ResetPasswordFormInputs = {
   password: string;
   confirmPassword: string;
-}
+};
 export const ChangePasswordForm = (): JSX.Element => {
-
   const {
     register,
     handleSubmit,
@@ -39,7 +41,6 @@ export const ChangePasswordForm = (): JSX.Element => {
   const navigate = useNavigate();
 
   const [resetPassword] = useResetPasswordMutation();
-
 
   const onHandleGoBackClick = (): void => {
     navigate(AppRoutes.AUTH_SENT_PASSWORD_RESET.path);

@@ -45,3 +45,39 @@
 
   box-shadow: 0 4px 10px rgb(0 0 0 / 10%);
 }
+
+@media (width < 768px) {
+  .timer-items,
+  .timer-line {
+    gap: 15px;
+  }
+
+  .timer {
+    font-size: 32px;
+  }
+
+  .time-block {
+    padding: 10px 15px;
+
+    font-weight: bold;
+    font-size: 32px;
+  }
+}
+
+@media (width <= 479px) {
+  .timer-items,
+  .timer-line {
+    gap: 10px;
+  }
+
+  .timer {
+    font-size: 28px;
+  }
+
+  .time-block {
+    padding: 5px 10px;
+
+    font-weight: 500;
+    font-size: 28px;
+  }
+}

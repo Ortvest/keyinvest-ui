@@ -2,9 +2,9 @@ import { Fragment } from 'react';
 
 import classNames from 'classnames';
 
+import { SentResetInForm } from '@modules/Auth/SentPassword/features/SentResetInForm';
 import { Privacy } from '@modules/Auth/shared/Privacy';
 import { ThemeToggle } from '@modules/Auth/ThemeToggle';
-import { SentResetInForm } from '@modules/Auth/SentPassword/features/SentResetInForm';
 
 import './styles.css';
 

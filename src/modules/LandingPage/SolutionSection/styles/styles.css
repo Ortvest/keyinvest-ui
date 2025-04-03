@@ -12,3 +12,9 @@
   flex-direction: column;
   gap: 130px;
 }
+
+@media (width < 768px) {
+  .solution-cards-list {
+    gap: 80px;
+  }
+}

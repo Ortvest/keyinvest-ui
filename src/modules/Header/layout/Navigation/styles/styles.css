@@ -11,3 +11,9 @@
   line-height: 21px;
   text-decoration: none;
 }
+
+@media (width <= 1024px) {
+  .navigation-wrapper {
+    display: none;
+  }
+}

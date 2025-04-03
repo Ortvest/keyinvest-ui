@@ -14,6 +14,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  align-items: stretch;
 }
 
 .testimonials-slider {
@@ -26,11 +27,25 @@
   width: 510px !important;
 }
 
-.slick-list {
-  width: 100vw !important;
-}
-
 .slick-track {
   display: flex;
   gap: 20px;
+}
+
+@media (width <= 1024px) {
+  .slick-slide {
+    width: 450px !important;
+  }
+}
+
+@media (width <= 768px) {
+  .testimonials-slider-rtl {
+    display: none;
+  }
+}
+
+@media (width <= 479px) {
+  .slick-slide {
+    width: 380px !important;
+  }
 }
