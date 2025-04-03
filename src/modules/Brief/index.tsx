@@ -14,7 +14,9 @@ import { InvestmentGoals } from '@modules/Brief/Steps/InvestmentGoals';
 import { InterestedSectors } from '@modules/Brief/Steps/InterestedSectors';
 import { CompaniesNumber } from '@modules/Brief/Steps/CompaniesNumber';
 import { StockPicks } from '@modules/Brief/StockPicks';
-import { useSendBriefDataMutation } from '@global/api/brief/brief.api.ts';
+import { useSendBriefDataMutation } from '@global/api/brief/brief.api';
+import { getNextBriefStep } from '@shared/utils/getNextBriefStep';
+import { StepHeader } from '@modules/Brief/Steps/Header';
 
 const briefingSteps = [
   {
@@ -44,32 +46,6 @@ const briefingSteps = [
 ];
 
 
-
-// const stepFieldsMap: Record<BriefStep, (keyof CollectBriefDataInputs)[]> = {
-//   [IBriefSteps.WELCOME]: [],
-//   [IBriefSteps.PERIOD]: ['period'],
-//   [IBriefSteps.INVESTMENT_GOALS]: ['goals'],
-//   [IBriefSteps.INTERESTED_SECTORS]: ['sectors'],
-//   [IBriefSteps.COMPANIES_COUNT]: ['numCompanies']
-// };
-
-const getNextStep = (step: BriefStep): BriefStep | null => {
-  switch (step) {
-    case IBriefSteps.WELCOME:
-      return IBriefSteps.PERIOD;
-    case IBriefSteps.PERIOD:
-      return IBriefSteps.INVESTMENT_GOALS;
-    case IBriefSteps.INVESTMENT_GOALS:
-      return IBriefSteps.INTERESTED_SECTORS;
-    case IBriefSteps.INTERESTED_SECTORS:
-      return IBriefSteps.COMPANIES_COUNT;
-    case IBriefSteps.COMPANIES_COUNT:
-      return IBriefSteps.STOCK_PICKS;
-    default:
-      return null;
-  }
-};
-
 export const BriefSteps = (): React.ReactNode => {
   const [currentStep, setCurrentStep] = useState<BriefStep>(IBriefSteps.WELCOME);
 
@@ -77,7 +53,7 @@ export const BriefSteps = (): React.ReactNode => {
     setCurrentStep(step);
   };
 
-  const { register, handleSubmit, getValues } = useForm<CollectBriefDataInputs>({
+  const { register, handleSubmit } = useForm<CollectBriefDataInputs>({
     resolver: yupResolver(collectBriefDataSchema),
     mode: 'onTouched',
   });
@@ -87,20 +63,19 @@ export const BriefSteps = (): React.ReactNode => {
   const [sendBriefData] = useSendBriefDataMutation();
 
   const onSubmit = async (data: CollectBriefDataInputs): Promise<void> => {
-    // const fieldsToValidate = stepFieldsMap[currentStep];
-    // const isValid = await trigger(fieldsToValidate);
-    console.log(data, 'data');
-    console.log(getValues());
-    const nextStep = getNextStep(currentStep);
+    const nextStep = getNextBriefStep(currentStep);
     if (nextStep) {
       setCurrentStep(nextStep);
     } else {
       console.log('Briefing finished or no next step.');
     };
 
-    if (nextStep === IBriefSteps.STOCK_PICKS) {
+    if ((nextStep as BriefStep) === IBriefSteps.STOCK_PICKS) {
       await sendBriefData(data);
     }
   };
-  return <>{current?.component({ onUpdateStepHandler, register, onSubmit, handleSubmit })}</>;
+  return <>
+    <StepHeader currentStep={currentStep} setCurrentStep={setCurrentStep}/>
+    {current?.component({ onUpdateStepHandler, register, onSubmit, handleSubmit })}
+  </>;
 };
