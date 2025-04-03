@@ -1,0 +1,134 @@
+.brief-step-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.brief-button { 
+    align-self: center;
+
+    width: auto;
+    margin-top: 24px;
+    padding: 8px 16px;
+
+    color: var(--white);
+    font-size: 18px;
+
+    border-radius: 12px;
+
+    background-color: var(--blue);
+
+    transition: .3s all;
+}
+
+.brief-button:hover {
+    color: var(--blue);
+
+    background-color: var(--white);
+}
+
+
+.brief-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: center;
+
+    margin-top: 24px;
+}
+
+
+.brief-cards-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+
+    width: 100%;
+    max-width: 650px;
+}
+
+.custom-select-wrapper {
+    position: relative;
+
+    width: 100%;
+    max-width: 320px;
+}
+
+.custom-select-wrapper select {
+    width: 100%;
+    padding: 12px 40px 12px 16px;
+
+    color: #111827;
+    font-size: 16px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+
+    background-color: white;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 20' fill='none' stroke='%236B7280' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 8l4 4 4-4' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.2rem;
+
+    box-shadow: 0 2px 8px rgb(0 0 0 / 5%);
+
+    appearance: none;
+}
+
+.custom-select-wrapper select:focus {
+    border-color: #6366f1;
+
+    outline: none;
+
+    box-shadow: 0 0 0 3px rgb(99 102 241 / 20%);
+}
+
+
+.brief-goal-card {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 48px;
+    padding: 10px 20px;
+
+    color: #111827;
+    font-weight: 500;
+    font-size: 14px;
+    white-space: nowrap;
+    text-overflow: clip;
+
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+
+    background-color: #f9fafb;
+
+    cursor: pointer;
+
+    overflow: hidden;
+}
+
+.brief-goal-card:hover {
+    background-color: #f3f4f6;
+}
+
+.brief-goal-card input {
+    display: none;
+}
+
+.brief-goal-card input:checked ~ * {
+    color: white;
+
+    border-color: transparent;
+
+    background-color: var(--color-blue-hover);
+}
+
+.brief-goal-card:has(input:checked) {
+    color: white;
+
+    border-color: transparent;
+
+    background-color: var(--color-blue-hover);
+}

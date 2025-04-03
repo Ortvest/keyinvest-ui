@@ -1,12 +1,12 @@
 import { setUser as setLoginUser } from '@global/store/slices/login.slice';
 import { setUser as setRegisterUser } from '@global/store/slices/register.slice';
 
-import { API_ENDPOINTS } from '@global/api/api.consts';
-import { baseApi } from '@global/api/base.api';
+import { API_ENDPOINTS } from '../api.consts';
+import { baseAuthApi } from './baseAuthApi';
 import { HttpMethods } from '@shared/enums/HttpMethods.enums';
 import { AuthCredentials, AuthResponse } from '@shared/interfaces/Auth.interfaces';
 
-export const authApi = baseApi.injectEndpoints({
+export const authApi = baseAuthApi.injectEndpoints({
   endpoints: (builder) => ({
     sendPasswordReset: builder.mutation<void, { email: string }>({
       query: ({ email }) => ({

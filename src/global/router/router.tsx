@@ -10,6 +10,8 @@ import { LandingPage } from '@pages/Landing';
 import { RegistrationPage } from '@pages/Registration';
 import { SendPasswordReset } from '@pages/SendPasswordReset';
 import { SentPasswordReset } from '@pages/SentPasswordReset';
+import { BriefPage } from '@pages/Brief';
+import { SystemLayout } from '@global/router/SystemLayout.tsx';
 
 export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> =>
   createBrowserRouter([
@@ -58,9 +60,20 @@ export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> 
           path: AppRoutes.MAIN.path,
           element: <LandingPage />,
         },
+
       ],
     },
     //authed user
+    {
+      path: '/system',
+      element: <SystemLayout authed={authed} />,
+      children: [
+        {
+          path: AppRoutes.BRIEF.path,
+          element: <BriefPage />,
+        },
+      ]
+    },
     {
       path: '/',
       element: <AppLayout authed={authed} />,
@@ -68,6 +81,10 @@ export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> 
         {
           path: AppRoutes.AUTHED_MAIN_PAGE.path,
           element: null,
+        },
+        {
+          path: AppRoutes.BRIEF.path,
+          element: <BriefPage />,
         },
       ],
     },

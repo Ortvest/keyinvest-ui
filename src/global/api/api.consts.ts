@@ -6,4 +6,5 @@ export const API_ENDPOINTS = {
   AUTH_GOOGLE: '/auth/signUp/google',
   SEND_VERIFICATION_CODE: '/auth/send-verification',
   VERIFY_CODE: '/auth/verify-code',
+  COLLECT_BRIEF_DATA: 'investment/recommendations',
 } as const;

@@ -1,0 +1,21 @@
+
+.brief-header-title {
+    color: var(--color-midnight);
+    font-size: 32px;
+}
+
+.brief-header-subtitle {
+    max-width: 460px;
+
+    color: var(--color-midnight-48);
+    text-align-last: center;
+}
+
+.brief-header{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+
+    text-align: center;
+}
