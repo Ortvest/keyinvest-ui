@@ -1,11 +1,11 @@
+import { BriefReducer as briefReducer } from './slices/brief.slice';
 import { LoginReducer as loginReducer } from './slices/login.slice';
 import { ModalReducer as modalReducer } from './slices/modal.slice';
 import { RegisterReducer as registerReducer } from './slices/register.slice';
 import { UserReducer as userReducer } from './slices/user.slice';
-import { BriefReducer as briefReducer } from './slices/brief.slice';
-import { configureStore } from '@reduxjs/toolkit';
 import { authApi } from '@global/api/auth/auth.api';
 import { briefApi } from '@global/api/brief/brief.api';
+import { configureStore } from '@reduxjs/toolkit';
 
 export const store = configureStore({
   reducer: {

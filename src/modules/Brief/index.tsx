@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import { useForm } from 'react-hook-form';
 
-import { Sidebar } from '@modules/Brief/shared/Sidebar';
 import { CompaniesNumber } from '@modules/Brief/Steps/CompaniesNumber';
 import { StepHeader } from '@modules/Brief/Steps/Header';
 import { InterestedSectors } from '@modules/Brief/Steps/InterestedSectors';
@@ -78,7 +77,6 @@ export const BriefSteps = (): React.ReactNode => {
   return (
     <>
       <StepHeader currentStep={currentStep} setCurrentStep={setCurrentStep} />
-      <Sidebar />
       {current?.component({ onUpdateStepHandler, register, onSubmit, handleSubmit })}
     </>
   );

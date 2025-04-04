@@ -1,8 +1,9 @@
-import { baseBriefApi } from './baseBriefApi';
+import { setStockPicks } from '@global/store/slices/brief.slice';
+
 import { API_ENDPOINTS } from '../api.consts';
+import { baseBriefApi } from './baseBriefApi';
 import { HttpMethods } from '@shared/enums/HttpMethods.enums';
 import { CollectBriefDataInputs, StocksPicks } from '@shared/interfaces/Brief.interfaces';
-import { setStockPicks } from '@global/store/slices/brief.slice';
 
 export const briefApi = baseBriefApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -26,6 +27,4 @@ export const briefApi = baseBriefApi.injectEndpoints({
   }),
 });
 
-export const {
-  useSendBriefDataMutation,
-} = briefApi;
+export const { useSendBriefDataMutation } = briefApi;

@@ -13,9 +13,8 @@ export const InvestmentPeriod = ({ handleSubmit, register, onSubmit }: BriefStep
     <>
       <BriefHeader
         title={'How long are you planning to invest?'}
-        subtitle={
-          'The investment period helps us select stocks that align with your strategy — whether you’re looking for quick gains or long-term growth.'
-        }
+        subtitle={`The investment period helps us select stocks that align with your strategy 
+		  — whether you’re looking for quick gains or long-term growth.`}
       />
 
       <form className="brief-form" onSubmit={handleSubmit(onSubmit)}>

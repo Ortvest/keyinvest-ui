@@ -3,15 +3,18 @@ import { createBrowserRouter } from 'react-router-dom';
 import { AppLayout } from '@global/router/AppLayout';
 import { AuthLayout } from '@global/router/AuthLayout';
 import { AppRoutes } from '@global/router/routes.constants';
+import { SystemLayout } from '@global/router/SystemLayout';
 
+import { AIAssistant } from '@pages/AIAssistant';
 import { SignInPage } from '@pages/Authorization';
+import { BriefPage } from '@pages/Brief';
 import { ChangePasswordReset } from '@pages/ChangePasswordReset';
 import { LandingPage } from '@pages/Landing';
+import { Notifications } from '@pages/Notifications';
 import { RegistrationPage } from '@pages/Registration';
 import { SendPasswordReset } from '@pages/SendPasswordReset';
 import { SentPasswordReset } from '@pages/SentPasswordReset';
-import { BriefPage } from '@pages/Brief';
-import { SystemLayout } from '@global/router/SystemLayout.tsx';
+import { Templates } from '@pages/Templates';
 
 export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> =>
   createBrowserRouter([
@@ -70,6 +73,18 @@ export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> 
         {
           path: AppRoutes.BRIEF.path,
           element: <BriefPage />,
+        },
+        {
+          path: AppRoutes.TEMPLATES.path,
+          element: <Templates />,
+        },
+        {
+          path: AppRoutes.NOTIFICATIONS.path,
+          element: <Notifications />,
+        },
+        {
+          path: AppRoutes.AI_ASSISTANT.path,
+          element: <AIAssistant />,
         },
       ],
     },

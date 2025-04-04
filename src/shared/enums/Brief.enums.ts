@@ -12,8 +12,8 @@ export const BriefStepLabels: {
   [BriefSteps.COMPANIES_COUNT]: string;
   [BriefSteps.INVESTMENT_GOALS]: string;
   [BriefSteps.PERIOD]: string;
-  [BriefSteps.INTERESTED_SECTORS]: string
-  [BriefSteps.STOCK_PICKS]: string
+  [BriefSteps.INTERESTED_SECTORS]: string;
+  [BriefSteps.STOCK_PICKS]: string;
 } = {
   [BriefSteps.WELCOME]: 'Welcome',
   [BriefSteps.PERIOD]: 'Investment period',
@@ -22,6 +22,5 @@ export const BriefStepLabels: {
   [BriefSteps.COMPANIES_COUNT]: 'Number of companies',
   [BriefSteps.STOCK_PICKS]: 'Your stock picks',
 };
-
 
 export type BriefStep = (typeof BriefSteps)[keyof typeof BriefSteps];

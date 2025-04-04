@@ -69,6 +69,24 @@ export const AppRoutes = {
     title: 'Briefing',
     usageScope: [UsageScopes.LANDING],
   },
+  TEMPLATES: {
+    path: '/system/templates',
+    isVisible: true,
+    title: 'Templates',
+    usageScope: [UsageScopes.LANDING],
+  },
+  NOTIFICATIONS: {
+    path: '/system/notifications',
+    isVisible: true,
+    title: 'Notifications',
+    usageScope: [UsageScopes.LANDING],
+  },
+  AI_ASSISTANT: {
+    path: '/system/ai-assistant',
+    isVisible: true,
+    title: 'Ai-assistant',
+    usageScope: [UsageScopes.LANDING],
+  },
 };
 
 export type AppRoute = { path: string; isVisible: boolean; title: string; usageScope: string[] };
