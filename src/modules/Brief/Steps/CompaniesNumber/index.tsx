@@ -1,23 +1,22 @@
 import React from 'react';
 
-import { BriefHeader } from '@modules/Brief/shared/Header';
-
-import { BriefStepComponentProps } from '@shared/interfaces/Brief.interfaces';
 import classNames from 'classnames';
 
+import { BriefHeader } from '@modules/Brief/shared/Header';
+
 import '../../shared/styles.css';
+
+import { BriefStepComponentProps } from '@shared/interfaces/Brief.interfaces';
 
 export const CompaniesNumber = ({ handleSubmit, register, onSubmit }: BriefStepComponentProps): React.ReactNode => {
   return (
     <>
       <BriefHeader
         title={'How many companies do you want to invest in?'}
-        subtitle={
-          'Select how many companies you would like to include in your investment portfolio.'
-        }
+        subtitle={'Select how many companies you would like to include in your investment portfolio.'}
       />
 
-      <form  className="brief-form" onSubmit={handleSubmit(onSubmit)}>
+      <form className="brief-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="brief-selector">
           <div className="custom-select-wrapper">
             <select {...register('numCompanies')} defaultValue="">
@@ -35,4 +34,4 @@ export const CompaniesNumber = ({ handleSubmit, register, onSubmit }: BriefStepC
       </form>
     </>
   );
-}
+};

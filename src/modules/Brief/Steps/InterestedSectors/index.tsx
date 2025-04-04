@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 
-import { BriefCard, BriefStepComponentProps } from '@shared/interfaces/Brief.interfaces';
 import { BriefHeader } from '@modules/Brief/shared/Header';
 
+import { BriefCard, BriefStepComponentProps } from '@shared/interfaces/Brief.interfaces';
 
 export const InterestedSectors = ({ handleSubmit, register, onSubmit }: BriefStepComponentProps): React.ReactNode => {
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [interestedSectors, _] = useState<BriefCard[]>([
     {
@@ -67,7 +66,6 @@ export const InterestedSectors = ({ handleSubmit, register, onSubmit }: BriefSte
           Next
         </button>
       </form>
-
     </div>
-  )
-}
+  );
+};

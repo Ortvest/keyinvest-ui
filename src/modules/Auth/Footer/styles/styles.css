@@ -101,13 +101,15 @@ footer {
     gap: 0;
     justify-content: space-between;
   }
-
-  .items-company {
-    font-size: 18px;
-  }
 }
 
 @media (width <= 479px) {
+  .footer-text {
+    align-items: center;
+
+    text-align: center;
+  }
+
   .footer {
     padding: 130px 20px 32px;
   }

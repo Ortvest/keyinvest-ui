@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { BriefHeader } from '@modules/Brief/shared/Header';
-
-import { BriefStepComponentProps } from '@shared/interfaces/Brief.interfaces';
 import classNames from 'classnames';
 
+import { BriefHeader } from '@modules/Brief/shared/Header';
+
 import '../../shared/styles.css';
+
+import { BriefStepComponentProps } from '@shared/interfaces/Brief.interfaces';
 
 export const InvestmentPeriod = ({ handleSubmit, register, onSubmit }: BriefStepComponentProps): React.ReactNode => {
   return (
@@ -17,7 +18,7 @@ export const InvestmentPeriod = ({ handleSubmit, register, onSubmit }: BriefStep
         }
       />
 
-      <form  className="brief-form" onSubmit={handleSubmit(onSubmit)}>
+      <form className="brief-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="brief-selector">
           <div className="custom-select-wrapper">
             <select {...register('period')} id="period" defaultValue="">
@@ -33,11 +34,10 @@ export const InvestmentPeriod = ({ handleSubmit, register, onSubmit }: BriefStep
           </div>
         </div>
 
-
         <button className={classNames('brief-button')} type="submit">
           Next
         </button>
       </form>
     </>
   );
-}
+};

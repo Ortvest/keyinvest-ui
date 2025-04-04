@@ -13,11 +13,9 @@ import { AuthHeader } from '@modules/Auth/shared/Header';
 import './styles/styles.css';
 import '../../styles.css';
 
+import { useResetPasswordMutation } from '@global/api/auth/auth.api';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { resetPasswordSchema } from '@shared/validation/reset-password.schema';
-import { useState } from 'react';
-import { useResetPasswordMutation } from '@global/api/auth/auth.api';
-
 
 type ResetPasswordFormInputs = {
   password: string;

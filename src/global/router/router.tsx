@@ -60,7 +60,6 @@ export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> 
           path: AppRoutes.MAIN.path,
           element: <LandingPage />,
         },
-
       ],
     },
     //authed user
@@ -72,7 +71,7 @@ export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> 
           path: AppRoutes.BRIEF.path,
           element: <BriefPage />,
         },
-      ]
+      ],
     },
     {
       path: '/',

@@ -1,23 +1,25 @@
 import React from 'react';
+
 import classNames from 'classnames';
 
-import './styles/styles.css';
-import { BriefStep } from '@shared/enums/Brief.enums';
+import IconArrowLeft from '@shared/assets/icons/arrow-left.svg';
 
-import IconArrowLeft from '@shared/assets/icons/arrow-left.svg'
+import './styles/styles.css';
+
+import { BriefStep } from '@shared/enums/Brief.enums';
 import { getBriefStepIndex, getBriefStepLabel, getPreviousBriefStep } from '@shared/utils/getNextBriefStep';
+
 interface StepHeaderProps {
-  currentStep: BriefStep
-  setCurrentStep: (step: BriefStep) => void
+  currentStep: BriefStep;
+  setCurrentStep: (step: BriefStep) => void;
 }
 export const StepHeader = ({ currentStep, setCurrentStep }: StepHeaderProps): React.ReactElement => {
-
   const currentStepIndex = getBriefStepIndex(currentStep);
 
-  const onBackStepAction= (): void  => {
+  const onBackStepAction = (): void => {
     const previousStep = getPreviousBriefStep(currentStep);
     setCurrentStep(previousStep as BriefStep);
-  }
+  };
 
   return (
     <header className={classNames('step-header')}>
@@ -34,4 +36,4 @@ export const StepHeader = ({ currentStep, setCurrentStep }: StepHeaderProps): Re
       </div>
     </header>
   );
-}
+};
