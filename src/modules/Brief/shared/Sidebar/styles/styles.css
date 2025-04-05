@@ -1,0 +1,87 @@
+.brief-sidebar-wrapper {
+  position: absolute;
+  top: 18px;
+  left: 12px;
+  bottom: 18px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 55px;
+  height: calc(100% - 36px);
+  padding: 9px 7px 21px;
+
+  border-radius: 10px;
+
+  background-color: var(--white);
+}
+
+.brief-sidebar-logo {
+  width: 32px;
+  height: 32px;
+}
+
+.brief-sidebar-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.brief-sidebar-column::after {
+  content: '';
+
+  width: 100%;
+  height: 1px;
+  margin: 16px 0;
+
+  background-color: var(--divider-color);
+}
+
+.brief-sidebar-links {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  height: 100%;
+}
+
+.brief-sidebar-list,
+.brief-sidebar-quest-avatar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.brief-sidebar-item,
+.sidebar-list-avatar,
+.brief-sidebar-quest {
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+
+  border-radius: 5px;
+
+  cursor: pointer;
+}
+
+.brief-sidebar-item:hover,
+.brief-sidebar-quest:hover {
+  background-color: var(--input-border);
+}
+
+.brief-sidebar-item.active,
+.brief-sidebar-quest.active {
+  background-color: var(--input-border);
+}
+
+.sidebar-list-icon {
+  width: 20px;
+  height: 20px;
+}

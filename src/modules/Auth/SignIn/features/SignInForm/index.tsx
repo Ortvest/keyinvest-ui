@@ -13,11 +13,9 @@ import { SocialAuth } from '@modules/Auth/shared/UI/SocialAuth';
 
 import './styles/styles.css';
 
-import { useForm } from 'react-hook-form';
+import { useAuthenticateUserMutation } from '@global/api/auth/auth.api';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { signInEmailOnlySchema, signInSchema } from '@shared/validation/sign-in.schema';
-import { AppRoutes } from '@global/router/routes.constants';
-import { useAuthenticateUserMutation } from '@global/api/auth/auth.api';
 
 type SignInFormInputs = {
   email: string;

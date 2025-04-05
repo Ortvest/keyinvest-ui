@@ -1,15 +1,14 @@
 import React from 'react';
+
 import classNames from 'classnames';
 
-import './styles/styles.css'
+import './styles/styles.css';
 
 interface BriefHeaderProps {
   title: string;
   subtitle: string;
 }
-export const BriefHeader = ({title, subtitle}: BriefHeaderProps): React.ReactNode => {
-
-
+export const BriefHeader = ({ title, subtitle }: BriefHeaderProps): React.ReactNode => {
   return (
     <header className={classNames('brief-header')}>
       <div>
@@ -19,5 +18,5 @@ export const BriefHeader = ({title, subtitle}: BriefHeaderProps): React.ReactNod
         <p className={classNames('brief-header-subtitle')}>{subtitle}</p>
       </div>
     </header>
-  )
-}
+  );
+};

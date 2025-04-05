@@ -13,13 +13,13 @@ import { StepNames } from '@modules/Auth/shared/types/stepNames';
 import './styles/styles.css';
 import '../../styles.css';
 
-import { yupResolver } from '@hookform/resolvers/yup';
-import { signUpSchema } from '@shared/validation/sign-up.schema';
 import {
   useRegisterUserMutation,
   useSendVerificationCodeMutation,
   useVerifyCodeMutation,
 } from '@global/api/auth/auth.api';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { signUpSchema } from '@shared/validation/sign-up.schema';
 
 type SignUpFormInputs = {
   email: string;

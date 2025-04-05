@@ -20,5 +20,5 @@ export const StockCard = ({ stock }: StockCardProps): React.ReactNode => {
         <p className={classNames('stock-card-name')}>{stock.name}</p>
       </div>
     </section>
-  )
-}
+  );
+};

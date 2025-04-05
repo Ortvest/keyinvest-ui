@@ -1,23 +1,23 @@
 import React from 'react';
 
-import { BriefHeader } from '@modules/Brief/shared/Header';
-
-import { BriefStepComponentProps } from '@shared/interfaces/Brief.interfaces';
 import classNames from 'classnames';
 
+import { BriefHeader } from '@modules/Brief/shared/Header';
+
 import '../../shared/styles.css';
+
+import { BriefStepComponentProps } from '@shared/interfaces/Brief.interfaces';
 
 export const InvestmentPeriod = ({ handleSubmit, register, onSubmit }: BriefStepComponentProps): React.ReactNode => {
   return (
     <>
       <BriefHeader
         title={'How long are you planning to invest?'}
-        subtitle={
-          'The investment period helps us select stocks that align with your strategy — whether you’re looking for quick gains or long-term growth.'
-        }
+        subtitle={`The investment period helps us select stocks that align with your strategy 
+		  — whether you’re looking for quick gains or long-term growth.`}
       />
 
-      <form  className="brief-form" onSubmit={handleSubmit(onSubmit)}>
+      <form className="brief-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="brief-selector">
           <div className="custom-select-wrapper">
             <select {...register('period')} id="period" defaultValue="">
@@ -33,11 +33,10 @@ export const InvestmentPeriod = ({ handleSubmit, register, onSubmit }: BriefStep
           </div>
         </div>
 
-
         <button className={classNames('brief-button')} type="submit">
           Next
         </button>
       </form>
     </>
   );
-}
+};

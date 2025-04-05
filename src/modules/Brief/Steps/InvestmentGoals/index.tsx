@@ -47,7 +47,6 @@ export const InvestmentGoals = ({ handleSubmit, register, onSubmit }: BriefStepC
           Next
         </button>
       </form>
-
     </div>
   );
-}
+};

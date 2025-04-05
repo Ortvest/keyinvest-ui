@@ -64,6 +64,17 @@
   transform: rotate(180deg);
 }
 
+summary {
+  list-style: none;
+}
+
+summary::-webkit-details-marker,
+summary::marker {
+  content: '';
+
+  display: none;
+}
+
 @media (width<= 1440px) {
   .faq-section-item {
     width: 100%;
@@ -77,5 +88,17 @@
 @media (width< 1024px) {
   .faq-section-title {
     font-size: 20px;
+  }
+}
+
+@media (width <= 479px) {
+  .faq-section-title {
+    gap: 10px;
+
+    font-size: 18px;
+  }
+
+  .faq-section-description {
+    font-size: 16px;
   }
 }

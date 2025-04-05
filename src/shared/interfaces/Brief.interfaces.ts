@@ -16,18 +16,17 @@ export interface BriefStepComponentProps {
   onSubmit: (data: CollectBriefDataInputs) => void;
 }
 
-
 export interface BriefCard {
   value: string;
 }
 
 export interface Company {
-  logo: string
-  ticker: string
-  weburl: string
-  name: string
-  marketCapitalization: number
-  finnhubIndustry: string
+  logo: string;
+  ticker: string;
+  weburl: string;
+  name: string;
+  marketCapitalization: number;
+  finnhubIndustry: string;
 }
 
 export interface BrokerInfo {
@@ -36,6 +35,6 @@ export interface BrokerInfo {
   website: string;
 }
 export interface StocksPicks {
-  companies: Company[],
-  brokers: BrokerInfo[]
+  companies: Company[];
+  brokers: BrokerInfo[];
 }

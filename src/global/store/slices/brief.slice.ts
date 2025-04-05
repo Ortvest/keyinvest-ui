@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
 import { StocksPicks } from '@shared/interfaces/Brief.interfaces';
 
 interface BriefState {
@@ -9,8 +8,8 @@ interface BriefState {
 const initialState: BriefState = {
   stockPicks: {
     companies: [],
-    brokers: []
-  }
+    brokers: [],
+  },
 };
 
 const briefSlice = createSlice({

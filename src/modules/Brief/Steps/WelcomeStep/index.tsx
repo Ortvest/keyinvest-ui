@@ -1,8 +1,10 @@
 import React from 'react';
 
-import { BriefHeader } from '@modules/Brief/shared/Header';
-import { BriefStep, BriefSteps } from '@shared/enums/Brief.enums';
 import classNames from 'classnames';
+
+import { BriefHeader } from '@modules/Brief/shared/Header';
+
+import { BriefStep, BriefSteps } from '@shared/enums/Brief.enums';
 
 interface WelcomeStepProps {
   onUpdateStepHandler: (step: BriefStep) => void;

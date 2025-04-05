@@ -13,9 +13,9 @@ import { AuthHeader } from '@modules/Auth/shared/Header';
 import './styles/styles.css';
 import '../../styles.css';
 
+import { useSendPasswordResetMutation } from '@global/api/auth/auth.api';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { sendResetEmailSchema } from '@shared/validation/send-reset-email.schema';
-import { useSendPasswordResetMutation } from '@global/api/auth/auth.api';
 
 type SendResetPasswordEmailForm = {
   email: string;
