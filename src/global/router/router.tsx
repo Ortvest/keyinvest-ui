@@ -71,6 +71,9 @@ export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> 
       element: <SystemLayout authed={authed} />,
       children: [
         {
+          index: true,
+        },
+        {
           path: AppRoutes.BRIEF.path,
           element: <BriefPage />,
         },

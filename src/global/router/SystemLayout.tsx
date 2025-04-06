@@ -7,7 +7,6 @@ import './styles/styles.css';
 
 export const SystemLayout = ({ authed }: { authed: boolean }): JSX.Element => {
   if (!authed) {
-    console.log('authed');
     //   return <Navigate to={AppRoutes.AUTH_LOG_IN.path} replace />;
   }
 
