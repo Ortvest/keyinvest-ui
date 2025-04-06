@@ -12,6 +12,7 @@ import { AuthTypes } from '@modules/Auth/shared/types/authTypes';
 import { SocialAuth } from '@modules/Auth/shared/UI/SocialAuth';
 
 import './styles/styles.css';
+import '../../../shared/UI/СontinueButton/styles/styles.css';
 
 import { useAuthenticateUserMutation } from '@global/api/auth/auth.api';
 import { yupResolver } from '@hookform/resolvers/yup';
