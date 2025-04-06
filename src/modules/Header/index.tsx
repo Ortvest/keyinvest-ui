@@ -38,7 +38,13 @@ export const Header = (): JSX.Element => {
       </div>
       <div className={classNames('header-actions')}>
         <Navigation />
-        {user ? <UserIcon email={user.email} /> : <GetStartedButton />}
+        {user ? (
+          <div className={classNames('header-avatar')}>
+            <UserIcon email={user.email} />
+          </div>
+        ) : (
+          <GetStartedButton />
+        )}
         <BurgerMenu />
         <ThemeToggle />
       </div>
