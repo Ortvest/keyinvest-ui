@@ -3,7 +3,7 @@ import { setStockPicks } from '@global/store/slices/brief.slice';
 import { API_ENDPOINTS } from '../api.consts';
 import { baseBriefApi } from './baseBriefApi';
 import { HttpMethods } from '@shared/enums/HttpMethods.enums';
-import { CollectBriefDataInputs, StocksPicks } from '@shared/interfaces/Brief.interfaces';
+import { CollectBriefDataInputs, InvestmentPackagePayload, StocksPicks } from '@shared/interfaces/Brief.interfaces';
 
 export const briefApi = baseBriefApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -24,7 +24,23 @@ export const briefApi = baseBriefApi.injectEndpoints({
         }
       },
     }),
+
+    sendInvestmentPackage: builder.mutation<void, InvestmentPackagePayload>({
+      query: (body) => ({
+        url: API_ENDPOINTS.INVESTMENT_PACKAGE,
+        method: HttpMethods.POST,
+        body,
+      }),
+      async onQueryStarted(_, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          console.log('Investment package successfully sent.');
+        } catch (error) {
+          console.error('Failed to send investment package:', error);
+        }
+      },
+    }),
   }),
 });
 
-export const { useSendBriefDataMutation } = briefApi;
+export const { useSendBriefDataMutation, useSendInvestmentPackageMutation } = briefApi;

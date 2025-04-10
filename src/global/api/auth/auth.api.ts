@@ -1,10 +1,10 @@
-import { setUser as setLoginUser } from '@global/store/slices/login.slice';
-import { setUser as setRegisterUser } from '@global/store/slices/register.slice';
+import { setAuthStatus, setUserData } from '@global/store/slices/user.slice';
 
 import { API_ENDPOINTS } from '../api.consts';
 import { baseAuthApi } from './baseAuthApi';
 import { HttpMethods } from '@shared/enums/HttpMethods.enums';
 import { AuthCredentials, AuthResponse } from '@shared/interfaces/Auth.interfaces';
+import { UserEntity } from '@shared/interfaces/User.interfaces';
 
 export const authApi = baseAuthApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -48,11 +48,15 @@ export const authApi = baseAuthApi.injectEndpoints({
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
+          console.log(data);
           if (data.user) {
-            dispatch(setLoginUser(data.user));
+            dispatch(setUserData(data.user));
+            dispatch(setAuthStatus(true));
           }
         } catch (error) {
           console.error('Authentication failed:', error);
+          dispatch(setAuthStatus(false));
+          dispatch(setUserData({} as UserEntity));
         }
       },
     }),
@@ -66,10 +70,13 @@ export const authApi = baseAuthApi.injectEndpoints({
         try {
           const { data } = await queryFulfilled;
           if (data.user) {
-            dispatch(setLoginUser(data.user));
+            dispatch(setUserData(data.user));
+            dispatch(setAuthStatus(true));
           }
         } catch (error) {
           console.error('Google Authentication failed:', error);
+          dispatch(setAuthStatus(false));
+          dispatch(setUserData({} as UserEntity));
         }
       },
     }),
@@ -83,10 +90,13 @@ export const authApi = baseAuthApi.injectEndpoints({
         try {
           const { data } = await queryFulfilled;
           if (data.user) {
-            dispatch(setRegisterUser(data.user));
+            dispatch(setUserData(data.user));
+            dispatch(setAuthStatus(true));
           }
         } catch (error) {
           console.error('Registration failed:', error);
+          dispatch(setAuthStatus(false));
+          dispatch(setUserData({} as UserEntity));
         }
       },
     }),

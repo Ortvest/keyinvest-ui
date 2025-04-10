@@ -2,6 +2,7 @@ export const UsageScopes = {
   AUTH: 'auth',
   LANDING: 'landing',
   SYSTEM: 'system',
+  INVITE: 'invite',
 } as const;
 
 export const AppRoutes = {
@@ -54,6 +55,12 @@ export const AppRoutes = {
     path: '/system',
     isVisible: false,
     title: 'System',
+    usageScope: [UsageScopes.LANDING],
+  },
+  INVITATION_PAGE: {
+    path: '/invite-page',
+    inVisible: false,
+    title: 'Invite-page',
     usageScope: [UsageScopes.LANDING],
   },
 
