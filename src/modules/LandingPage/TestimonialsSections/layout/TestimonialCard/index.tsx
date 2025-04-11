@@ -15,7 +15,7 @@ export const TestimonialCard = ({ name, role, text }: TestimonialCardProps): JSX
   <article className={classNames('testimonials-item')}>
     <div className={classNames('testimonials-text-mark')}>
       <div className={classNames('testimonials-text')}>
-        <figure>
+        <figure className={classNames('testimonials-avatar')}>
           <img src={avatar} alt={`${name}'s avatar`} />
         </figure>
         <div className={classNames('testimonials-title')}>

@@ -99,6 +99,56 @@
   transform: translateY(-50%);
 }
 
+@media (width >= 2560px) {
+  .plan-section-item {
+    gap: 60px;
+
+    width: 100%;
+    padding: 80px 45px;
+  }
+
+  .plan-section-name {
+    font-size: 38px;
+  }
+
+  .plan-section-title {
+    width: 70%;
+
+    font-size: 40px;
+  }
+
+  .plan-section-includes {
+    font-size: 25px;
+  }
+
+  .plan-includes-items,
+  .plan-details {
+    font-size: 25px;
+  }
+
+  .plan-section-price {
+    font-size: 52px;
+  }
+
+  .plan-section-button {
+    width: 230px;
+    padding: 10px 35px;
+
+    font-size: 25px;
+  }
+
+  .plan-link {
+    color: var(--link-color-2);
+    font-size: 20px;
+  }
+}
+
+@media (width <= 1024px) {
+  .slick-slide {
+    width: 450px !important;
+  }
+}
+
 @media (width<= 1440px) {
   .plan-section-title,
   .plan-section-name {

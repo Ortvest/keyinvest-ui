@@ -32,6 +32,17 @@
   gap: 20px;
 }
 
+@media (width >= 2560px) {
+  .slick-track {
+    padding: 20px !important;
+  }
+
+  .slick-slide {
+    width: 650px !important;
+    height: 100% !important;
+  }
+}
+
 @media (width <= 1024px) {
   .slick-slide {
     width: 450px !important;
