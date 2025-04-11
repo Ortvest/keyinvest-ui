@@ -2,7 +2,6 @@ export const UsageScopes = {
   AUTH: 'auth',
   LANDING: 'landing',
   SYSTEM: 'system',
-  INVITE: 'invite',
 } as const;
 
 export const AppRoutes = {
