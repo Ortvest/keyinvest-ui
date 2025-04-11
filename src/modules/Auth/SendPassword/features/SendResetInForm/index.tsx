@@ -41,7 +41,9 @@ export const SendResetInForm = (): JSX.Element => {
 
   const onSubmit = async (data: SendResetPasswordEmailForm): Promise<void> => {
     await sendPasswordReset({ email: data.email }).unwrap();
-    navigate(AppRoutes.AUTH_SENT_PASSWORD_RESET.path.replace(':email', data.email));
+    navigate(AppRoutes.AUTH_SENT_PASSWORD_RESET.path, {
+      state: { email: data.email },
+    });
   };
 
   useEffect(() => {

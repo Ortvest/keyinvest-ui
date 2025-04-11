@@ -4,7 +4,8 @@ export const API_ENDPOINTS = {
   AUTH_SIGN_IN: '/auth/signIn',
   AUTH_SIGN_UP: '/auth/signUp',
   AUTH_GOOGLE: '/auth/signUp/google',
-  SEND_VERIFICATION_CODE: '/auth/send-verification',
-  VERIFY_CODE: '/auth/verify-code',
+  SEND_VERIFICATION_CODE: '/auth/send-verification/email',
+  VERIFY_CODE: '/auth/verify-code/email',
   COLLECT_BRIEF_DATA: 'investment/recommendations',
+  INVESTMENT_PACKAGE: 'investment/investment-package',
 } as const;

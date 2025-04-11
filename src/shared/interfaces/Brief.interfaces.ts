@@ -38,3 +38,9 @@ export interface StocksPicks {
   companies: Company[];
   brokers: BrokerInfo[];
 }
+
+export interface InvestmentPackagePayload {
+  userId: string;
+  packageName: string;
+  stocks: Company[];
+}

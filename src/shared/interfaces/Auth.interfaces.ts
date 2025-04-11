@@ -1,3 +1,5 @@
+import { UserEntity } from '@shared/interfaces/User.interfaces';
+
 // User entity type
 export interface User {
   username: string;
@@ -13,5 +15,5 @@ export interface AuthCredentials {
 
 // Authentication response type
 export interface AuthResponse {
-  user: User;
+  user: UserEntity;
 }

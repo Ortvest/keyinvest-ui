@@ -56,6 +56,12 @@ export const AppRoutes = {
     title: 'System',
     usageScope: [UsageScopes.LANDING],
   },
+  INVITATION_PAGE: {
+    path: '/invite-page',
+    inVisible: false,
+    title: 'Invite-page',
+    usageScope: [UsageScopes.LANDING],
+  },
 
   AUTHED_MAIN_PAGE: {
     path: '/:user-id',

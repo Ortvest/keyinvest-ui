@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import classNames from 'classnames';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { AppRoutes } from '@global/router/routes.constants';
 
@@ -13,17 +13,16 @@ import { AuthHeader } from '@modules/Auth/shared/Header';
 import './styles/styles.css';
 import '../../styles.css';
 
-import { useLocalStorage } from '@uidotdev/usehooks';
-
 export const SentResetInForm = (): JSX.Element => {
-  const [email, setEmail] = useLocalStorage<string>('resetEmail', '');
   const navigate = useNavigate();
+  const location = useLocation();
+  const email = (location.state as { email?: string })?.email || '';
 
   useEffect(() => {
     if (!email) {
-      setEmail('');
+      navigate(AppRoutes.AUTH_SEND_PASSWORD_RESET.path);
     }
-  }, [email, setEmail]);
+  }, [email, navigate]);
 
   const onHandleContinueClick = (): void => {
     window.location.href = 'https://mail.google.com';
