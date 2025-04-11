@@ -15,6 +15,14 @@
   align-items: center;
 }
 
+@media (width >= 2560px) {
+  .faq-section-wrapper {
+    gap: 40px;
+
+    padding: 130px 160px 0;
+  }
+}
+
 @media (width<= 1440px) {
   .faq-section-list {
     padding: 0 80px;

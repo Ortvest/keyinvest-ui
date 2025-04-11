@@ -33,8 +33,6 @@ const testimonials = [
   },
 ];
 
-const extendedTestimonials = [...testimonials, ...testimonials];
-
 export const TestimonialsSection = (): JSX.Element => {
   const sliderSettingsLTR = {
     infinite: true,
@@ -69,12 +67,12 @@ export const TestimonialsSection = (): JSX.Element => {
 
       <div className={classNames('testimonials-items-columns')}>
         <Slider {...sliderSettingsLTR}>
-          {extendedTestimonials.map((testimonial, index) => (
+          {testimonials.map((testimonial, index) => (
             <TestimonialCard key={index} {...testimonial} />
           ))}
         </Slider>
         <Slider {...sliderSettingsRTL} className="testimonials-slider-rtl">
-          {extendedTestimonials.map((testimonial, index) => (
+          {testimonials.map((testimonial, index) => (
             <TestimonialCard key={index} {...testimonial} />
           ))}
         </Slider>

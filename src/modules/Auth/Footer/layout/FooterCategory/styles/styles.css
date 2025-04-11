@@ -41,6 +41,14 @@
   text-decoration: none;
 }
 
+@media (width >= 2560px) {
+  .items-company {
+    gap: 20px;
+
+    font-size: 30px;
+  }
+}
+
 @media (width< 768px) {
   .item-company-columns {
     gap: 20px;

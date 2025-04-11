@@ -25,7 +25,9 @@ export const MainSection = (): JSX.Element => {
         <img
           className={classNames('photo-ai-img')}
           src={AiRobot}
+          loading="eager"
           alt="AI-generated investment insights representation"
+          fetchPriority="high"
         />
       </figure>
     </section>

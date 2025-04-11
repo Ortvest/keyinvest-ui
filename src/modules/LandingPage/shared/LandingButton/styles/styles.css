@@ -17,3 +17,18 @@
 
   color: var(--text-color);
 }
+
+@media (width >= 2560px) {
+  .get-started-main-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 420px;
+
+    font-size: 30px;
+
+    border: 1px solid #0500ff;
+    border-radius: 24px;
+  }
+}
