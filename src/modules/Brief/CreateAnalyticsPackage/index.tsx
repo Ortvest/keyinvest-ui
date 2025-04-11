@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 import { StockCard } from '@modules/Brief/StockPicks/layout/StockCard';
 
@@ -7,24 +7,38 @@ import { useTypedSelector } from '@shared/hooks/useTypedSelector';
 import './styles/styles.css';
 
 import { useSendInvestmentPackageMutation } from '@global/api/brief/brief.api';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Company, InvestmentPackagePayload } from '@shared/interfaces/Brief.interfaces';
+import { createInvestmentPackageSchema } from '@shared/validation/create-invest-package.schema';
 
 interface CreateAnalyticsPackageProps {
   onClose: () => void;
 }
 
+interface CreatePackageFormInputs {
+  packageName: string;
+}
+
 export const CreateAnalyticsPackage = ({ onClose }: CreateAnalyticsPackageProps): React.ReactElement => {
   const { stockPicks } = useTypedSelector((state) => state.briefReducer);
-  const [packageName, setPackageName] = useState('');
   const [sendInvestmentPackage] = useSendInvestmentPackageMutation();
   const { user } = useTypedSelector((state) => state.userReducer);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CreatePackageFormInputs>({
+    resolver: yupResolver(createInvestmentPackageSchema),
+    mode: 'onTouched',
+  });
+
   const selectedStocks = stockPicks ? stockPicks.companies : [];
 
-  const handleCreatePackage = async (): Promise<void> => {
+  const handleCreatePackage = async (data: CreatePackageFormInputs): Promise<void> => {
     const payload: InvestmentPackagePayload = {
       userId: user._id,
-      packageName,
+      packageName: data.packageName,
       stocks: selectedStocks,
     };
 
@@ -46,27 +60,29 @@ export const CreateAnalyticsPackage = ({ onClose }: CreateAnalyticsPackageProps)
           amount.
         </p>
 
-        <label htmlFor="packageName" className="package-name-label">
-          Package name
-        </label>
-        <input
-          id="packageName"
-          type="text"
-          className="package-name-input"
-          value={packageName}
-          onChange={(e) => setPackageName(e.target.value)}
-          placeholder="Enter package name"
-        />
+        <form onSubmit={handleSubmit(handleCreatePackage)}>
+          <label htmlFor="packageName" className="package-name-label">
+            Package name
+          </label>
+          <input
+            id="packageName"
+            type="text"
+            className={`package-name-input ${errors.packageName ? 'input-error' : ''}`}
+            placeholder="Enter package name"
+            {...register('packageName')}
+          />
+          {errors.packageName && <div className="input-error-message">{errors.packageName.message}</div>}
 
-        <div className="companies-list">
-          {selectedStocks.map((stock: Company) => (
-            <StockCard key={stock.ticker} stock={stock} />
-          ))}
-        </div>
+          <div className="companies-list">
+            {selectedStocks.map((stock: Company) => (
+              <StockCard key={stock.ticker} stock={stock} />
+            ))}
+          </div>
 
-        <button className="create-package-button" onClick={handleCreatePackage}>
-          Create Package
-        </button>
+          <button type="submit" className="create-package-button">
+            Create Package
+          </button>
+        </form>
       </div>
     </div>
   );

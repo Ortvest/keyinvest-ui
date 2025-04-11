@@ -23,9 +23,18 @@
   overflow-y: auto;
 }
 
+.input-error-message {
+  margin-top: -20px;
+  margin-bottom: 24px;
+
+  color: red;
+  font-size: 12px;
+}
+
 .modal-title {
   margin-bottom: 8px;
 
+  color: #000;
   font-size: 24px;
   text-align: center;
 }
@@ -43,7 +52,9 @@
 
   margin-bottom: 8px;
 
-  font-weight: 600;
+  color: #000;
+  font-weight: 400;
+  font-size: 12px;
 }
 
 .package-name-input {
@@ -56,6 +67,8 @@
 
   border: 1px solid #ccc;
   border-radius: 8px;
+
+  background-color: #eceff2;
 }
 
 .companies-list {
