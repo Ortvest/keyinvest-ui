@@ -1,8 +1,12 @@
-export interface UserState {
-  isAuth: boolean;
+export interface UserEntity {
+  _id: string;
   username: string;
-  avatar?: string;
-  password: string;
+  email: string;
 }
 
-export type UserHeaderData = Pick<UserState, 'username' | 'avatar'>;
+export interface UserState {
+  isAuth: boolean;
+  user: UserEntity;
+}
+
+export type UserHeaderData = Pick<UserEntity, 'username'>;

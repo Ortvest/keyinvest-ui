@@ -1,11 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { UserState } from '@shared/interfaces/User.interfaces';
+import { UserEntity, UserState } from '@shared/interfaces/User.interfaces';
 
 const initialState: UserState = {
   isAuth: false,
-  username: '',
-  avatar: '',
-  password: '',
+  user: {} as UserEntity,
 };
 
 export const UserSlice = createSlice({
@@ -15,7 +13,11 @@ export const UserSlice = createSlice({
     setAuthStatus(state, action: PayloadAction<boolean>) {
       state.isAuth = action.payload;
     },
+    setUserData(state, action: PayloadAction<UserEntity>) {
+      state.user = action.payload;
+    },
   },
 });
 
 export const UserReducer = UserSlice.reducer;
+export const { setAuthStatus, setUserData } = UserSlice.actions;

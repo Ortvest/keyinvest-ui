@@ -9,6 +9,7 @@ import { AIAssistant } from '@pages/AIAssistant';
 import { SignInPage } from '@pages/Authorization';
 import { BriefPage } from '@pages/Brief';
 import { ChangePasswordReset } from '@pages/ChangePasswordReset';
+import { InvitePage } from '@pages/InvitePage';
 import { LandingPage } from '@pages/Landing';
 import { Notifications } from '@pages/Notifications';
 import { RegistrationPage } from '@pages/Registration';
@@ -42,6 +43,10 @@ export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> 
         {
           path: AppRoutes.AUTH_PASSWORD_RESET.path,
           element: <ChangePasswordReset />,
+        },
+        {
+          path: AppRoutes.INVITATION_PAGE.path,
+          element: <InvitePage />,
         },
         {
           path: AppRoutes.SYSTEM.path,
