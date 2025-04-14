@@ -24,9 +24,8 @@ export const StockPicks = (): React.ReactNode => {
     <>
       <BriefHeader
         title={'Here are your stock picks'}
-        subtitle={
-          'Based on your goals and preferences, our AI has selected the stocks that best match your investment strategy.'
-        }
+        subtitle={`Based on your goals and preferences, 
+		  our AI has selected the stocks that best match your investment strategy.`}
       />
       <div className={classNames('brief-stocks-list')}>
         {stockPicks

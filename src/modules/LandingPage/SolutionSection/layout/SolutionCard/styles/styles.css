@@ -53,6 +53,51 @@
   background: linear-gradient(267.03deg, #47fc94, #0500ff 50.4%);
 }
 
+.target-img {
+  width: 533px;
+  height: 100%;
+}
+
+.target-img img {
+  width: 533px;
+  height: 100%;
+}
+
+@media (width >= 2560px) {
+  .market-title-info {
+    gap: 80px;
+
+    width: 100%;
+  }
+
+  .market-main-text {
+    width: 500px;
+
+    font-size: 70px;
+  }
+
+  .market-title {
+    font-size: 70px;
+  }
+
+  .market-text-discripton {
+    width: 875px;
+    padding: 20px;
+
+    font-size: 30px;
+  }
+
+  .target-img {
+    width: 70%;
+    height: 100%;
+  }
+
+  .target-img img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
 @media (width<= 1440px) {
   .market-title,
   .market-main-text {

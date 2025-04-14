@@ -75,6 +75,23 @@ summary::marker {
   display: none;
 }
 
+@media (width >= 2560px) {
+  .faq-section-item {
+    width: 1600px;
+    padding: 24px;
+  }
+
+  .faq-section-title {
+    font-size: 38px;
+  }
+
+  .faq-section-description {
+    padding-top: 40px;
+
+    font-size: 25px;
+  }
+}
+
 @media (width<= 1440px) {
   .faq-section-item {
     width: 100%;
