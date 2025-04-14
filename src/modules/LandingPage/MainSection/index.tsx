@@ -2,6 +2,7 @@ import classNames from 'classnames';
 
 import { LandingButton } from '@modules/LandingPage/shared/LandingButton';
 
+import AiRobotAvif from '@shared/assets/images/ai.avif';
 import AiRobot from '@shared/assets/images/ai.webp';
 
 import './styles/styles.css';
@@ -21,14 +22,19 @@ export const MainSection = (): JSX.Element => {
 
         <LandingButton title={'Get Started'} />
       </article>
+
       <figure className={classNames('photo-ai')}>
-        <img
-          className={classNames('photo-ai-img')}
-          src={AiRobot}
-          loading="eager"
-          alt="AI-generated investment insights representation"
-          fetchPriority="high"
-        />
+        <picture>
+          <source srcSet={AiRobot} type="image/webp" />
+          <source srcSet={AiRobotAvif} type="image/avif" />
+          <img
+            className={classNames('photo-ai-img')}
+            src={AiRobot}
+            alt="AI-generated investment insights representation"
+            loading="lazy"
+            fetchPriority="high"
+          />
+        </picture>
       </figure>
     </section>
   );
