@@ -79,13 +79,13 @@
   }
 
   .text-discripton {
-    width: 1000px;
+    max-width: 1000px;
 
     font-size: 38px;
   }
 
   .photo-ai {
-    width: 70%;
+    width: 60%;
   }
 
   .photo-ai-img {
