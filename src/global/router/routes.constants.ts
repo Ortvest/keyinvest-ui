@@ -58,7 +58,7 @@ export const AppRoutes = {
   },
   INVITATION_PAGE: {
     path: '/invite-page',
-    inVisible: false,
+    isVisible: false,
     title: 'Invite-page',
     usageScope: [UsageScopes.LANDING],
   },
