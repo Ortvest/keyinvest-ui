@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import { InviteForm } from '@modules/LandingPage/InviteSection/layout/InviteForm';
+import { InviteForm } from '@modules/InviteSection/layout/InviteForm';
 import { SectionTitle } from '@modules/LandingPage/shared/SectionTitle';
 
 import './styles/styles.css';
