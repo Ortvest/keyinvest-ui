@@ -1,7 +1,7 @@
 .auth-header-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 96px;
+  gap: 24px;
   align-items: center;
 
   margin-top: 56px;
@@ -14,4 +14,9 @@
   font-weight: 600;
   font-size: 32px;
   text-align: center;
+}
+
+.auth-header-logo {
+  width: 64px;
+  height: 64px;
 }
