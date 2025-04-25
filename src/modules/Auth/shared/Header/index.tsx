@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import LogoIcon from '@shared/assets/icons/LogoIcon.svg';
+import LogoIcon from '@shared/assets/icons/EmblemIcon.svg';
 
 import './styles/styles.css';
 
