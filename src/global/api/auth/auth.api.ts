@@ -99,6 +99,29 @@ export const authApi = baseAuthApi.injectEndpoints({
         }
       },
     }),
+    getAuthenticatedUser: builder.query<AuthResponse, void>({
+      query: () => ({
+        url: API_ENDPOINTS.ME,
+        method: HttpMethods.GET,
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+
+          if (data && 'accessToken' in data && 'refreshToken' in data) {
+            localStorage.setItem('authToken', data.accessToken);
+            localStorage.setItem('refreshToken', data.refreshToken);
+          }
+
+          dispatch(setUserData(data.user));
+          dispatch(setAuthStatus(true));
+        } catch (error) {
+          console.error('Failed to fetch authenticated user:', error);
+          dispatch(setAuthStatus(false));
+          dispatch(setUserData({} as UserEntity));
+        }
+      },
+    }),
   }),
 });
 
@@ -110,4 +133,5 @@ export const {
   useRegisterUserMutation,
   useVerifyCodeMutation,
   useResetPasswordMutation,
+  useGetAuthenticatedUserQuery,
 } = authApi;
