@@ -15,7 +15,7 @@ import { Notifications } from '@pages/Notifications';
 import { RegistrationPage } from '@pages/Registration';
 import { SendPasswordReset } from '@pages/SendPasswordReset';
 import { SentPasswordReset } from '@pages/SentPasswordReset';
-import { Templates } from '@pages/Templates';
+import { TemplatesPage } from '@pages/Templates';
 
 export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> =>
   createBrowserRouter([
@@ -84,7 +84,7 @@ export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> 
         },
         {
           path: AppRoutes.TEMPLATES.path,
-          element: <Templates />,
+          element: <TemplatesPage />,
         },
         {
           path: AppRoutes.NOTIFICATIONS.path,
