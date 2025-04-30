@@ -17,10 +17,6 @@ export const templatesSlice = createSlice({
   name: 'templates',
   initialState,
   reducers: {
-    fetchPackagesStart(state) {
-      state.loading = true;
-      state.error = null;
-    },
     fetchPackagesSuccess(state, action: PayloadAction<InvestmentPackage[]>) {
       state.packages = action.payload;
       state.loading = false;
@@ -37,6 +33,5 @@ export const templatesSlice = createSlice({
   },
 });
 
-export const { fetchPackagesStart, fetchPackagesSuccess, fetchPackagesFailure, clearPackages } = templatesSlice.actions;
-
+export const { fetchPackagesSuccess, fetchPackagesFailure, clearPackages } = templatesSlice.actions;
 export const TemplatesReducer = templatesSlice.reducer;
