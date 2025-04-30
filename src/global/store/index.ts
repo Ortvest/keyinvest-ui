@@ -2,9 +2,11 @@ import { BriefReducer as briefReducer } from './slices/brief.slice';
 import { LoginReducer as loginReducer } from './slices/login.slice';
 import { ModalReducer as modalReducer } from './slices/modal.slice';
 import { RegisterReducer as registerReducer } from './slices/register.slice';
+import { TemplatesReducer as templatesReducer } from './slices/templates.slice';
 import { UserReducer as userReducer } from './slices/user.slice';
 import { authApi } from '@global/api/auth/auth.api';
 import { briefApi } from '@global/api/brief/brief.api';
+import { investmentApi } from '@global/api/templates/investmentApi';
 import { configureStore } from '@reduxjs/toolkit';
 
 export const store = configureStore({
@@ -16,8 +18,11 @@ export const store = configureStore({
     register: registerReducer,
     [authApi.reducerPath]: authApi.reducer,
     [briefApi.reducerPath]: briefApi.reducer,
+    [investmentApi.reducerPath]: investmentApi.reducer,
+    templatesReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authApi.middleware).concat(briefApi.middleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(authApi.middleware).concat(briefApi.middleware).concat(investmentApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

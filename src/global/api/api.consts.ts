@@ -8,4 +8,5 @@ export const API_ENDPOINTS = {
   VERIFY_CODE: '/auth/verify-code/email',
   COLLECT_BRIEF_DATA: 'investment/recommendations',
   INVESTMENT_PACKAGE: 'investment/investment-package',
+  PACKAGES: 'investment/packages',
 } as const;

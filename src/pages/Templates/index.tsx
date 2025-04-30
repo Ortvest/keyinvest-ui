@@ -1,1 +1,11 @@
-export const Templates = (): JSX.Element => <h1>Templates Page</h1>;
+import { Fragment } from 'react/jsx-runtime';
+
+import { Templates } from '@modules/Templates';
+
+export const TemplatesPage = (): JSX.Element => {
+  return (
+    <Fragment>
+      <Templates />
+    </Fragment>
+  );
+};
