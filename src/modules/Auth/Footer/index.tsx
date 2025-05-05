@@ -2,7 +2,7 @@ import classNames from 'classnames';
 
 import { FooterCategory } from '@modules/Auth/Footer/layout/FooterCategory';
 
-import IconLogo from '@shared/assets/icons/IconLogo.svg';
+import IconLogo from '@shared/assets/icons/Emblem.svg';
 import In from '@shared/assets/icons/in.svg';
 import Tiktok from '@shared/assets/icons/tiktok.svg';
 import Twitter from '@shared/assets/icons/twitter.svg';
@@ -55,7 +55,6 @@ export const Footer = (): JSX.Element => {
       <div className={classNames('logo-and-socials')} role="banner">
         <div className={classNames('logo-title')}>
           <img className={classNames('logo-icon')} alt="KeyInvest Logo" src={IconLogo} />
-          <p>KeyInvest</p>
         </div>
 
         <div className={classNames('socials-media')}>

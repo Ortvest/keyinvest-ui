@@ -14,7 +14,7 @@ import { Navigation } from '@modules/Header/layout/Navigation';
 import { useTypedDispatch } from '@shared/hooks/useTypedDispatch';
 import { useTypedSelector } from '@shared/hooks/useTypedSelector';
 
-import IconLogo from '@shared/assets/icons/IconLogo.svg';
+import IconLogo from '@shared/assets/icons/Emblem.svg';
 
 import './styles.css';
 
@@ -39,7 +39,6 @@ export const Header = (): JSX.Element => {
     <header className={classNames('header')}>
       <div className={classNames('header-title')}>
         <img src={IconLogo} alt="App logo" />
-        <p>KeyTrading</p>
       </div>
       <div className={classNames('header-actions')}>
         <Navigation />
