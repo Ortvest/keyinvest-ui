@@ -32,7 +32,6 @@ export const InviteForm = (): JSX.Element => {
     try {
       if (sentEmails.has(data.email)) {
         console.error('Email has already been invited.');
-        alert('This email has already been invited!');
         return;
       }
 
@@ -47,7 +46,6 @@ export const InviteForm = (): JSX.Element => {
       }).unwrap();
 
       console.log('Invite sent:', data);
-      sentEmails.add(data.email);
       reset();
     } catch (error) {
       console.error('Failed to send invite:', error);

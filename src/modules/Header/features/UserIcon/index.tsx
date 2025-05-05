@@ -5,11 +5,14 @@ import { AppRoutes } from '@global/router/routes.constants';
 import './styles/styles.css';
 
 interface UserIconProps {
-  email: string;
+  email?: string; // сделать email необязательным
 }
 
-export const UserIcon = ({ email }: UserIconProps): JSX.Element => {
+export const UserIcon = ({ email }: UserIconProps): JSX.Element | null => {
   const navigate = useNavigate();
+
+  if (!email) return null; // или можно отрендерить заглушку
+
   const firstLetter = email.charAt(0).toUpperCase();
 
   const getStableColor = (input: string): string => {
@@ -17,8 +20,7 @@ export const UserIcon = ({ email }: UserIconProps): JSX.Element => {
     for (let i = 0; i < input.length; i++) {
       hash = input.charCodeAt(i) + ((hash << 5) - hash);
     }
-    const color = `#${(hash & 0x00ffffff).toString(16).toUpperCase().padStart(6, '0')}`;
-    return color;
+    return `#${(hash & 0x00ffffff).toString(16).toUpperCase().padStart(6, '0')}`;
   };
 
   const backgroundColor = getStableColor(email);

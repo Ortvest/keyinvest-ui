@@ -16,6 +16,4 @@ export interface AuthCredentials {
 // Authentication response type
 export interface AuthResponse {
   user: UserEntity;
-  accessToken: string;
-  refreshToken: string;
 }

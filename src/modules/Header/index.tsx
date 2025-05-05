@@ -24,9 +24,14 @@ export const Header = (): JSX.Element => {
 
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
-    if (savedUser) {
-      const parsedUser = JSON.parse(savedUser);
-      dispatch(setUser(parsedUser));
+
+    if (savedUser && savedUser !== 'undefined') {
+      try {
+        const parsedUser = JSON.parse(savedUser);
+        dispatch(setUser(parsedUser));
+      } catch (e) {
+        console.error('Error when parsing a user from localStorage:', e);
+      }
     }
   }, [dispatch]);
 
