@@ -99,6 +99,25 @@ export const authApi = baseAuthApi.injectEndpoints({
         }
       },
     }),
+    getMe: builder.query<UserEntity, void>({
+      query: () => ({
+        url: API_ENDPOINTS.ME,
+        method: HttpMethods.GET,
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          if (data) {
+            dispatch(setUserData(data));
+            dispatch(setAuthStatus(true));
+          }
+        } catch (error) {
+          console.error('Failed to fetch user data:', error);
+          dispatch(setAuthStatus(false));
+          dispatch(setUserData({} as UserEntity));
+        }
+      },
+    }),
   }),
 });
 
@@ -110,4 +129,5 @@ export const {
   useRegisterUserMutation,
   useVerifyCodeMutation,
   useResetPasswordMutation,
+  useGetMeQuery,
 } = authApi;
