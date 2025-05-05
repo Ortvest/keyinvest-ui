@@ -10,4 +10,5 @@ export const API_ENDPOINTS = {
   COLLECT_BRIEF_DATA: 'investment/recommendations',
   INVESTMENT_PACKAGE: 'investment/investment-package',
   INVITE_SEND: 'invite/group/test',
+  PACKAGES: 'investment/packages',
 } as const;
