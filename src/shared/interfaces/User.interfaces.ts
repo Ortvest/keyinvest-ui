@@ -6,7 +6,7 @@ export interface UserEntity {
 
 export interface UserState {
   isAuth: boolean;
-  user: UserEntity;
+  user: UserEntity | null;
 }
 
 export type UserHeaderData = Pick<UserEntity, 'username'>;

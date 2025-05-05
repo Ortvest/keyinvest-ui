@@ -3,7 +3,7 @@ import { UserEntity, UserState } from '@shared/interfaces/User.interfaces';
 
 const initialState: UserState = {
   isAuth: false,
-  user: {} as UserEntity,
+  user: null,
 };
 
 export const UserSlice = createSlice({
@@ -16,8 +16,13 @@ export const UserSlice = createSlice({
     setUserData(state, action: PayloadAction<UserEntity>) {
       state.user = action.payload;
     },
+    logout(state) {
+      state.isAuth = false;
+      state.user = null;
+      localStorage.removeItem('authToken');
+    },
   },
 });
 
 export const UserReducer = UserSlice.reducer;
-export const { setAuthStatus, setUserData } = UserSlice.actions;
+export const { setAuthStatus, setUserData, logout } = UserSlice.actions;

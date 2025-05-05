@@ -29,7 +29,7 @@ export const Sidebar = (): JSX.Element => {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeItem, setActiveItem] = useState('file');
-  const user = useTypedSelector((state: RootState) => state.login.user);
+  const user = useTypedSelector((state: RootState) => state.userReducer.user);
 
   useEffect(() => {
     const currentRoute = sidebarItems.find((item) => item.route === location.pathname);
@@ -71,7 +71,7 @@ export const Sidebar = (): JSX.Element => {
             <img className={classNames('sidebar-list-icon')} src={Quest} alt="Help" />
           </button>
 
-          <div className={classNames('sidebar-list-avatar')}>{user ? <UserIcon email={user.email} /> : null}</div>
+          <div className={classNames('sidebar-list-avatar')}>{user?.email && <UserIcon email={user.email} />}</div>
         </div>
       </nav>
     </aside>
