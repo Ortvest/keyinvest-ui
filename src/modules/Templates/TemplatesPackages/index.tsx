@@ -12,16 +12,15 @@ import { useGetInvestmentPackagesQuery } from '@global/api/templates/investmentA
 
 export const TemplatesPackages = (): JSX.Element => {
   const { user } = useTypedSelector((state) => state.userReducer);
-  const { data, error, isLoading } = useGetInvestmentPackagesQuery(user._id);
+  const { data, error, isLoading } = useGetInvestmentPackagesQuery(user?._id || '');
   const [visiblePackage, setVisiblePackage] = useState<string | null>(null);
 
   const getAvatarInitials = (packageName: string): string => {
     const words = packageName.split(' ');
-    const initials = words
+    return words
       .map((word) => word.charAt(0).toUpperCase())
       .slice(0, 2)
       .join('');
-    return initials;
   };
 
   useEffect(() => {

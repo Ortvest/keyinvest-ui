@@ -99,16 +99,17 @@ export const authApi = baseAuthApi.injectEndpoints({
         }
       },
     }),
-    getMe: builder.query<UserEntity, void>({
+    getMe: builder.query<{ data: UserEntity }, void>({
       query: () => ({
         url: API_ENDPOINTS.ME,
         method: HttpMethods.GET,
+        credentials: 'include',
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           if (data) {
-            dispatch(setUserData(data));
+            dispatch(setUserData(data.data));
             dispatch(setAuthStatus(true));
           }
         } catch (error) {

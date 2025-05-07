@@ -5,13 +5,13 @@ import { AppRoutes } from '@global/router/routes.constants';
 import './styles/styles.css';
 
 interface UserIconProps {
-  email?: string; // сделать email необязательным
+  email?: string;
 }
 
 export const UserIcon = ({ email }: UserIconProps): JSX.Element | null => {
   const navigate = useNavigate();
 
-  if (!email) return null; // или можно отрендерить заглушку
+  if (!email) return null;
 
   const firstLetter = email.charAt(0).toUpperCase();
 
