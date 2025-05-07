@@ -16,9 +16,6 @@ export const AuthLayout = ({ authed }: { authed: boolean }): JSX.Element => {
 
   const isAuthPage = currentRoute && isUsageScope(currentRoute.usageScope);
 
-  if (authed) {
-    return <Navigate to={AppRoutes.AUTHED_MAIN_PAGE.path} replace />;
-  }
 
   return (
     <>
