@@ -15,7 +15,7 @@ function App(): JSX.Element {
   useEffect(() => {
     if (data) {
       setAuthed(true);
-    } else if (error) {
+    } else {
       setAuthed(false);
     }
   }, [data, error]);
