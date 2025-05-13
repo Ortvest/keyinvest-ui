@@ -20,6 +20,37 @@ export interface Stock {
   finnhubIndustry: string;
 }
 
+export interface AnalyzeInvestment {
+  allocations: Record<string, number>;
+  startDate: string;
+  endDate: string;
+  currency: string;
+}
+
+export interface AnalyticsResponse {
+  meta: {
+    startDate: string;
+    endDate: string;
+    currency: string;
+    finalBudget: number;
+    totalChangePercent: number;
+  };
+  stocks: AnalyticsStock[];
+}
+
+export interface AnalyticsStock {
+  ticker: string;
+  name: string;
+  investmentAmount: number;
+  startPrice: number;
+  endPrice: number;
+  finalValue: number;
+  changePercent: number;
+  historical?: {
+    date: string;
+    price: number;
+  }[];
+}
 export const investmentApi = baseInvestmentApi.injectEndpoints({
   endpoints: (builder) => ({
     getInvestmentPackages: builder.query<InvestmentPackage[], string>({
@@ -40,7 +71,22 @@ export const investmentApi = baseInvestmentApi.injectEndpoints({
         }
       },
     }),
+    getSelectedPackage: builder.query<InvestmentPackage, { userId: string; packageId: string }>({
+      query: ({ userId, packageId }) => ({
+        url: API_ENDPOINTS.SELECTED_PACKAGE,
+        method: HttpMethods.GET,
+        params: { userId, packageId },
+      }),
+    }),
+    analyzeInvestment: builder.mutation<AnalyticsResponse, AnalyzeInvestment>({
+      query: (body) => ({
+        url: API_ENDPOINTS.ANALYTICS,
+        method: HttpMethods.POST,
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetInvestmentPackagesQuery } = investmentApi;
+export const { useGetInvestmentPackagesQuery, useGetSelectedPackageQuery, useAnalyzeInvestmentMutation } =
+  investmentApi;

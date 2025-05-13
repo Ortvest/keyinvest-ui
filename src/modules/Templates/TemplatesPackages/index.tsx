@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 
 import { useTypedSelector } from '@shared/hooks/useTypedSelector';
@@ -14,6 +15,7 @@ export const TemplatesPackages = (): JSX.Element => {
   const { user } = useTypedSelector((state) => state.userReducer);
   const { data, error, isLoading } = useGetInvestmentPackagesQuery(user._id);
   const [visiblePackage, setVisiblePackage] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const getAvatarInitials = (packageName: string): string => {
     const words = packageName.split(' ');
@@ -82,6 +84,11 @@ export const TemplatesPackages = (): JSX.Element => {
                           </div>
                         </li>
                       ))}
+                      <button
+                        className="view-all-button"
+                        onClick={() => navigate(`/system/templates/${packageItem._id}`)}>
+                        View all
+                      </button>
                     </ul>
                   )}
                 </li>

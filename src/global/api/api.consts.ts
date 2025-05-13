@@ -9,4 +9,6 @@ export const API_ENDPOINTS = {
   COLLECT_BRIEF_DATA: 'investment/recommendations',
   INVESTMENT_PACKAGE: 'investment/investment-package',
   PACKAGES: 'investment/packages',
+  SELECTED_PACKAGE: 'investment/selected-package',
+  ANALYTICS: 'investment/analytics',
 } as const;
