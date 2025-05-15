@@ -5,12 +5,14 @@ import './styles/styles.css';
 import { AnalyticsStock } from '@global/api/templates/investmentApi';
 
 interface MultiStockChartProps {
-  stocks: AnalyticsStock[];
+  stocks?: AnalyticsStock[];
 }
 
 export const StokeChart = ({ stocks }: MultiStockChartProps): JSX.Element => {
+  const safeStocks = Array.isArray(stocks) ? stocks : [];
+
   const datesSet = new Set<string>();
-  stocks.forEach((stock) => {
+  safeStocks.forEach((stock) => {
     stock.historical?.forEach((entry) => datesSet.add(entry.date));
   });
 
@@ -18,7 +20,7 @@ export const StokeChart = ({ stocks }: MultiStockChartProps): JSX.Element => {
 
   const chartData = sortedDates.map((date) => {
     const entry: Record<string, number | string> = { date };
-    stocks.forEach((stock) => {
+    safeStocks.forEach((stock) => {
       const point = stock.historical?.find((h) => h.date === date);
       if (point) entry[stock.ticker] = point.price;
     });
@@ -34,7 +36,7 @@ export const StokeChart = ({ stocks }: MultiStockChartProps): JSX.Element => {
           <YAxis domain={['auto', 'auto']} />
           <Tooltip />
           <Legend />
-          {stocks.map((stock) =>
+          {safeStocks.map((stock) =>
             stock.historical?.length ? (
               <Line
                 key={stock.ticker}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 
@@ -45,8 +45,8 @@ export const PackageDetails = (): JSX.Element => {
     }));
   };
 
-  const handleAnalyzeClick = async (): Promise<void> => {
-    const cleanAllocations = Object.entries(investmentAmounts).reduce(
+  const cleanAllocations = useMemo(() => {
+    return Object.entries(investmentAmounts).reduce(
       (acc, [ticker, value]) => {
         const cleanTicker = ticker.split('.')[0];
         if (value > 0) {
@@ -56,17 +56,9 @@ export const PackageDetails = (): JSX.Element => {
       },
       {} as Record<string, number>
     );
+  }, [investmentAmounts]);
 
-    if (Object.keys(cleanAllocations).length === 0) {
-      alert('Please enter valid investment amounts.');
-      return;
-    }
-
-    if (!startDate || !endDate) {
-      alert('Please select a date range.');
-      return;
-    }
-
+  const handleAnalyzeClick = async (): Promise<void> => {
     try {
       const response = await analyzeInvestment({
         allocations: cleanAllocations,
@@ -92,18 +84,20 @@ export const PackageDetails = (): JSX.Element => {
     setSelectedRange(days);
   };
 
-  useEffect(() => {
-    if (selectedPackage) {
-      const defaultAmounts = selectedPackage.stocks.reduce(
-        (acc, stock) => {
-          acc[stock.ticker] = 0;
-          return acc;
-        },
-        {} as Record<string, number>
-      );
-      setInvestmentAmounts(defaultAmounts);
-    }
+  const defaultAmounts = useMemo(() => {
+    if (!selectedPackage) return {};
+    return selectedPackage.stocks.reduce(
+      (acc, stock) => {
+        acc[stock.ticker] = 0;
+        return acc;
+      },
+      {} as Record<string, number>
+    );
   }, [selectedPackage]);
+
+  useEffect(() => {
+    setInvestmentAmounts(defaultAmounts);
+  }, [defaultAmounts]);
 
   if (isLoading) return <p>Loading...</p>;
   if (error || !selectedPackage) return <p>Error loading package</p>;

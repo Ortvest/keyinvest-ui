@@ -21,7 +21,7 @@ export const SocialAuth = (): JSX.Element => {
       if (token) {
         await authenticateWithGoogle({ token }).unwrap();
         navigate(AppRoutes.MAIN.path);
-        console.log(token);
+
         console.log('Token was  received');
       } else {
         console.error('Token was not received');
