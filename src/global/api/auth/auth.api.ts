@@ -65,7 +65,6 @@ export const authApi = baseAuthApi.injectEndpoints({
           if (data.user) {
             dispatch(setUserData(data.user));
             dispatch(setAuthStatus(true));
-            localStorage.setItem('user', JSON.stringify(data.user));
           }
         } catch (error) {
           console.error('Authentication failed:', error);
@@ -123,7 +122,6 @@ export const authApi = baseAuthApi.injectEndpoints({
       async onQueryStarted(_, { queryFulfilled }) {
         try {
           await queryFulfilled;
-          console.log('Personal info successfully change.');
         } catch (error) {
           console.error('Failed to send change personal info:', error);
         }

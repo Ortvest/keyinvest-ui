@@ -1,3 +1,5 @@
+import { UserStatus } from '@shared/enums/UserStatus.enums';
+
 export interface UserEntity {
   _id: string;
   username: string;
@@ -5,7 +7,7 @@ export interface UserEntity {
   region: string;
   phoneNumber: string;
   phoneVerified?: boolean;
-  status?: 'confirmed' | 'to_confirm';
+  status: UserStatus;
 }
 
 export interface UserState {

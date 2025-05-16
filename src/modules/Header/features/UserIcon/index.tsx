@@ -31,7 +31,7 @@ export const UserIcon = ({ email, onClickPath }: UserIconProps): JSX.Element | n
   };
 
   return (
-    <div className="user-icon" style={{ backgroundColor }} onClick={onHandleClick} title="Личный кабинет">
+    <div className="user-icon" style={{ backgroundColor }} onClick={onHandleClick} title="Personal account">
       {firstLetter}
     </div>
   );

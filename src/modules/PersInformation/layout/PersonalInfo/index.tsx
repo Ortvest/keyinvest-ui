@@ -19,6 +19,8 @@ import {
   useUpdateUserInfoMutation,
   useVerifySmsMutation,
 } from '@global/api/auth/auth.api';
+import { useGetAllCountriesQuery } from '@global/api/country/country.api';
+import { UserStatus } from '@shared/enums/UserStatus.enums';
 import { UpdateUserInfoPayload } from '@shared/interfaces/User.interfaces';
 
 interface Country {
@@ -32,27 +34,17 @@ export const PersonalForm = (): JSX.Element => {
   const [code, setCode] = useState('');
   const [sendVerificationSMS] = useSendVerificationSMSMutation();
   const [verifySms] = useVerifySmsMutation();
+  const [updateUserInfo] = useUpdateUserInfoMutation();
+  const { data: countries = [], isLoading } = useGetAllCountriesQuery();
 
   const [formData, setFormData] = useState({
     username: user.username,
     email: user.email,
-    phoneNumber: user.phoneNumber || '',
-    region: user.region || '',
+    phoneNumber: user?.phoneNumber || '',
+    region: user?.region || '',
   });
-  const [countries, setCountries] = useState<Country[]>([]);
-  const [updateUserInfo] = useUpdateUserInfoMutation();
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    fetch('https://restcountries.com/v3.1/all')
-      .then((res) => res.json())
-      .then((data) => {
-        const filtered = data
-          .filter((c: Country) => c.name.common !== 'Russia' && c.name.common !== 'Belarus')
-          .sort((a: Country, b: Country) => a.name.common.localeCompare(b.name.common));
-        setCountries(filtered);
-      });
-  }, []);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setFormData({
@@ -77,7 +69,6 @@ export const PersonalForm = (): JSX.Element => {
 
     try {
       await updateUserInfo(payload).unwrap();
-      console.log('User info updated successfully.');
       setEditMode(false);
     } catch (error) {
       console.error('Failed to update user info:', error);
@@ -97,7 +88,6 @@ export const PersonalForm = (): JSX.Element => {
     try {
       await verifySms({ phoneNumber: user.phoneNumber || '', code }).unwrap();
       setIsModalOpen(false);
-      console.log('Phone verified successfully');
       dispatch(setUserData({ ...user, phoneVerified: true }));
     } catch (error) {
       console.error('Verification failed:', error);
@@ -108,8 +98,8 @@ export const PersonalForm = (): JSX.Element => {
     <div className={classNames('personal-info-container')}>
       <div className={classNames('status-bar')}>
         Status:{' '}
-        <span className={classNames(user.status === 'confirmed' ? 'verified-badge' : 'unverified-badge')}>
-          {user.status === 'confirmed' ? 'VERIFIED' : 'UNVERIFIED'}
+        <span className={classNames(user.status === UserStatus.Confirmed ? 'verified-badge' : 'unverified-badge')}>
+          {user.status === UserStatus.Confirmed ? 'VERIFIED' : 'UNVERIFIED'}
         </span>
       </div>
 
@@ -142,14 +132,21 @@ export const PersonalForm = (): JSX.Element => {
                   </label>
                   <label>
                     Country:
-                    <select name="region" value={formData.region} onChange={handleChange}>
-                      <option value="">Select country</option>
-                      {countries.map((c) => (
-                        <option key={c.name.common} value={c.name.common}>
-                          {c.name.common}
-                        </option>
-                      ))}
-                    </select>
+                    {isLoading ? (
+                      <p>Loading countries...</p>
+                    ) : (
+                      <select name="region" value={formData.region} onChange={handleChange}>
+                        <option value="">Select country</option>
+                        {countries
+                          .filter((c: Country) => c.name.common !== 'Russia' && c.name.common !== 'Belarus')
+                          .sort((a, b) => a.name.common.localeCompare(b.name.common))
+                          .map((c) => (
+                            <option key={c.name.common} value={c.name.common}>
+                              {c.name.common}
+                            </option>
+                          ))}
+                      </select>
+                    )}
                   </label>
                   <label>
                     Phone number:
@@ -207,6 +204,7 @@ export const PersonalForm = (): JSX.Element => {
       </div>
       {isModalOpen && (
         <PhoneSection
+          isOpen={isModalOpen}
           code={code}
           setCode={setCode}
           onVerify={handleVerifyCode}

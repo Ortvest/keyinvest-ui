@@ -1,15 +1,18 @@
+import Modal from 'react-modal';
+
 import { useTypedSelector } from '@shared/hooks/useTypedSelector';
 
 import './styles/styles.css';
 
 interface PhoneSectionProps {
+  isOpen: boolean;
   code: string;
   setCode: (value: string) => void;
   onVerify: () => void;
   onCancel: () => void;
 }
 
-export const PhoneSection = ({ code, setCode, onVerify, onCancel }: PhoneSectionProps): JSX.Element => {
+export const PhoneSection = ({ isOpen, code, setCode, onVerify, onCancel }: PhoneSectionProps): JSX.Element => {
   const { user } = useTypedSelector((state) => state.userReducer);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number): void => {
@@ -20,49 +23,52 @@ export const PhoneSection = ({ code, setCode, onVerify, onCancel }: PhoneSection
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="phone-section-container">
-        <table className="confirmation-table">
-          <tbody>
-            <tr>
-              <td>
-                <div className="message">
-                  <strong>A confirmation code has been sent to {user.phoneNumber}</strong>
-                </div>
-                <div className="subtext">
-                  Please enter the code below to complete verification.
-                  <br />
-                  Once verified, you will gain access to the brief.
-                </div>
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onCancel}
+      className="phone-section-container"
+      overlayClassName="modal-overlay"
+      contentLabel="Phone verification modal">
+      <table className="confirmation-table">
+        <tbody>
+          <tr>
+            <td>
+              <div className="message">
+                <strong>A confirmation code has been sent to {user.phoneNumber}</strong>
+              </div>
+              <div className="subtext">
+                Please enter the code below to complete verification.
+                <br />
+                Once verified, you will gain access to the brief.
+              </div>
 
-                <div className="code-inputs">
-                  {Array(6)
-                    .fill(null)
-                    .map((_, index) => (
-                      <input
-                        key={index}
-                        type="text"
-                        maxLength={1}
-                        className="code-box"
-                        value={code[index] || ''}
-                        onChange={(e) => handleChange(e, index)}
-                      />
-                    ))}
-                </div>
+              <div className="code-inputs">
+                {Array(6)
+                  .fill(null)
+                  .map((_, index) => (
+                    <input
+                      key={index}
+                      type="text"
+                      maxLength={1}
+                      className="code-box"
+                      value={code[index] || ''}
+                      onChange={(e) => handleChange(e, index)}
+                    />
+                  ))}
+              </div>
 
-                <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
-                  <button className="verify-button" onClick={onVerify}>
-                    Verify
-                  </button>
-                  <button className="verify-button" style={{ backgroundColor: 'gray' }} onClick={onCancel}>
-                    Cancel
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+              <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+                <button className="verify-button" onClick={onVerify}>
+                  Verify
+                </button>
+                <button className="verify-button" style={{ backgroundColor: 'gray' }} onClick={onCancel}>
+                  Cancel
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </Modal>
   );
 };
