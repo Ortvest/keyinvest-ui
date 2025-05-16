@@ -14,10 +14,7 @@ export const UserSlice = createSlice({
       state.isAuth = action.payload;
     },
     setUserData(state, action: PayloadAction<UserEntity>) {
-      state.user = {
-        ...state.user,
-        ...action.payload,
-      };
+      state.user = action.payload;
     },
   },
 });

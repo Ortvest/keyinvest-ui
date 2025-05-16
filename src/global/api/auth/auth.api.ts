@@ -119,13 +119,6 @@ export const authApi = baseAuthApi.injectEndpoints({
         method: HttpMethods.PATCH,
         body,
       }),
-      async onQueryStarted(_, { queryFulfilled }) {
-        try {
-          await queryFulfilled;
-        } catch (error) {
-          console.error('Failed to send change personal info:', error);
-        }
-      },
     }),
     getMe: builder.query<{ data: UserEntity }, void>({
       query: () => ({

@@ -21,11 +21,8 @@ import {
 } from '@global/api/auth/auth.api';
 import { useGetAllCountriesQuery } from '@global/api/country/country.api';
 import { UserStatus } from '@shared/enums/UserStatus.enums';
+import { Country } from '@shared/interfaces/Country.interfaces';
 import { UpdateUserInfoPayload } from '@shared/interfaces/User.interfaces';
-
-interface Country {
-  name: { common: string };
-}
 
 export const PersonalForm = (): JSX.Element => {
   const { user } = useTypedSelector((state) => state.userReducer);
@@ -36,6 +33,7 @@ export const PersonalForm = (): JSX.Element => {
   const [verifySms] = useVerifySmsMutation();
   const [updateUserInfo] = useUpdateUserInfoMutation();
   const { data: countries = [], isLoading } = useGetAllCountriesQuery();
+  const EXCLUDED_COUNTRIES = ['Russia', 'Belarus'];
 
   const [formData, setFormData] = useState({
     username: user.username,
@@ -138,7 +136,7 @@ export const PersonalForm = (): JSX.Element => {
                       <select name="region" value={formData.region} onChange={handleChange}>
                         <option value="">Select country</option>
                         {countries
-                          .filter((c: Country) => c.name.common !== 'Russia' && c.name.common !== 'Belarus')
+                          .filter((c: Country) => !EXCLUDED_COUNTRIES.includes(c.name.common))
                           .sort((a, b) => a.name.common.localeCompare(b.name.common))
                           .map((c) => (
                             <option key={c.name.common} value={c.name.common}>

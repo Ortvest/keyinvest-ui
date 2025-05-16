@@ -1,8 +1,5 @@
 import { baseCountryApi } from '@global/api/country/baseCountryApi';
-
-interface Country {
-  name: { common: string };
-}
+import { Country } from '@shared/interfaces/Country.interfaces';
 
 export const countryApi = baseCountryApi.injectEndpoints({
   endpoints: (builder) => ({
