@@ -11,4 +11,6 @@ export const API_ENDPOINTS = {
   INVESTMENT_PACKAGE: 'investment/investment-package',
   INVITE_SEND: 'invite/group/test',
   PACKAGES: 'investment/packages',
+  SELECTED_PACKAGE: 'investment/selected-package',
+  ANALYTICS: 'investment/analytics',
 } as const;

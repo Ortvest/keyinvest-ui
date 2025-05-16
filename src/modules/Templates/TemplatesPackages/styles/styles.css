@@ -154,6 +154,14 @@
   width: auto !important;
 }
 
+.templates-wrapper .slick-list {
+  max-width: 1440px;
+}
+
+.templates-wrapper .slick-track {
+  width: 1440px !important;
+}
+
 .templates-wrapper .slick-prev::before,
 .templates-wrapper .slick-next::before {
   color: var(--text-description-color) !important;
