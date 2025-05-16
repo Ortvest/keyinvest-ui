@@ -5,6 +5,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { RootState } from '@global/store';
 
+import { AppRoutes } from '@global/router/routes.constants';
+
 import { UserIcon } from '@modules/Header/features/UserIcon';
 
 import { useTypedSelector } from '@shared/hooks/useTypedSelector';
@@ -29,7 +31,7 @@ export const Sidebar = (): JSX.Element => {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeItem, setActiveItem] = useState('file');
-  const user = useTypedSelector((state: RootState) => state.login.user);
+  const { user } = useTypedSelector((state: RootState) => state.userReducer);
 
   useEffect(() => {
     const currentRoute = sidebarItems.find((item) => item.route === location.pathname);
@@ -71,7 +73,9 @@ export const Sidebar = (): JSX.Element => {
             <img className={classNames('sidebar-list-icon')} src={Quest} alt="Help" />
           </button>
 
-          <div className={classNames('sidebar-list-avatar')}>{user ? <UserIcon email={user.email} /> : null}</div>
+          <div className={classNames('sidebar-list-avatar')}>
+            {user ? <UserIcon email={user.email} onClickPath={AppRoutes.PERSONAL_INFO.path} /> : null}
+          </div>
         </div>
       </nav>
     </aside>

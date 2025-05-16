@@ -1,9 +1,6 @@
-import { useEffect } from 'react';
-
 import classNames from 'classnames';
 
 import { RootState } from '@global/store';
-import { setUser } from '@global/store/slices/login.slice';
 
 import { ThemeToggle } from '@modules/Auth/ThemeToggle';
 import { BurgerMenu } from '@modules/Header/features/BurgerMenu';
@@ -11,7 +8,6 @@ import { GetStartedButton } from '@modules/Header/features/GetStartedButton';
 import { UserIcon } from '@modules/Header/features/UserIcon';
 import { Navigation } from '@modules/Header/layout/Navigation';
 
-import { useTypedDispatch } from '@shared/hooks/useTypedDispatch';
 import { useTypedSelector } from '@shared/hooks/useTypedSelector';
 
 import IconLogo from '@shared/assets/icons/Emblem.svg';
@@ -19,16 +15,7 @@ import IconLogo from '@shared/assets/icons/Emblem.svg';
 import './styles.css';
 
 export const Header = (): JSX.Element => {
-  const user = useTypedSelector((state: RootState) => state.login.user);
-  const dispatch = useTypedDispatch();
-
-  useEffect(() => {
-    const savedUser = localStorage.getItem('user');
-    if (savedUser) {
-      const parsedUser = JSON.parse(savedUser);
-      dispatch(setUser(parsedUser));
-    }
-  }, [dispatch]);
+  const { user, isAuth } = useTypedSelector((state: RootState) => state.userReducer);
 
   return (
     <header className={classNames('header')}>
@@ -37,9 +24,9 @@ export const Header = (): JSX.Element => {
       </div>
       <div className={classNames('header-actions')}>
         <Navigation />
-        {user ? (
+        {isAuth ? (
           <div className={classNames('header-avatar')}>
-            <UserIcon email={user.email} />
+            <UserIcon email={user?.username} />
           </div>
         ) : (
           <GetStartedButton />

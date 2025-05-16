@@ -1,4 +1,4 @@
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import { Footer } from '@modules/Auth/Footer';
 import { Header } from '@modules/Header';
@@ -15,10 +15,6 @@ export const AuthLayout = ({ authed }: { authed: boolean }): JSX.Element => {
   const currentRoute = Object.values(AppRoutes).find((route) => location.pathname.startsWith(route.path));
 
   const isAuthPage = currentRoute && isUsageScope(currentRoute.usageScope);
-
-  if (authed) {
-    return <Navigate to={AppRoutes.AUTHED_MAIN_PAGE.path} replace />;
-  }
 
   return (
     <>
