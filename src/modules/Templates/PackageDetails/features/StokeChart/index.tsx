@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 import './styles/styles.css';
@@ -9,23 +11,26 @@ interface MultiStockChartProps {
 }
 
 export const StokeChart = ({ stocks }: MultiStockChartProps): JSX.Element => {
-  const safeStocks = Array.isArray(stocks) ? stocks : [];
+  const safeStocks = useMemo(() => (Array.isArray(stocks) ? stocks : []), [stocks]);
 
-  const datesSet = new Set<string>();
-  safeStocks.forEach((stock) => {
-    stock.historical?.forEach((entry) => datesSet.add(entry.date));
-  });
-
-  const sortedDates = Array.from(datesSet).sort();
-
-  const chartData = sortedDates.map((date) => {
-    const entry: Record<string, number | string> = { date };
+  const sortedDates = useMemo(() => {
+    const datesSet = new Set<string>();
     safeStocks.forEach((stock) => {
-      const point = stock.historical?.find((h) => h.date === date);
-      if (point) entry[stock.ticker] = point.price;
+      stock.historical?.forEach((entry) => datesSet.add(entry.date));
     });
-    return entry;
-  });
+    return Array.from(datesSet).sort();
+  }, [safeStocks]);
+
+  const chartData = useMemo(() => {
+    return sortedDates.map((date) => {
+      const entry: Record<string, number | string> = { date };
+      safeStocks.forEach((stock) => {
+        const point = stock.historical?.find((h) => h.date === date);
+        if (point) entry[stock.ticker] = point.price;
+      });
+      return entry;
+    });
+  }, [safeStocks, sortedDates]);
 
   return (
     <div className="chart-wrapper">
