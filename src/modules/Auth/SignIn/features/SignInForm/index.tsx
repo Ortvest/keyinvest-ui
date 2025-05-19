@@ -47,7 +47,8 @@ export const SignInForm = (): JSX.Element => {
 
     await authenticateUser({ ...data, password: data.password || '' })
       .unwrap()
-      .then(() => {
+      .then((data) => {
+        console.log('Login successful:', data.user);
         navigate(AppRoutes.SYSTEM.path);
       })
       .catch((err: Error) => {
