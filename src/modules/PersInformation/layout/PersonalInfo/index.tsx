@@ -20,9 +20,11 @@ import {
   useVerifySmsMutation,
 } from '@global/api/auth/auth.api';
 import { useGetAllCountriesQuery } from '@global/api/country/country.api';
-import { UserStatus } from '@shared/enums/UserStatus.enums';
+import { UserStatusClass, UserStatusLabel } from '@shared/enums/UserStatus.enums';
 import { Country } from '@shared/interfaces/Country.interfaces';
 import { UpdateUserInfoPayload } from '@shared/interfaces/User.interfaces';
+
+const EXCLUDED_COUNTRIES = ['Russia', 'Belarus'];
 
 export const PersonalForm = (): JSX.Element => {
   const { user } = useTypedSelector((state) => state.userReducer);
@@ -33,7 +35,6 @@ export const PersonalForm = (): JSX.Element => {
   const [verifySms] = useVerifySmsMutation();
   const [updateUserInfo] = useUpdateUserInfoMutation();
   const { data: countries = [], isLoading } = useGetAllCountriesQuery();
-  const EXCLUDED_COUNTRIES = ['Russia', 'Belarus'];
 
   const [formData, setFormData] = useState({
     username: user.username,
@@ -95,10 +96,7 @@ export const PersonalForm = (): JSX.Element => {
   return (
     <div className={classNames('personal-info-container')}>
       <div className={classNames('status-bar')}>
-        Status:{' '}
-        <span className={classNames(user.status === UserStatus.Confirmed ? 'verified-badge' : 'unverified-badge')}>
-          {user.status === UserStatus.Confirmed ? 'VERIFIED' : 'UNVERIFIED'}
-        </span>
+        Status: <span className={classNames(UserStatusClass[user.status])}>{UserStatusLabel[user.status]}</span>
       </div>
 
       <div className={classNames('table-container')}>
