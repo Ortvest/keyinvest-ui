@@ -12,13 +12,13 @@
 }
 
 .templates-header-title {
-  color: var(--text-color);
+  color: #131337;
   font-weight: 600;
   font-size: 24px;
 }
 
 .templates-header-description {
-  color: var(--text-description-color);
+  color: rgb(19 19 55 / 64%);
   font-weight: 500;
   font-size: 12px;
 }

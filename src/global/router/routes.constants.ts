@@ -81,6 +81,12 @@ export const AppRoutes = {
     title: 'Templates',
     usageScope: [UsageScopes.SYSTEM],
   },
+  TEMPLATE_DETAILS: {
+    path: '/system/templates/:id',
+    isVisible: false,
+    title: 'Template Details',
+    usageScope: [UsageScopes.SYSTEM],
+  },
   NOTIFICATIONS: {
     path: '/system/notifications',
     isVisible: true,

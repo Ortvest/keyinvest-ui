@@ -10,9 +10,9 @@ import { UserIcon } from '@modules/Header/features/UserIcon';
 import { useTypedSelector } from '@shared/hooks/useTypedSelector';
 
 import Bell from '@shared/assets/icons/bell.svg';
+import Logo from '@shared/assets/icons/EmblemIcon.svg';
 import File from '@shared/assets/icons/File.svg';
 import Folder from '@shared/assets/icons/folder.svg';
-import Logo from '@shared/assets/icons/IconLogo.svg';
 import Quest from '@shared/assets/icons/quest.svg';
 import Robot from '@shared/assets/icons/robot.svg';
 

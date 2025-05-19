@@ -4,11 +4,14 @@ import { FooterCategory } from '@modules/Auth/Footer/layout/FooterCategory';
 
 import IconLogo from '@shared/assets/icons/Emblem.svg';
 import In from '@shared/assets/icons/in.svg';
+import IconLogoLight from '@shared/assets/icons/logo-main-horizontal_light.svg';
 import Tiktok from '@shared/assets/icons/tiktok.svg';
 import Twitter from '@shared/assets/icons/twitter.svg';
 import Youtube from '@shared/assets/icons/youtube.svg';
 
 import './styles/styles.css';
+
+import { useLocalStorage } from '@uidotdev/usehooks';
 
 const companyLinks = [
   { label: 'Blog', href: '#' },
@@ -37,6 +40,8 @@ const socialLinks = [
 ];
 
 export const Footer = (): JSX.Element => {
+  const [theme] = useLocalStorage('theme', 'light');
+  const isDark = theme === 'dark';
   return (
     <footer className={classNames('footer')}>
       <div className={classNames('name-and-category')}>
@@ -54,7 +59,7 @@ export const Footer = (): JSX.Element => {
 
       <div className={classNames('logo-and-socials')} role="banner">
         <div className={classNames('logo-title')}>
-          <img className={classNames('logo-icon')} alt="KeyInvest Logo" src={IconLogo} />
+          <img className={classNames('logo-icon')} alt="KeyInvest Logo" src={isDark ? IconLogoLight : IconLogo} />
         </div>
 
         <div className={classNames('socials-media')}>
