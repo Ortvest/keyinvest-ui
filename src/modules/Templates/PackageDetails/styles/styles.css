@@ -16,7 +16,7 @@
 }
 
 .name-package-details {
-  color: var(--text-color);
+  color: #131337;
   font-size: 40px;
 }
 
@@ -48,7 +48,7 @@
 }
 
 .package-stock-length {
-  color: var(--text-description-color);
+  color: rgb(19 19 55 / 64%);
   font-size: 14px;
 }
 
@@ -89,10 +89,16 @@
 }
 
 .stock-positive-change {
+  display: flex;
+  align-items: center;
+
   color: #19e068;
 }
 
 .stock-negative-change {
+  display: flex;
+  align-items: center;
+
   color: #d90f0f;
 }
 
@@ -105,13 +111,13 @@
 }
 
 .stoke-end-price {
-  color: var(--text-color);
+  color: #131337;
   font-weight: 500;
   font-size: 18px;
 }
 
 .stoke-start-price {
-  color: var(--text-description-color);
+  color: rgb(19 19 55 / 64%);
   font-weight: 500;
   font-size: 12px;
 }
@@ -126,6 +132,8 @@
 .package-name-ticker {
   display: flex;
   flex-direction: column;
+
+  color: #131337;
 }
 
 /* style for invest list */
@@ -155,7 +163,7 @@
 .package-invest-title {
   padding: 10px;
 
-  color: var(--text-color);
+  color: #131337;
   font-size: 28px;
 }
 
@@ -176,6 +184,10 @@
 .investment-input {
   width: 115px;
   height: 44px;
+
+  color: #131337;
+
+  background-color: #f6f6f6;
 }
 
 /* chart and dates */
@@ -200,7 +212,7 @@
 .date-item-invest {
   padding: 5px;
 
-  color: var(--text-color);
+  color: #131337;
   font-size: 16px;
 }
 
@@ -214,7 +226,7 @@
 
   border-radius: 5px;
 
-  background-color: var(--button-bg);
+  background-color: #0500ff;
 }
 
 .package-final-result {
@@ -226,12 +238,12 @@
 }
 
 .package-final-text {
-  color: var(--text-description-color);
+  color: rgb(19 19 55 / 64%);
   font-size: 18px;
 }
 
 .final-value {
-  color: var(--text-color);
+  color: #131337;
   font-weight: 600;
   font-size: 18px;
 }
@@ -245,5 +257,5 @@
 
   border-radius: 12px;
 
-  background-color: var(--button-bg);
+  background-color: #0500ff;
 }

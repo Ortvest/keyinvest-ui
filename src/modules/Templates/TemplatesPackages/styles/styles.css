@@ -18,6 +18,10 @@
   padding-top: 35px;
 }
 
+.templates-title {
+  color: #131337;
+}
+
 .templates-list {
   display: flex;
   flex-direction: row;
@@ -146,6 +150,11 @@
   font-size: 12px;
 }
 
+.view-all-button {
+  color: var(--text-color);
+  font-size: 12px;
+}
+
 .templates-wrapper .slick-slider {
   min-height: 480px;
 }
@@ -164,5 +173,5 @@
 
 .templates-wrapper .slick-prev::before,
 .templates-wrapper .slick-next::before {
-  color: var(--text-description-color) !important;
+  color: rgb(19 19 55 / 64%) !important;
 }

@@ -43,7 +43,7 @@ export const TemplatesPackages = (): JSX.Element => {
   return (
     <section className="templates-wrapper">
       <div className="templates-column">
-        <h1>Packages</h1>
+        <h1 className="templates-title">Packages</h1>
         <Slider
           dots={true}
           infinite={false}

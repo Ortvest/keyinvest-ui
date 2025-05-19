@@ -1,3 +1,6 @@
+import ArrowDown from '@shared/assets/icons/Arrow-Down.svg';
+import ArrowUp from '@shared/assets/icons/Arrow-Up.svg';
+
 import { AnalyticsStock } from '@global/api/templates/investmentApi';
 
 interface Props {
@@ -23,7 +26,11 @@ export const StockList = ({ selectedPackageStocks, analyticsStocks = [] }: Props
           {analyzedStock && (
             <div className="stock-change-info">
               <span className={analyzedStock.changePercent >= 0 ? 'stock-positive-change' : 'stock-negative-change'}>
-                {analyzedStock.changePercent >= 0 ? '📈' : '📉'} {analyzedStock.changePercent}%
+                <img
+                  src={analyzedStock.changePercent >= 0 ? ArrowUp : ArrowDown}
+                  alt={analyzedStock.changePercent >= 0 ? 'Arrow up' : 'Arrow down'}
+                />
+                {Math.abs(analyzedStock.changePercent)}%
               </span>
               <div className="stoke-price-diff">
                 <p className="stoke-end-price">${analyzedStock.endPrice}</p>

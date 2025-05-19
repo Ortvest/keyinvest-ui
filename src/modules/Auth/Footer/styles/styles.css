@@ -46,17 +46,14 @@ footer {
 
 .logo-title {
   display: flex;
-  gap: 8px;
-  justify-content: center;
   align-items: center;
 
   color: var(--text-color);
-  font-weight: 600;
 }
 
 .logo-icon {
-  width: 80%;
-  height: 80%;
+  width: 200px;
+  height: 100%;
 }
 
 .socials-media {
@@ -98,11 +95,6 @@ footer {
   .footer-social-icon {
     width: 34px;
     height: 34px;
-  }
-
-  .logo-icon {
-    width: 45px;
-    height: 45px;
   }
 }
 

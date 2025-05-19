@@ -8,18 +8,11 @@
 
 .header-title {
   display: flex;
-  flex-direction: row;
-  gap: 8px;
   align-items: center;
-
-  color: var(--text-color);
-  font-weight: 600;
-  font-size: 18px;
 }
 
-.header-title img {
-  width: 100%;
-  height: 100%;
+.header-logo {
+  width: 200px;
 }
 
 .header-actions {
@@ -38,11 +31,6 @@
     gap: 8px;
 
     font-size: 35px;
-  }
-
-  .header-title img {
-    width: 45px;
-    height: 45px;
   }
 }
 
