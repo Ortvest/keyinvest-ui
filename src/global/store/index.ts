@@ -6,6 +6,7 @@ import { TemplatesReducer as templatesReducer } from './slices/templates.slice';
 import { UserReducer as userReducer } from './slices/user.slice';
 import { authApi } from '@global/api/auth/auth.api';
 import { briefApi } from '@global/api/brief/brief.api';
+import { countryApi } from '@global/api/country/country.api';
 import { investmentApi } from '@global/api/templates/investmentApi';
 import { configureStore } from '@reduxjs/toolkit';
 
@@ -19,10 +20,15 @@ export const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [briefApi.reducerPath]: briefApi.reducer,
     [investmentApi.reducerPath]: investmentApi.reducer,
+    [countryApi.reducerPath]: countryApi.reducer,
     templatesReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware).concat(briefApi.middleware).concat(investmentApi.middleware),
+    getDefaultMiddleware()
+      .concat(authApi.middleware)
+      .concat(briefApi.middleware)
+      .concat(investmentApi.middleware)
+      .concat(countryApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

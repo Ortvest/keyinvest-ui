@@ -99,6 +99,12 @@ export const AppRoutes = {
     title: 'Ai-assistant',
     usageScope: [UsageScopes.SYSTEM],
   },
+  PERSONAL_INFO: {
+    path: '/system/personal',
+    isVisible: true,
+    title: 'Personal',
+    usageScope: [UsageScopes.SYSTEM],
+  },
 };
 
 export type AppRoute = { path: string; isVisible: boolean; title: string; usageScope: string[] };

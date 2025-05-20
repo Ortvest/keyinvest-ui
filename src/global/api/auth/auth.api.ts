@@ -4,7 +4,7 @@ import { API_ENDPOINTS } from '../api.consts';
 import { baseAuthApi } from './baseAuthApi';
 import { HttpMethods } from '@shared/enums/HttpMethods.enums';
 import { AuthCredentials, AuthResponse } from '@shared/interfaces/Auth.interfaces';
-import { UserEntity } from '@shared/interfaces/User.interfaces';
+import { UpdateUserInfoPayload, UserEntity } from '@shared/interfaces/User.interfaces';
 
 export const authApi = baseAuthApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -22,11 +22,25 @@ export const authApi = baseAuthApi.injectEndpoints({
         body: { email },
       }),
     }),
+    sendVerificationSMS: builder.mutation<void, { phoneNumber: string }>({
+      query: ({ phoneNumber }) => ({
+        url: API_ENDPOINTS.SEND_VERIFICATION_SMS,
+        method: HttpMethods.POST,
+        body: { phoneNumber },
+      }),
+    }),
     verifyCode: builder.mutation<void, { email: string; code: string }>({
       query: ({ email, code }) => ({
         url: API_ENDPOINTS.VERIFY_CODE,
         method: HttpMethods.POST,
         body: { email, code },
+      }),
+    }),
+    verifySms: builder.mutation<void, { phoneNumber: string; code: string }>({
+      query: ({ phoneNumber, code }) => ({
+        url: API_ENDPOINTS.VERIFY_SMS,
+        method: HttpMethods.POST,
+        body: { phoneNumber, code },
       }),
     }),
     resetPassword: builder.mutation<void, { token: string; password: string }>({
@@ -99,6 +113,13 @@ export const authApi = baseAuthApi.injectEndpoints({
         }
       },
     }),
+    updateUserInfo: builder.mutation<void, UpdateUserInfoPayload>({
+      query: (body) => ({
+        url: API_ENDPOINTS.UPDATE_INFO,
+        method: HttpMethods.PATCH,
+        body,
+      }),
+    }),
     getMe: builder.query<{ data: UserEntity }, void>({
       query: () => ({
         url: API_ENDPOINTS.ME,
@@ -127,8 +148,11 @@ export const {
   useAuthenticateUserMutation,
   useAuthenticateWithGoogleMutation,
   useSendVerificationCodeMutation,
+  useSendVerificationSMSMutation,
   useRegisterUserMutation,
   useVerifyCodeMutation,
   useResetPasswordMutation,
+  useVerifySmsMutation,
+  useUpdateUserInfoMutation,
   useGetMeQuery,
 } = authApi;
