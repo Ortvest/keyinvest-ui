@@ -5,16 +5,16 @@ import { AppRoutes } from '@global/router/routes.constants';
 import './styles/styles.css';
 
 interface UserIconProps {
-  email?: string;
+  username?: string;
   onClickPath?: string;
 }
 
-export const UserIcon = ({ email, onClickPath }: UserIconProps): JSX.Element | null => {
+export const UserIcon = ({ username, onClickPath }: UserIconProps): JSX.Element | null => {
   const navigate = useNavigate();
 
-  if (!email) return null;
+  if (!username) return null;
 
-  const firstLetter = email.charAt(0).toUpperCase();
+  const firstLetter = username.charAt(0).toUpperCase();
 
   const getStableColor = (input: string): string => {
     let hash = 0;
@@ -24,7 +24,7 @@ export const UserIcon = ({ email, onClickPath }: UserIconProps): JSX.Element | n
     return `#${(hash & 0x00ffffff).toString(16).toUpperCase().padStart(6, '0')}`;
   };
 
-  const backgroundColor = getStableColor(email);
+  const backgroundColor = getStableColor(username);
 
   const onHandleClick: React.MouseEventHandler<HTMLDivElement> = (): void => {
     navigate(onClickPath ?? AppRoutes.SYSTEM.path);

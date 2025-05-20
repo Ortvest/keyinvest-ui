@@ -12,5 +12,8 @@ export const API_ENDPOINTS = {
   UPDATE_INFO: '/auth/update-userData',
   COLLECT_BRIEF_DATA: 'investment/recommendations',
   INVESTMENT_PACKAGE: 'investment/investment-package',
+  INVITE_SEND: 'invite/group/test',
   PACKAGES: 'investment/packages',
+  SELECTED_PACKAGE: 'investment/selected-package',
+  ANALYTICS: 'investment/analytics',
 } as const;

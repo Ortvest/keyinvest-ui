@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 
 import './styles/styles.css';
 
+import { useSendInviteDataMutation } from '@global/api/invite/invite.api';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { InviteStatus, InviteStatuses } from '@shared/enums/InvestmentExperience.enums';
 import { inviteSendSchema } from '@shared/validation/invite-send.schema';
@@ -17,14 +18,38 @@ export const InviteForm = (): JSX.Element => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<InviteFormInputs>({
     resolver: yupResolver(inviteSendSchema),
     mode: 'onTouched',
   });
 
-  const onSubmit = (data: InviteFormInputs): void => {
-    console.log('Form submitted:', data);
+  const [sendInvite, { isLoading, isSuccess, isError }] = useSendInviteDataMutation();
+  const sentEmails = new Set<string>();
+
+  const onSubmit = async (data: InviteFormInputs): Promise<void> => {
+    try {
+      if (sentEmails.has(data.email)) {
+        console.error('Email has already been invited.');
+        return;
+      }
+
+      const experienceKey = Object.keys(InviteStatuses).find(
+        (key) => InviteStatuses[key as keyof typeof InviteStatuses] === data.investmentExperience
+      );
+
+      await sendInvite({
+        fullName: data.fullName,
+        email: data.email,
+        investmentsExperience: experienceKey || '',
+      }).unwrap();
+
+      console.log('Invite sent:', data);
+      reset();
+    } catch (error) {
+      console.error('Failed to send invite:', error);
+    }
   };
 
   return (
@@ -60,13 +85,12 @@ export const InviteForm = (): JSX.Element => {
           <select
             id="investmentExperience"
             className={classNames({ error: errors.investmentExperience })}
-            defaultValue=""
             {...register('investmentExperience')}>
             <option value="" disabled>
               Select your investment experience
             </option>
             {Object.entries(InviteStatuses).map(([key, value]) => (
-              <option key={key} value={key}>
+              <option key={key} value={value}>
                 {value}
               </option>
             ))}
@@ -74,9 +98,12 @@ export const InviteForm = (): JSX.Element => {
           {errors.investmentExperience && <span className="error-message">{errors.investmentExperience.message}</span>}
         </div>
 
-        <button className="join-button" type="submit">
-          Join
+        <button className="join-button" type="submit" disabled={isLoading}>
+          {isLoading ? 'Sending...' : 'Join'}
         </button>
+
+        {isSuccess && <p className="success-message">Invite sent successfully!</p>}
+        {isError && <p className="error-message">Failed to send invite. Try again.</p>}
       </form>
     </div>
   );

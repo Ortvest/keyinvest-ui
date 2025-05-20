@@ -5,6 +5,8 @@ import { AuthLayout } from '@global/router/AuthLayout';
 import { AppRoutes } from '@global/router/routes.constants';
 import { SystemLayout } from '@global/router/SystemLayout';
 
+import { PackageDetails } from '@modules/Templates/PackageDetails';
+
 import { AIAssistant } from '@pages/AIAssistant';
 import { SignInPage } from '@pages/Authorization';
 import { BriefPage } from '@pages/Brief';
@@ -86,6 +88,10 @@ export const router = (authed: boolean): ReturnType<typeof createBrowserRouter> 
         {
           path: AppRoutes.TEMPLATES.path,
           element: <TemplatesPage />,
+        },
+        {
+          path: `${AppRoutes.TEMPLATES.path}/:id`,
+          element: <PackageDetails />,
         },
         {
           path: AppRoutes.NOTIFICATIONS.path,
