@@ -37,15 +37,16 @@ export const PersonalForm = (): JSX.Element => {
   const { data: countries = [], isLoading } = useGetAllCountriesQuery();
 
   const [formData, setFormData] = useState({
-    username: user.username,
-    email: user.email,
-    phoneNumber: user?.phoneNumber || '',
-    region: user?.region || '',
+    username: user?.username ?? '',
+    email: user?.email ?? '',
+    phoneNumber: user?.phoneNumber ?? '',
+    region: user?.region ?? '',
   });
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (!user) return;
     setFormData({
       username: user.username,
       email: user.email,
@@ -59,15 +60,27 @@ export const PersonalForm = (): JSX.Element => {
   };
 
   const handleSave = async (): Promise<void> => {
-    const payload: UpdateUserInfoPayload = {
-      userId: user._id,
-      username: formData.username,
-      email: formData.email,
-      phoneNumber: formData.phoneNumber,
-    };
+    if (!user?._id) return;
+
+    const updatedFields: Partial<UpdateUserInfoPayload> = { userId: user._id };
+
+    if (formData.username !== user.username) {
+      updatedFields.username = formData.username;
+    }
+    if (formData.email !== user.email) {
+      updatedFields.email = formData.email;
+    }
+    if (formData.phoneNumber !== user.phoneNumber) {
+      updatedFields.phoneNumber = formData.phoneNumber;
+    }
+
+    if (Object.keys(updatedFields).length === 1) {
+      setEditMode(false);
+      return;
+    }
 
     try {
-      await updateUserInfo(payload).unwrap();
+      await updateUserInfo(updatedFields as UpdateUserInfoPayload).unwrap();
       setEditMode(false);
     } catch (error) {
       console.error('Failed to update user info:', error);
@@ -75,8 +88,9 @@ export const PersonalForm = (): JSX.Element => {
   };
 
   const handleSendVerification = async (): Promise<void> => {
+    if (!user?.phoneNumber) return;
     try {
-      await sendVerificationSMS({ phoneNumber: user.phoneNumber || '' }).unwrap();
+      await sendVerificationSMS({ phoneNumber: user.phoneNumber }).unwrap();
       setIsModalOpen(true);
     } catch (error) {
       console.error('Failed to send SMS verification:', error);
@@ -84,8 +98,9 @@ export const PersonalForm = (): JSX.Element => {
   };
 
   const handleVerifyCode = async (): Promise<void> => {
+    if (!user?.phoneNumber) return;
     try {
-      await verifySms({ phoneNumber: user.phoneNumber || '', code }).unwrap();
+      await verifySms({ phoneNumber: user.phoneNumber, code }).unwrap();
       setIsModalOpen(false);
       dispatch(setUserData({ ...user, phoneVerified: true }));
     } catch (error) {
@@ -96,7 +111,10 @@ export const PersonalForm = (): JSX.Element => {
   return (
     <div className={classNames('personal-info-container')}>
       <div className={classNames('status-bar')}>
-        Status: <span className={classNames(UserStatusClass[user.status])}>{UserStatusLabel[user.status]}</span>
+        Status:{' '}
+        <span className={classNames(UserStatusClass[user?.status ?? 'to-confirm'])}>
+          {UserStatusLabel[user?.status ?? 'to-confirm']}
+        </span>
       </div>
 
       <div className={classNames('table-container')}>
@@ -152,17 +170,17 @@ export const PersonalForm = (): JSX.Element => {
               ) : (
                 <>
                   <p>
-                    <strong>Username:</strong> {user.username}
+                    <strong>Username:</strong> {user?.username ?? 'Not specified'}
                   </p>
                   <p>
-                    <strong>Email:</strong> {user.email}
+                    <strong>Email:</strong> {user?.email ?? 'Not specified'}
                   </p>
                   <p>
-                    <strong>Country:</strong> {user.region || 'Not specified'}
+                    <strong>Country:</strong> {user?.region || 'Not specified'}
                   </p>
                   <p>
-                    <strong>Phone number:</strong> {user.phoneNumber || 'Not specified'}{' '}
-                    {user.phoneNumber && !(user.phoneVerified || user.status === 'confirmed') && (
+                    <strong>Phone number:</strong> {user?.phoneNumber || 'Not specified'}{' '}
+                    {user?.phoneNumber && !(user?.phoneVerified || user?.status === 'confirmed') && (
                       <button className="verify-link" onClick={handleSendVerification}>
                         Verify
                       </button>
