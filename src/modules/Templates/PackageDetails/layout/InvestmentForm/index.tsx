@@ -4,6 +4,7 @@ interface Props {
   onChange: (ticker: string, value: number) => void;
   onAnalyze: () => void;
   estimatedReturn?: number;
+  isLoading?: boolean;
 }
 
 export const InvestmentForm = ({
@@ -12,6 +13,7 @@ export const InvestmentForm = ({
   onChange,
   onAnalyze,
   estimatedReturn,
+  isLoading,
 }: Props): JSX.Element => (
   <div className="package-invest-list">
     <ul className="package-invest-items">
@@ -41,8 +43,8 @@ export const InvestmentForm = ({
         <p className="final-value"> ${estimatedReturn}</p>
       </div>
     )}
-    <button className="package-analyze-button" onClick={onAnalyze}>
-      <p> Analyze</p>
+    <button className="package-analyze-button" onClick={onAnalyze} disabled={isLoading}>
+      {isLoading ? <span className="loader" /> : <p>Analyze</p>}
     </button>
   </div>
 );
