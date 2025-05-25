@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 
@@ -24,6 +24,7 @@ export const PackageDetails = (): JSX.Element => {
   const [investmentAmounts, setInvestmentAmounts] = useState<Record<string, number>>({});
   const [analyzeInvestment] = useAnalyzeInvestmentMutation();
   const [analyticsResult, setAnalyticsResult] = useState<AnalyticsResponse | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   const [selectedRange, setSelectedRange] = useState<number | null>(null);
   const [startDate, setStartDate] = useState('2023-01-01');
@@ -46,20 +47,28 @@ export const PackageDetails = (): JSX.Element => {
   };
 
   const cleanAllocations = useMemo(() => {
-    return Object.entries(investmentAmounts).reduce(
-      (acc, [ticker, value]) => {
-        const cleanTicker = ticker.split('.')[0];
-        if (value > 0) {
-          acc[cleanTicker] = value;
-        }
-        return acc;
-      },
-      {} as Record<string, number>
+    return (
+      selectedPackage?.stocks.reduce(
+        (acc, stock) => {
+          const tickerKey = stock.ticker.split('.')[0];
+          const userValue = investmentAmounts[stock.ticker];
+
+          if (userValue === undefined || userValue === null) {
+            acc[tickerKey] = 100;
+          } else {
+            acc[tickerKey] = userValue;
+          }
+
+          return acc;
+        },
+        {} as Record<string, number>
+      ) ?? {}
     );
-  }, [investmentAmounts]);
+  }, [investmentAmounts, selectedPackage]);
 
   const handleAnalyzeClick = async (): Promise<void> => {
     try {
+      setIsAnalyzing(true);
       const response = await analyzeInvestment({
         allocations: cleanAllocations,
         startDate,
@@ -69,6 +78,8 @@ export const PackageDetails = (): JSX.Element => {
       setAnalyticsResult(response);
     } catch (err) {
       console.error('Error analyzing investment', err);
+    } finally {
+      setIsAnalyzing(false);
     }
   };
   const handleRangeClick = (days: number): void => {
@@ -98,6 +109,48 @@ export const PackageDetails = (): JSX.Element => {
   useEffect(() => {
     setInvestmentAmounts(defaultAmounts);
   }, [defaultAmounts]);
+  const isInitialized = useRef(false);
+  useEffect(() => {
+    const fetchDefaultAnalytics = async (): Promise<void> => {
+      if (!selectedPackage || isInitialized.current || analyticsResult) return;
+      isInitialized.current = true;
+
+      try {
+        setIsAnalyzing(true);
+        const end = new Date();
+        const start = new Date();
+        start.setDate(end.getDate() - 365);
+
+        const formattedStart = start.toISOString().split('T')[0];
+        const formattedEnd = end.toISOString().split('T')[0];
+
+        const defaultAllocations = selectedPackage.stocks.reduce(
+          (acc, stock) => {
+            acc[stock.ticker.split('.')[0]] = 100;
+            return acc;
+          },
+          {} as Record<string, number>
+        );
+
+        const response = await analyzeInvestment({
+          allocations: defaultAllocations,
+          startDate: formattedStart,
+          endDate: formattedEnd,
+          currency: 'USD',
+        }).unwrap();
+
+        setAnalyticsResult(response);
+        setStartDate(formattedStart);
+        setEndDate(formattedEnd);
+        setSelectedRange(365);
+      } finally {
+        setIsAnalyzing(false);
+      }
+    };
+
+    fetchDefaultAnalytics();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedPackage, analyticsResult]);
 
   if (isLoading) return <p>Loading...</p>;
   if (error || !selectedPackage) return <p>Error loading package</p>;
@@ -130,6 +183,7 @@ export const PackageDetails = (): JSX.Element => {
             onChange={handleInputChange}
             onAnalyze={handleAnalyzeClick}
             estimatedReturn={analyticsResult?.meta.finalBudget}
+            isLoading={isAnalyzing}
           />
         </article>
       </section>

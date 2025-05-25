@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
@@ -14,7 +14,6 @@ import { useGetInvestmentPackagesQuery } from '@global/api/templates/investmentA
 export const TemplatesPackages = (): JSX.Element => {
   const { user } = useTypedSelector((state) => state.userReducer);
   const { data, error, isLoading } = useGetInvestmentPackagesQuery(user?._id || '');
-  const [visiblePackage, setVisiblePackage] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const getAvatarInitials = (packageName: string): string => {
@@ -32,11 +31,19 @@ export const TemplatesPackages = (): JSX.Element => {
   }, [error]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="templates-text-loading">Loading...</div>;
   }
 
   if (error) {
-    return <div>Error loading packages</div>;
+    return (
+      <div className="templates-text-wrapper">
+        <p className="templates-text-title"> You dont have any packages yet</p>
+        <p className="templates-text-description">Complete the briefing to create your first one.</p>
+        <button className="templates-text-button" onClick={() => navigate('/system/briefing')}>
+          Start Brief
+        </button>
+      </div>
+    );
   }
 
   return (
@@ -52,14 +59,11 @@ export const TemplatesPackages = (): JSX.Element => {
           className="templates-slider">
           {data?.map((packageItem) => {
             const uniqueIndustries = [...new Set(packageItem.stocks.map((stock) => stock.finnhubIndustry))];
-            const isOpen = visiblePackage === packageItem._id;
 
             return (
               <div key={packageItem._id}>
                 <li className="trades-column">
-                  <article
-                    className="templates-item"
-                    onClick={() => setVisiblePackage((prev) => (prev === packageItem._id ? null : packageItem._id))}>
+                  <article className="templates-item">
                     <div className="templates-avatar-name">
                       <div className="package-avatar">{getAvatarInitials(packageItem.packageName)}</div>
                       <h3>{packageItem.packageName}</h3>
@@ -71,25 +75,23 @@ export const TemplatesPackages = (): JSX.Element => {
                     </div>
                   </article>
 
-                  {isOpen && (
-                    <ul className="trades-list">
-                      <p className="trades-list-title">Trades</p>
-                      {packageItem.stocks.map((stock) => (
-                        <li className="trades-item" key={stock.ticker}>
-                          <img className="trades-avatar" src={stock.logo} alt={stock.ticker} width={32} />
-                          <div className="trades-name-column">
-                            <p className="trades-name">{stock.name}</p>
-                            <p className="trades-ticker">{stock.ticker}</p>
-                          </div>
-                        </li>
-                      ))}
-                      <button
-                        className="view-all-button"
-                        onClick={() => navigate(`/system/templates/${packageItem._id}`)}>
-                        View all
-                      </button>
-                    </ul>
-                  )}
+                  <ul className="trades-list">
+                    <p className="trades-list-title">Trades</p>
+                    {packageItem.stocks.map((stock) => (
+                      <li className="trades-item" key={stock.ticker}>
+                        <img className="trades-avatar" src={stock.logo} alt={stock.ticker} width={32} />
+                        <div className="trades-name-column">
+                          <p className="trades-name">{stock.name}</p>
+                          <p className="trades-ticker">{stock.ticker}</p>
+                        </div>
+                      </li>
+                    ))}
+                    <button
+                      className="view-all-button"
+                      onClick={() => navigate(`/system/templates/${packageItem._id}`)}>
+                      View all
+                    </button>
+                  </ul>
                 </li>
               </div>
             );
