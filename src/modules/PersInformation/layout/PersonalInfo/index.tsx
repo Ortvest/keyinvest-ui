@@ -37,8 +37,8 @@ export const PersonalForm = (): JSX.Element => {
   const { data: countries = [], isLoading } = useGetAllCountriesQuery();
 
   const [formData, setFormData] = useState({
-    username: user.username,
-    email: user.email,
+    username: user?.username,
+    email: user?.email,
     phoneNumber: user?.phoneNumber || '',
     region: user?.region || '',
   });
@@ -47,10 +47,10 @@ export const PersonalForm = (): JSX.Element => {
 
   useEffect(() => {
     setFormData({
-      username: user.username,
-      email: user.email,
-      phoneNumber: user.phoneNumber || '',
-      region: user.region || '',
+      username: user?.username,
+      email: user?.email,
+      phoneNumber: user?.phoneNumber || '',
+      region: user?.region || '',
     });
   }, [user]);
 
@@ -60,9 +60,9 @@ export const PersonalForm = (): JSX.Element => {
 
   const handleSave = async (): Promise<void> => {
     const payload: UpdateUserInfoPayload = {
-      userId: user._id,
-      username: formData.username,
-      email: formData.email,
+      userId: user?._id || "",
+      username: formData?.username || "",
+      email: formData?.email || "",
       phoneNumber: formData.phoneNumber,
     };
 
@@ -76,7 +76,7 @@ export const PersonalForm = (): JSX.Element => {
 
   const handleSendVerification = async (): Promise<void> => {
     try {
-      await sendVerificationSMS({ phoneNumber: user.phoneNumber || '' }).unwrap();
+      await sendVerificationSMS({ phoneNumber: user?.phoneNumber || '' }).unwrap();
       setIsModalOpen(true);
     } catch (error) {
       console.error('Failed to send SMS verification:', error);
@@ -85,9 +85,11 @@ export const PersonalForm = (): JSX.Element => {
 
   const handleVerifyCode = async (): Promise<void> => {
     try {
-      await verifySms({ phoneNumber: user.phoneNumber || '', code }).unwrap();
+      await verifySms({ phoneNumber: user?.phoneNumber || '', code }).unwrap();
       setIsModalOpen(false);
-      dispatch(setUserData({ ...user, phoneVerified: true }));
+      if(user){
+        dispatch(setUserData({ ...user, phoneVerified: true }));
+      }
     } catch (error) {
       console.error('Verification failed:', error);
     }
@@ -96,7 +98,9 @@ export const PersonalForm = (): JSX.Element => {
   return (
     <div className={classNames('personal-info-container')}>
       <div className={classNames('status-bar')}>
-        Status: <span className={classNames(UserStatusClass[user.status])}>{UserStatusLabel[user.status]}</span>
+        Status: <span className={classNames(UserStatusClass[user?.status ?? 'to-confirm'])}>
+    {UserStatusLabel[user?.status ?? 'to-confirm']}
+  </span>
       </div>
 
       <div className={classNames('table-container')}>
@@ -152,17 +156,17 @@ export const PersonalForm = (): JSX.Element => {
               ) : (
                 <>
                   <p>
-                    <strong>Username:</strong> {user.username}
+                    <strong>Username:</strong> {user?.username}
                   </p>
                   <p>
-                    <strong>Email:</strong> {user.email}
+                    <strong>Email:</strong> {user?.email}
                   </p>
                   <p>
-                    <strong>Country:</strong> {user.region || 'Not specified'}
+                    <strong>Country:</strong> {user?.region || 'Not specified'}
                   </p>
                   <p>
-                    <strong>Phone number:</strong> {user.phoneNumber || 'Not specified'}{' '}
-                    {user.phoneNumber && !(user.phoneVerified || user.status === 'confirmed') && (
+                    <strong>Phone number:</strong> {user?.phoneNumber || 'Not specified'}{' '}
+                    {user?.phoneNumber && !(user.phoneVerified || user.status === 'confirmed') && (
                       <button className="verify-link" onClick={handleSendVerification}>
                         Verify
                       </button>
