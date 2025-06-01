@@ -80,7 +80,9 @@ export const PersonalForm = (): JSX.Element => {
     }
 
     try {
+      const updatedUser = { ...user, ...updatedFields };
       await updateUserInfo(updatedFields as UpdateUserInfoPayload).unwrap();
+      dispatch(setUserData(updatedUser));
       setEditMode(false);
     } catch (error) {
       console.error('Failed to update user info:', error);
@@ -111,7 +113,7 @@ export const PersonalForm = (): JSX.Element => {
   return (
     <div className={classNames('personal-info-container')}>
       <div className={classNames('status-bar')}>
-        Status:{' '}
+        Status:
         <span className={classNames(UserStatusClass[user?.status ?? 'to-confirm'])}>
           {UserStatusLabel[user?.status ?? 'to-confirm']}
         </span>
@@ -136,20 +138,45 @@ export const PersonalForm = (): JSX.Element => {
             <div className={classNames('section-info-content')}>
               {editMode ? (
                 <>
-                  <label>
-                    Username:
-                    <input name="username" value={formData.username} onChange={handleChange} />
-                  </label>
-                  <label>
-                    Email:
-                    <input name="email" value={formData.email} onChange={handleChange} />
-                  </label>
-                  <label>
-                    Country:
+                  <div className={classNames('field-row')}>
+                    <label htmlFor="username" className={classNames('field-label')}>
+                      Username:
+                    </label>
+                    <input
+                      id="username"
+                      name="username"
+                      className={classNames('field-input')}
+                      value={formData.username}
+                      onChange={handleChange}
+                    />
+                  </div>
+
+                  <div className={classNames('field-row')}>
+                    <label htmlFor="email" className={classNames('field-label')}>
+                      Email:
+                    </label>
+                    <input
+                      id="email"
+                      name="email"
+                      className={classNames('field-input')}
+                      value={formData.email}
+                      onChange={handleChange}
+                    />
+                  </div>
+
+                  <div className={classNames('field-row')}>
+                    <label htmlFor="region" className={classNames('field-label')}>
+                      Country:
+                    </label>
                     {isLoading ? (
                       <p>Loading countries...</p>
                     ) : (
-                      <select name="region" value={formData.region} onChange={handleChange}>
+                      <select
+                        id="region"
+                        name="region"
+                        className={classNames('field-input')}
+                        value={formData.region}
+                        onChange={handleChange}>
                         <option value="">Select country</option>
                         {countries
                           .filter((c: Country) => !EXCLUDED_COUNTRIES.includes(c.name.common))
@@ -161,36 +188,51 @@ export const PersonalForm = (): JSX.Element => {
                           ))}
                       </select>
                     )}
-                  </label>
-                  <label>
-                    Phone number:
-                    <input name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
-                  </label>
+                  </div>
+
+                  <div className={classNames('field-row')}>
+                    <label htmlFor="phoneNumber" className={classNames('field-label')}>
+                      Phone number:
+                    </label>
+                    <input
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      className={classNames('field-input')}
+                      value={formData.phoneNumber}
+                      onChange={handleChange}
+                    />
+                  </div>
                 </>
               ) : (
                 <>
-                  <p>
-                    <strong>Username:</strong> {user?.username ?? 'Not specified'}
+                  <p className="field-row">
+                    <span className="field-label">Username:</span>
+                    <span className="field-value">{user?.username ?? 'Not specified'}</span>
                   </p>
-                  <p>
-                    <strong>Email:</strong> {user?.email ?? 'Not specified'}
+                  <p className="field-row">
+                    <span className="field-label">Email:</span>
+                    <span className="field-value">{user?.email ?? 'Not specified'}</span>
                   </p>
-                  <p>
-                    <strong>Country:</strong> {user?.region || 'Not specified'}
+                  <p className="field-row">
+                    <span className="field-label">Country:</span>
+                    <span className="field-value">{user?.region || 'Not specified'}</span>
                   </p>
-                  <p>
-                    <strong>Phone number:</strong> {user?.phoneNumber || 'Not specified'}{' '}
-                    {user?.phoneNumber && !(user?.phoneVerified || user?.status === 'confirmed') && (
-                      <button className="verify-link" onClick={handleSendVerification}>
-                        Verify
-                      </button>
-                    )}
+                  <p className="field-row">
+                    <span className="field-label">Phone number:</span>
+                    <span className="field-value">
+                      {user?.phoneNumber || 'Not specified'}{' '}
+                      {user?.phoneNumber && !(user?.phoneVerified || user?.status === 'confirmed') && (
+                        <button className="verify-link" onClick={handleSendVerification}>
+                          Verify
+                        </button>
+                      )}
+                    </span>
                   </p>
                 </>
               )}
 
               <p>
-                <strong>Password:</strong>
+                <span className="field-label">Password:</span>
                 <Link to={AppRoutes.AUTH_SEND_PASSWORD_RESET.path} className={classNames('reset-link')}>
                   Reset Password
                 </Link>
@@ -206,11 +248,13 @@ export const PersonalForm = (): JSX.Element => {
               <button className={classNames('edit-button')}>Update billing info</button>
             </div>
             <div className={classNames('section-info-content')}>
-              <p>
-                <strong>Payment method:</strong> Card ending in 1424
+              <p className="field-row">
+                <span className="field-label">Payment method:</span>
+                <span className="field-value">Card ending in 1424</span>
               </p>
-              <p>
-                <strong>Billing Email:</strong> user@gmail.com
+              <p className="field-row">
+                <span className="field-label">Billing Email:</span>
+                <span className="field-value">user@gmail.com</span>
               </p>
             </div>
           </div>
