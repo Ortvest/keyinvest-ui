@@ -62,26 +62,37 @@ export const PersonalForm = (): JSX.Element => {
   const handleSave = async (): Promise<void> => {
     if (!user?._id) return;
 
-    const updatedFields: Partial<UpdateUserInfoPayload> = { userId: user._id };
+    const updatedFields: UpdateUserInfoPayload = {
+      userId: user._id,
+      username: formData.username,
+      email: formData.email,
+      phoneNumber: user.phoneNumber,
+    };
 
-    if (formData.username !== user.username) {
-      updatedFields.username = formData.username;
-    }
-    if (formData.email !== user.email) {
-      updatedFields.email = formData.email;
-    }
+    let phoneChanged = false;
     if (formData.phoneNumber !== user.phoneNumber) {
       updatedFields.phoneNumber = formData.phoneNumber;
+      phoneChanged = true;
     }
 
-    if (Object.keys(updatedFields).length === 1) {
+    const hasOtherChanges =
+      formData.username !== user.username || formData.email !== user.email || formData.region !== user.region;
+
+    if (!hasOtherChanges && !phoneChanged) {
       setEditMode(false);
       return;
     }
 
     try {
-      const updatedUser = { ...user, ...updatedFields };
-      await updateUserInfo(updatedFields as UpdateUserInfoPayload).unwrap();
+      const updatedUser = {
+        ...user,
+        username: formData.username,
+        email: formData.email,
+        region: formData.region,
+        phoneNumber: phoneChanged ? formData.phoneNumber : user.phoneNumber,
+      };
+
+      await updateUserInfo(updatedFields).unwrap();
       dispatch(setUserData(updatedUser));
       setEditMode(false);
     } catch (error) {

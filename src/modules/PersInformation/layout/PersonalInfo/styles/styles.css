@@ -201,10 +201,11 @@
 }
 
 .verify-link {
+  margin-left: 14px;
   padding: 0;
 
   color: #000;
-  font-size: 0.9rem;
+  font-size: 16px;
   text-decoration: underline;
 
   border: none;
