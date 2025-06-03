@@ -35,7 +35,7 @@ export const PackageDetails = (): JSX.Element => {
     isLoading,
     error,
   } = useGetSelectedPackageQuery({
-    userId: user?._id ?? '',
+    userId: user?._id || '',
     packageId: packageId!,
   });
 

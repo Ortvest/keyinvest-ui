@@ -34,7 +34,7 @@ export const PhoneSection = ({ isOpen, code, setCode, onVerify, onCancel }: Phon
           <tr>
             <td>
               <div className="message">
-                <strong>A confirmation code has been sent to {user.phoneNumber}</strong>
+                <strong>A confirmation code has been sent to {user?.phoneNumber}</strong>
               </div>
               <div className="subtext">
                 Please enter the code below to complete verification.
