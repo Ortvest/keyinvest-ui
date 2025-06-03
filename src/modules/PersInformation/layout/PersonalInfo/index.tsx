@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import classNames from 'classnames';
+import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -28,75 +29,61 @@ const EXCLUDED_COUNTRIES = ['Russia', 'Belarus'];
 
 export const PersonalForm = (): JSX.Element => {
   const { user } = useTypedSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
+
   const [editMode, setEditMode] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [code, setCode] = useState('');
+
   const [sendVerificationSMS] = useSendVerificationSMSMutation();
   const [verifySms] = useVerifySmsMutation();
   const [updateUserInfo] = useUpdateUserInfoMutation();
   const { data: countries = [], isLoading } = useGetAllCountriesQuery();
 
-  const [formData, setFormData] = useState({
-    username: user?.username ?? '',
-    email: user?.email ?? '',
-    phoneNumber: user?.phoneNumber ?? '',
-    region: user?.region ?? '',
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: {
+      username: user?.username ?? '',
+      email: user?.email ?? '',
+      phoneNumber: user?.phoneNumber ?? '',
+      region: user?.region ?? '',
+    },
   });
 
-  const dispatch = useDispatch();
-
   useEffect(() => {
-    if (!user) return;
-    setFormData({
-      username: user.username,
-      email: user.email,
-      phoneNumber: user.phoneNumber || '',
-      region: user.region || '',
-    });
-  }, [user]);
+    if (user) {
+      reset({
+        username: user.username,
+        email: user.email,
+        phoneNumber: user.phoneNumber ?? '',
+        region: user.region ?? '',
+      });
+    }
+  }, [user, reset]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSave = async (): Promise<void> => {
+  const onSubmit = async (data: {
+    username: string;
+    email: string;
+    phoneNumber: string;
+    region: string;
+  }): Promise<void> => {
     if (!user?._id) return;
 
-    const updatedFields: UpdateUserInfoPayload = {
+    const updatedFields: Partial<UpdateUserInfoPayload> = {
       userId: user._id,
-      username: formData.username,
-      email: formData.email,
-      phoneNumber: user.phoneNumber,
+      username: data.username,
+      email: data.email,
     };
 
-    let phoneChanged = false;
-    if (formData.phoneNumber !== user.phoneNumber) {
-      updatedFields.phoneNumber = formData.phoneNumber;
-      phoneChanged = true;
-    }
-
-    const hasOtherChanges =
-      formData.username !== user.username || formData.email !== user.email || formData.region !== user.region;
-
-    if (!hasOtherChanges && !phoneChanged) {
-      setEditMode(false);
-      return;
+    if (data.phoneNumber !== user.phoneNumber) {
+      updatedFields.phoneNumber = data.phoneNumber;
     }
 
     try {
-      const updatedUser = {
-        ...user,
-        username: formData.username,
-        email: formData.email,
-        region: formData.region,
-        phoneNumber: phoneChanged ? formData.phoneNumber : user.phoneNumber,
-      };
-
-      await updateUserInfo(updatedFields).unwrap();
-      dispatch(setUserData(updatedUser));
+      await updateUserInfo(updatedFields as UpdateUserInfoPayload).unwrap();
+      dispatch(setUserData({ ...user, ...updatedFields }));
       setEditMode(false);
     } catch (error) {
-      console.error('Failed to update user info:', error);
+      console.error('Update failed:', error);
     }
   };
 
@@ -124,7 +111,7 @@ export const PersonalForm = (): JSX.Element => {
   return (
     <div className={classNames('personal-info-container')}>
       <div className={classNames('status-bar')}>
-        Status:
+        Status:{' '}
         <span className={classNames(UserStatusClass[user?.status ?? 'to-confirm'])}>
           {UserStatusLabel[user?.status ?? 'to-confirm']}
         </span>
@@ -136,11 +123,11 @@ export const PersonalForm = (): JSX.Element => {
             <div className={classNames('section-info-header')}>
               <h2>Personal Info</h2>
               {editMode ? (
-                <button className="save-button" onClick={handleSave}>
+                <button className={classNames('save-button')} onClick={handleSubmit(onSubmit)}>
                   Save
                 </button>
               ) : (
-                <button className="edit-button" onClick={() => setEditMode(true)}>
+                <button className={classNames('edit-button')} onClick={() => setEditMode(true)}>
                   Edit account info
                 </button>
               )}
@@ -153,26 +140,14 @@ export const PersonalForm = (): JSX.Element => {
                     <label htmlFor="username" className={classNames('field-label')}>
                       Username:
                     </label>
-                    <input
-                      id="username"
-                      name="username"
-                      className={classNames('field-input')}
-                      value={formData.username}
-                      onChange={handleChange}
-                    />
+                    <input id="username" {...register('username')} className={classNames('field-input')} />
                   </div>
 
                   <div className={classNames('field-row')}>
                     <label htmlFor="email" className={classNames('field-label')}>
                       Email:
                     </label>
-                    <input
-                      id="email"
-                      name="email"
-                      className={classNames('field-input')}
-                      value={formData.email}
-                      onChange={handleChange}
-                    />
+                    <input id="email" {...register('email')} className={classNames('field-input')} />
                   </div>
 
                   <div className={classNames('field-row')}>
@@ -180,14 +155,9 @@ export const PersonalForm = (): JSX.Element => {
                       Country:
                     </label>
                     {isLoading ? (
-                      <p>Loading countries...</p>
+                      <p className={classNames('field-loading')}>Loading countries...</p>
                     ) : (
-                      <select
-                        id="region"
-                        name="region"
-                        className={classNames('field-input')}
-                        value={formData.region}
-                        onChange={handleChange}>
+                      <select id="region" {...register('region')} className={classNames('field-input')}>
                         <option value="">Select country</option>
                         {countries
                           .filter((c: Country) => !EXCLUDED_COUNTRIES.includes(c.name.common))
@@ -205,35 +175,29 @@ export const PersonalForm = (): JSX.Element => {
                     <label htmlFor="phoneNumber" className={classNames('field-label')}>
                       Phone number:
                     </label>
-                    <input
-                      id="phoneNumber"
-                      name="phoneNumber"
-                      className={classNames('field-input')}
-                      value={formData.phoneNumber}
-                      onChange={handleChange}
-                    />
+                    <input id="phoneNumber" {...register('phoneNumber')} className={classNames('field-input')} />
                   </div>
                 </>
               ) : (
                 <>
-                  <p className="field-row">
-                    <span className="field-label">Username:</span>
-                    <span className="field-value">{user?.username ?? 'Not specified'}</span>
+                  <p className={classNames('field-row')}>
+                    <span className={classNames('field-label')}>Username:</span>
+                    <span className={classNames('field-value')}>{user?.username ?? 'Not specified'}</span>
                   </p>
-                  <p className="field-row">
-                    <span className="field-label">Email:</span>
-                    <span className="field-value">{user?.email ?? 'Not specified'}</span>
+                  <p className={classNames('field-row')}>
+                    <span className={classNames('field-label')}>Email:</span>
+                    <span className={classNames('field-value')}>{user?.email ?? 'Not specified'}</span>
                   </p>
-                  <p className="field-row">
-                    <span className="field-label">Country:</span>
-                    <span className="field-value">{user?.region || 'Not specified'}</span>
+                  <p className={classNames('field-row')}>
+                    <span className={classNames('field-label')}>Country:</span>
+                    <span className={classNames('field-value')}>{user?.region || 'Not specified'}</span>
                   </p>
-                  <p className="field-row">
-                    <span className="field-label">Phone number:</span>
-                    <span className="field-value">
+                  <p className={classNames('field-row')}>
+                    <span className={classNames('field-label')}>Phone number:</span>
+                    <span className={classNames('field-value')}>
                       {user?.phoneNumber || 'Not specified'}{' '}
                       {user?.phoneNumber && !(user?.phoneVerified || user?.status === 'confirmed') && (
-                        <button className="verify-link" onClick={handleSendVerification}>
+                        <button className={classNames('verify-link')} onClick={handleSendVerification}>
                           Verify
                         </button>
                       )}
@@ -242,9 +206,9 @@ export const PersonalForm = (): JSX.Element => {
                 </>
               )}
 
-              <p>
-                <span className="field-label">Password:</span>
-                <Link to={AppRoutes.AUTH_SEND_PASSWORD_RESET.path} className={classNames('reset-link')}>
+              <p className={classNames('field-row')}>
+                <span className={classNames('field-label')}>Password:</span>
+                <Link to={AppRoutes.AUTH_SEND_PASSWORD_RESET.path} className={classNames('reset-link', 'field-value')}>
                   Reset Password
                 </Link>
               </p>
@@ -259,18 +223,19 @@ export const PersonalForm = (): JSX.Element => {
               <button className={classNames('edit-button')}>Update billing info</button>
             </div>
             <div className={classNames('section-info-content')}>
-              <p className="field-row">
-                <span className="field-label">Payment method:</span>
-                <span className="field-value">Card ending in 1424</span>
+              <p className={classNames('field-row')}>
+                <span className={classNames('field-label')}>Payment method:</span>
+                <span className={classNames('field-value')}>Card ending in 1424</span>
               </p>
-              <p className="field-row">
-                <span className="field-label">Billing Email:</span>
-                <span className="field-value">user@gmail.com</span>
+              <p className={classNames('field-row')}>
+                <span className={classNames('field-label')}>Billing Email:</span>
+                <span className={classNames('field-value')}>user@gmail.com</span>
               </p>
             </div>
           </div>
         </div>
       </div>
+
       {isModalOpen && (
         <PhoneSection
           isOpen={isModalOpen}
