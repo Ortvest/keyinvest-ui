@@ -6,6 +6,7 @@ import { AnalyticsStock } from '@global/api/templates/investmentApi';
 interface Props {
   selectedPackageStocks: { ticker: string; name: string; logo: string }[];
   analyticsStocks?: AnalyticsStock[];
+  enabledStocks?: Record<string, boolean>;
 }
 
 export const StockList = ({ selectedPackageStocks, analyticsStocks = [] }: Props): JSX.Element => (

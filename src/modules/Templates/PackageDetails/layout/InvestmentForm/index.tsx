@@ -1,3 +1,6 @@
+import EyeOn from '@shared/assets/icons/eye-open.png';
+import EyeOff from '@shared/assets/icons/EyeClosed.svg';
+
 interface Props {
   stocks: { ticker: string }[];
   investmentAmounts: Record<string, number>;
@@ -5,6 +8,8 @@ interface Props {
   onAnalyze: () => void;
   estimatedReturn?: number;
   isLoading?: boolean;
+  enabledStocks: Record<string, boolean>;
+  setEnabledStocks: React.Dispatch<React.SetStateAction<Record<string, boolean>>>;
 }
 
 export const InvestmentForm = ({
@@ -14,37 +19,62 @@ export const InvestmentForm = ({
   onAnalyze,
   estimatedReturn,
   isLoading,
-}: Props): JSX.Element => (
-  <div className="package-invest-list">
-    <ul className="package-invest-items">
-      <h2 className="package-invest-title">Invest</h2>
-      {Array.isArray(stocks) && stocks.length > 0 ? (
-        stocks.map((stock) => (
-          <li className="package-invest-item" key={stock.ticker}>
-            <div className="package-name-ticker">{stock.ticker}</div>
-            <input
-              type="number"
-              name="investment amount"
-              placeholder="0"
-              min={0}
-              value={investmentAmounts[stock.ticker] || ''}
-              className="investment-input"
-              onChange={(e) => onChange(stock.ticker, Number(e.target.value))}
-            />
-          </li>
-        ))
-      ) : (
-        <li>No stocks available</li>
+  enabledStocks,
+  setEnabledStocks,
+}: Props): JSX.Element => {
+  const toggleStock = (ticker: string): void => {
+    setEnabledStocks((prev) => ({
+      ...prev,
+      [ticker]: !prev[ticker],
+    }));
+  };
+
+  return (
+    <div className="package-invest-list">
+      <ul className="package-invest-items">
+        <h2 className="package-invest-title">Invest</h2>
+        {stocks.length > 0 ? (
+          stocks.map((stock) => {
+            const isEnabled = enabledStocks[stock.ticker];
+            return (
+              <li className={`package-invest-item ${!isEnabled ? 'disabled' : ''}`} key={stock.ticker}>
+                <div className="package-name-ticker">{stock.ticker}</div>
+                <div className="package-input-button">
+                  <input
+                    type="number"
+                    name="investment amount"
+                    placeholder="0"
+                    min={0}
+                    value={investmentAmounts[stock.ticker] || ''}
+                    className="investment-input"
+                    onChange={(e) => onChange(stock.ticker, Number(e.target.value))}
+                    disabled={!isEnabled}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => toggleStock(stock.ticker)}
+                    className="toggle-visibility-button"
+                    title={isEnabled ? 'Disable' : 'Enable'}>
+                    {isEnabled ? <img src={EyeOn} alt="eye open" /> : <img src={EyeOff} alt="eye closed" />}
+                  </button>
+                </div>
+              </li>
+            );
+          })
+        ) : (
+          <li>No stocks available</li>
+        )}
+      </ul>
+
+      {estimatedReturn !== undefined && (
+        <div className="package-final-result">
+          <p className="package-final-text">Estimated return: </p>
+          <p className="final-value"> ${estimatedReturn}</p>
+        </div>
       )}
-    </ul>
-    {estimatedReturn !== undefined && (
-      <div className="package-final-result">
-        <p className="package-final-text">Estimated return: </p>
-        <p className="final-value"> ${estimatedReturn}</p>
-      </div>
-    )}
-    <button className="package-analyze-button" onClick={onAnalyze} disabled={isLoading}>
-      {isLoading ? <span className="loader" /> : <p>Analyze</p>}
-    </button>
-  </div>
-);
+      <button className="package-analyze-button" onClick={onAnalyze} disabled={isLoading}>
+        {isLoading ? <span className="loader" /> : <p>Analyze</p>}
+      </button>
+    </div>
+  );
+};

@@ -46,27 +46,63 @@ export const PackageDetails = (): JSX.Element => {
     }));
   };
 
-  const cleanAllocations = useMemo(() => {
-    return (
+  const [enabledStocks, setEnabledStocks] = useState<Record<string, boolean>>(
+    () =>
       selectedPackage?.stocks.reduce(
         (acc, stock) => {
-          const tickerKey = stock.ticker.split('.')[0];
-          const userValue = investmentAmounts[stock.ticker];
-
-          if (userValue === undefined || userValue === null) {
-            acc[tickerKey] = 100;
-          } else {
-            acc[tickerKey] = userValue;
-          }
-
+          acc[stock.ticker] = true;
           return acc;
         },
-        {} as Record<string, number>
+        {} as Record<string, boolean>
       ) ?? {}
+  );
+
+  useEffect(() => {
+    if (selectedPackage) {
+      setEnabledStocks(
+        selectedPackage.stocks.reduce(
+          (acc, stock) => {
+            acc[stock.ticker] = true;
+            return acc;
+          },
+          {} as Record<string, boolean>
+        )
+      );
+    }
+  }, [selectedPackage]);
+
+  const getTotalInvestment = (): number => {
+    return Object.entries(investmentAmounts)
+      .filter(([ticker]) => enabledStocks[ticker])
+      .reduce((sum, [, amount]) => sum + (amount || 0), 0);
+  };
+
+  const cleanAllocations = useMemo(() => {
+    if (!selectedPackage) return {};
+
+    return selectedPackage.stocks.reduce(
+      (acc, stock) => {
+        const tickerKey = stock.ticker.split('.')[0];
+        const isEnabled = enabledStocks[stock.ticker];
+
+        if (!isEnabled) return acc;
+
+        const userValue = investmentAmounts[stock.ticker];
+        acc[tickerKey] = userValue ?? 100;
+
+        return acc;
+      },
+      {} as Record<string, number>
     );
-  }, [investmentAmounts, selectedPackage]);
+  }, [investmentAmounts, selectedPackage, enabledStocks]);
 
   const handleAnalyzeClick = async (): Promise<void> => {
+    const total = getTotalInvestment();
+    if (total === 0) {
+      setAnalyticsResult(null);
+      return;
+    }
+
     try {
       setIsAnalyzing(true);
       const response = await analyzeInvestment({
@@ -126,7 +162,7 @@ export const PackageDetails = (): JSX.Element => {
 
         const defaultAllocations = selectedPackage.stocks.reduce(
           (acc, stock) => {
-            acc[stock.ticker.split('.')[0]] = 100;
+            acc[stock.ticker.split('.')[0]] = 0;
             return acc;
           },
           {} as Record<string, number>
@@ -184,6 +220,8 @@ export const PackageDetails = (): JSX.Element => {
             onAnalyze={handleAnalyzeClick}
             estimatedReturn={analyticsResult?.meta.finalBudget}
             isLoading={isAnalyzing}
+            enabledStocks={enabledStocks}
+            setEnabledStocks={setEnabledStocks}
           />
         </article>
       </section>
