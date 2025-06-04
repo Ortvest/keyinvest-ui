@@ -46,6 +46,7 @@ export const PersonalForm = (): JSX.Element => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (!user) return;
     setFormData({
       username: user?.username,
       email: user?.email,
@@ -60,9 +61,9 @@ export const PersonalForm = (): JSX.Element => {
 
   const handleSave = async (): Promise<void> => {
     const payload: UpdateUserInfoPayload = {
-      userId: user?._id || "",
-      username: formData?.username || "",
-      email: formData?.email || "",
+      userId: user?._id || '',
+      username: formData?.username || '',
+      email: formData?.email || '',
       phoneNumber: formData.phoneNumber,
     };
 
@@ -75,6 +76,7 @@ export const PersonalForm = (): JSX.Element => {
   };
 
   const handleSendVerification = async (): Promise<void> => {
+    if (!user?.phoneNumber) return;
     try {
       await sendVerificationSMS({ phoneNumber: user?.phoneNumber || '' }).unwrap();
       setIsModalOpen(true);
@@ -84,10 +86,11 @@ export const PersonalForm = (): JSX.Element => {
   };
 
   const handleVerifyCode = async (): Promise<void> => {
+    if (!user?.phoneNumber) return;
     try {
       await verifySms({ phoneNumber: user?.phoneNumber || '', code }).unwrap();
       setIsModalOpen(false);
-      if(user){
+      if (user) {
         dispatch(setUserData({ ...user, phoneVerified: true }));
       }
     } catch (error) {
@@ -98,9 +101,10 @@ export const PersonalForm = (): JSX.Element => {
   return (
     <div className={classNames('personal-info-container')}>
       <div className={classNames('status-bar')}>
-        Status: <span className={classNames(UserStatusClass[user?.status ?? 'to-confirm'])}>
-    {UserStatusLabel[user?.status ?? 'to-confirm']}
-  </span>
+        Status:{' '}
+        <span className={classNames(UserStatusClass[user?.status ?? 'to-confirm'])}>
+          {UserStatusLabel[user?.status ?? 'to-confirm']}
+        </span>
       </div>
 
       <div className={classNames('table-container')}>

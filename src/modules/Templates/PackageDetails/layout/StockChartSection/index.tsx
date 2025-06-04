@@ -1,4 +1,4 @@
-import { StokeChart } from '@modules/Templates/PackageDetails/features/StokeChart';
+import { StockChartNivo } from '@modules/Templates/PackageDetails/features/StokeChart';
 
 import { AnalyticsStock } from '@global/api/templates/investmentApi';
 
@@ -18,8 +18,7 @@ const ranges = [
 ];
 
 export const StockChartSection = ({ stocks, selectedRange, onRangeClick }: Props): JSX.Element => (
-  <>
-    <StokeChart stocks={stocks} />
+  <section className="dates-chart-wrapper">
     <div className="dates-to-invest">
       {ranges.map((range) => (
         <button
@@ -30,5 +29,6 @@ export const StockChartSection = ({ stocks, selectedRange, onRangeClick }: Props
         </button>
       ))}
     </div>
-  </>
+    <StockChartNivo stocks={stocks} />
+  </section>
 );

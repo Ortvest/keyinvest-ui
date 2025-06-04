@@ -37,7 +37,7 @@ export const CreateAnalyticsPackage = ({ onClose }: CreateAnalyticsPackageProps)
 
   const handleCreatePackage = async (data: CreatePackageFormInputs): Promise<void> => {
     const payload: InvestmentPackagePayload = {
-      userId: user?._id || "",
+      userId: user?._id || '',
       packageName: data.packageName,
       stocks: selectedStocks,
     };
