@@ -91,7 +91,7 @@ export const PersonalForm = (): JSX.Element => {
   const handleSendVerification = async (): Promise<void> => {
     if (!user?.phoneNumber) return;
     try {
-      await sendVerificationSMS({ phoneNumber: user.phoneNumber }).unwrap();
+      await sendVerificationSMS({ phoneNumber: user?.phoneNumber || '' }).unwrap();
       setIsModalOpen(true);
     } catch (error) {
       console.error('Failed to send SMS verification:', error);
@@ -101,9 +101,11 @@ export const PersonalForm = (): JSX.Element => {
   const handleVerifyCode = async (): Promise<void> => {
     if (!user?.phoneNumber) return;
     try {
-      await verifySms({ phoneNumber: user.phoneNumber, code }).unwrap();
+      await verifySms({ phoneNumber: user?.phoneNumber || '', code }).unwrap();
       setIsModalOpen(false);
-      dispatch(setUserData({ ...user, phoneVerified: true }));
+      if (user) {
+        dispatch(setUserData({ ...user, phoneVerified: true }));
+      }
     } catch (error) {
       console.error('Verification failed:', error);
     }

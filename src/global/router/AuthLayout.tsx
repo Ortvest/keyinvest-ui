@@ -9,7 +9,11 @@ const isUsageScope = (scope: string[]): boolean => {
   return scope.includes(UsageScopes.AUTH);
 };
 
-export const AuthLayout = ({ authed }: { authed: boolean }): JSX.Element => {
+interface AuthLayoutProps {
+  authed?: boolean;
+}
+// eslint-disable-next-line no-empty-pattern
+export const AuthLayout = ({}: AuthLayoutProps): JSX.Element => {
   const location = useLocation();
 
   const currentRoute = Object.values(AppRoutes).find((route) => location.pathname.startsWith(route.path));
