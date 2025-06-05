@@ -45,7 +45,7 @@ export const PersonalForm = (): JSX.Element => {
       username: user?.username ?? '',
       email: user?.email ?? '',
       phoneNumber: user?.phoneNumber ?? '',
-      region: user?.region ?? '',
+      country: user?.country ?? '',
     },
   });
 
@@ -55,7 +55,7 @@ export const PersonalForm = (): JSX.Element => {
         username: user.username,
         email: user.email,
         phoneNumber: user.phoneNumber ?? '',
-        region: user.region ?? '',
+        country: user.country ?? '',
       });
     }
   }, [user, reset]);
@@ -64,14 +64,15 @@ export const PersonalForm = (): JSX.Element => {
     username: string;
     email: string;
     phoneNumber: string;
-    region: string;
+    country: string;
   }): Promise<void> => {
     if (!user?._id) return;
 
-    const updatedFields: Partial<UpdateUserInfoPayload> = {
+    const updatedFields: UpdateUserInfoPayload = {
       userId: user._id,
       username: data.username,
       email: data.email,
+      country: data.country,
     };
 
     if (data.phoneNumber !== user.phoneNumber) {
@@ -79,7 +80,7 @@ export const PersonalForm = (): JSX.Element => {
     }
 
     try {
-      await updateUserInfo(updatedFields as UpdateUserInfoPayload).unwrap();
+      await updateUserInfo(updatedFields).unwrap();
       dispatch(setUserData({ ...user, ...updatedFields }));
       setEditMode(false);
     } catch (error) {
@@ -120,99 +121,109 @@ export const PersonalForm = (): JSX.Element => {
       <div className={classNames('table-container')}>
         <div className={classNames('info-grid')}>
           <div className={classNames('info-section')}>
-            <div className={classNames('section-info-header')}>
-              <h2>Personal Info</h2>
-              {editMode ? (
-                <button className={classNames('save-button')} onClick={handleSubmit(onSubmit)}>
-                  Save
-                </button>
-              ) : (
-                <button className={classNames('edit-button')} onClick={() => setEditMode(true)}>
-                  Edit account info
-                </button>
-              )}
-            </div>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className={classNames('section-info-header')}>
+                <h2>Personal Info</h2>
+                {editMode ? (
+                  <button type="submit" className={classNames('save-button')}>
+                    Save
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className={classNames('edit-button')}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setEditMode(true);
+                    }}>
+                    Edit account info
+                  </button>
+                )}
+              </div>
 
-            <div className={classNames('section-info-content')}>
-              {editMode ? (
-                <>
-                  <div className={classNames('field-row')}>
-                    <label htmlFor="username" className={classNames('field-label')}>
-                      Username:
-                    </label>
-                    <input id="username" {...register('username')} className={classNames('field-input')} />
-                  </div>
+              <div className={classNames('section-info-content')}>
+                {editMode ? (
+                  <>
+                    <div className={classNames('field-row')}>
+                      <label htmlFor="username" className={classNames('field-label')}>
+                        Username:
+                      </label>
+                      <input id="username" {...register('username')} className={classNames('field-input')} />
+                    </div>
 
-                  <div className={classNames('field-row')}>
-                    <label htmlFor="email" className={classNames('field-label')}>
-                      Email:
-                    </label>
-                    <input id="email" {...register('email')} className={classNames('field-input')} />
-                  </div>
+                    <div className={classNames('field-row')}>
+                      <label htmlFor="email" className={classNames('field-label')}>
+                        Email:
+                      </label>
+                      <input id="email" {...register('email')} className={classNames('field-input')} />
+                    </div>
 
-                  <div className={classNames('field-row')}>
-                    <label htmlFor="region" className={classNames('field-label')}>
-                      Country:
-                    </label>
-                    {isLoading ? (
-                      <p className={classNames('field-loading')}>Loading countries...</p>
-                    ) : (
-                      <select id="region" {...register('region')} className={classNames('field-input')}>
-                        <option value="">Select country</option>
-                        {countries
-                          .filter((c: Country) => !EXCLUDED_COUNTRIES.includes(c.name.common))
-                          .sort((a, b) => a.name.common.localeCompare(b.name.common))
-                          .map((c) => (
-                            <option key={c.name.common} value={c.name.common}>
-                              {c.name.common}
-                            </option>
-                          ))}
-                      </select>
-                    )}
-                  </div>
-
-                  <div className={classNames('field-row')}>
-                    <label htmlFor="phoneNumber" className={classNames('field-label')}>
-                      Phone number:
-                    </label>
-                    <input id="phoneNumber" {...register('phoneNumber')} className={classNames('field-input')} />
-                  </div>
-                </>
-              ) : (
-                <>
-                  <p className={classNames('field-row')}>
-                    <span className={classNames('field-label')}>Username:</span>
-                    <span className={classNames('field-value')}>{user?.username ?? 'Not specified'}</span>
-                  </p>
-                  <p className={classNames('field-row')}>
-                    <span className={classNames('field-label')}>Email:</span>
-                    <span className={classNames('field-value')}>{user?.email ?? 'Not specified'}</span>
-                  </p>
-                  <p className={classNames('field-row')}>
-                    <span className={classNames('field-label')}>Country:</span>
-                    <span className={classNames('field-value')}>{user?.region || 'Not specified'}</span>
-                  </p>
-                  <p className={classNames('field-row')}>
-                    <span className={classNames('field-label')}>Phone number:</span>
-                    <span className={classNames('field-value')}>
-                      {user?.phoneNumber || 'Not specified'}{' '}
-                      {user?.phoneNumber && !(user?.phoneVerified || user?.status === 'confirmed') && (
-                        <button className={classNames('verify-link')} onClick={handleSendVerification}>
-                          Verify
-                        </button>
+                    <div className={classNames('field-row')}>
+                      <label htmlFor="country" className={classNames('field-label')}>
+                        Country:
+                      </label>
+                      {isLoading ? (
+                        <p className={classNames('field-loading')}>Loading countries...</p>
+                      ) : (
+                        <select id="country" {...register('country')} className={classNames('field-input')}>
+                          <option value="">Select country</option>
+                          {countries
+                            .filter((c: Country) => !EXCLUDED_COUNTRIES.includes(c.name.common))
+                            .sort((a, b) => a.name.common.localeCompare(b.name.common))
+                            .map((c) => (
+                              <option key={c.name.common} value={c.name.common}>
+                                {c.name.common}
+                              </option>
+                            ))}
+                        </select>
                       )}
-                    </span>
-                  </p>
-                </>
-              )}
+                    </div>
 
-              <p className={classNames('field-row')}>
-                <span className={classNames('field-label')}>Password:</span>
-                <Link to={AppRoutes.AUTH_SEND_PASSWORD_RESET.path} className={classNames('reset-link', 'field-value')}>
-                  Reset Password
-                </Link>
-              </p>
-            </div>
+                    <div className={classNames('field-row')}>
+                      <label htmlFor="phoneNumber" className={classNames('field-label')}>
+                        Phone number:
+                      </label>
+                      <input id="phoneNumber" {...register('phoneNumber')} className={classNames('field-input')} />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <p className={classNames('field-row')}>
+                      <span className={classNames('field-label')}>Username:</span>
+                      <span className={classNames('field-value')}>{user?.username ?? 'Not specified'}</span>
+                    </p>
+                    <p className={classNames('field-row')}>
+                      <span className={classNames('field-label')}>Email:</span>
+                      <span className={classNames('field-value')}>{user?.email ?? 'Not specified'}</span>
+                    </p>
+                    <p className={classNames('field-row')}>
+                      <span className={classNames('field-label')}>Country:</span>
+                      <span className={classNames('field-value')}>{user?.country || 'Not specified'}</span>
+                    </p>
+                    <p className={classNames('field-row')}>
+                      <span className={classNames('field-label')}>Phone number:</span>
+                      <span className={classNames('field-value')}>
+                        {user?.phoneNumber || 'Not specified'}{' '}
+                        {user?.phoneNumber && !(user?.phoneVerified || user?.status === 'confirmed') && (
+                          <button className={classNames('verify-link')} onClick={handleSendVerification}>
+                            Verify
+                          </button>
+                        )}
+                      </span>
+                    </p>
+                  </>
+                )}
+
+                <p className={classNames('field-row')}>
+                  <span className={classNames('field-label')}>Password:</span>
+                  <Link
+                    to={AppRoutes.AUTH_SEND_PASSWORD_RESET.path}
+                    className={classNames('reset-link', 'field-value')}>
+                    Reset Password
+                  </Link>
+                </p>
+              </div>
+            </form>
           </div>
 
           <hr className={classNames('divider')} />
