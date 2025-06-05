@@ -4,7 +4,7 @@ import { Country } from '@shared/interfaces/Country.interfaces';
 export const countryApi = baseCountryApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllCountries: builder.query<Country[], void>({
-      query: () => 'all',
+      query: () => 'all?fields=name',
       transformResponse: (response: Country[]) => {
         return response
           .filter((c) => c.name.common !== 'Russia' && c.name.common !== 'Belarus')

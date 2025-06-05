@@ -113,12 +113,22 @@ export const authApi = baseAuthApi.injectEndpoints({
         }
       },
     }),
-    updateUserInfo: builder.mutation<void, UpdateUserInfoPayload>({
+    updateUserInfo: builder.mutation<{ user: UserEntity }, UpdateUserInfoPayload>({
       query: (body) => ({
         url: API_ENDPOINTS.UPDATE_INFO,
         method: HttpMethods.PATCH,
         body,
       }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          if (data.user) {
+            dispatch(setUserData(data.user));
+          }
+        } catch (error) {
+          console.error('Failed to update user info:', error);
+        }
+      },
     }),
     getMe: builder.query<{ data: UserEntity }, void>({
       query: () => ({
