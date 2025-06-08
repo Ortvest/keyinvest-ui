@@ -12,6 +12,6 @@ export const signUpSchema = yup.object().shape({
   confirmPassword: yup
     .string()
     .oneOf([yup.ref('password')], 'Passwords must match')
-    .required('Confirm Password is required'),
+    .required('Confirmation is required'),
   verificationCode: yup.string().length(6, 'Verification code must be 6 digits').required('Code is required'),
 });
