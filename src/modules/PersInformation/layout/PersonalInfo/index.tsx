@@ -101,11 +101,11 @@ export const PersonalForm = (): JSX.Element => {
   const handleVerifyCode = async (): Promise<void> => {
     if (!user?.phoneNumber) return;
     try {
-      await verifySms({ phoneNumber: user?.phoneNumber || '', code }).unwrap();
+      await verifySms({ phoneNumber: user.phoneNumber, code }).unwrap();
+
+      dispatch(setUserData({ ...user, status: 'confirmed' }));
+
       setIsModalOpen(false);
-      if (user) {
-        dispatch(setUserData({ ...user, phoneVerified: true }));
-      }
     } catch (error) {
       console.error('Verification failed:', error);
     }
