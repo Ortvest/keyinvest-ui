@@ -37,10 +37,6 @@ const getNextStep = (step: StepNames): StepNames | null => {
       return 'USERNAME';
     case 'USERNAME':
       return 'PASSWORD';
-    case 'PASSWORD':
-      return 'CONFIRMATION';
-    case 'CONFIRMATION':
-      return 'VERIFICATION';
     default:
       return null;
   }
@@ -48,6 +44,7 @@ const getNextStep = (step: StepNames): StepNames | null => {
 
 export const RegistrationForm = (): JSX.Element => {
   const navigate = useNavigate();
+  const [country, setCountry] = useState<string | null>(null);
 
   const [sendVerificationCode] = useSendVerificationCodeMutation();
   const [verifyCode, { isSuccess: isVerifyCodeSuccess }] = useVerifyCodeMutation();
@@ -94,6 +91,7 @@ export const RegistrationForm = (): JSX.Element => {
     }
 
     const isValid = await trigger(fieldToValidate);
+
     if (isValid) {
       const nextStep = getNextStep(currentStep);
       if (nextStep) {
@@ -109,20 +107,55 @@ export const RegistrationForm = (): JSX.Element => {
   }, [isVerifyCodeSuccess, handleNextStep]);
 
   const onVerifyEmailHandler = async (): Promise<void> => {
-    await verifyCode({ email: getValues('email'), code: getValues('verificationCode') });
+    await verifyCode({ email: getValues('email'), code: getValues('verificationCode') || "" });
   };
 
+  useEffect(() => {
+    const fetchCountry = async (): Promise<void> => {
+      try {
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        setCountry(data.country_name);
+      } catch (error) {
+        console.error('Failed to fetch country:', error);
+      }
+    };
+
+    fetchCountry();
+  }, []);
+
   const onSubmit = (data: SignUpFormInputs): void => {
-    registerUser(data)
+
+    const payload = {
+      email: data.email,
+      username: data.username,
+      password: data.password,
+      country: country || "",
+    };
+    registerUser(payload)
       .unwrap()
       .then(() => {
-        navigate(AppRoutes.MAIN.path);
+        navigate(AppRoutes.SYSTEM.path);
+      })
+      .catch((error) => {
+        console.error('Register error:', error);
       });
   };
 
+  useEffect(() => {
+    console.log(currentStep, "STEP")
+  }, [currentStep]);
+
+  useEffect(() => {
+    console.log('All form values:', watchAllFields);
+  }, [watchAllFields]);
+
   return (
     <div className="inputs-container">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form  onSubmit={handleSubmit((data) => {
+        console.log('TRY SUBMIT', data);
+        onSubmit(data);
+      })}>
         {currentStep === 'EMAIL' && (
           <>
             <input
@@ -187,7 +220,7 @@ export const RegistrationForm = (): JSX.Element => {
             Verify
           </button>
         ) : currentStep === 'PASSWORD' ? (
-          <button className={classNames('submit-button')} type="submit">
+          <button  className={classNames('submit-button')} type="submit">
             Create
           </button>
         ) : (
