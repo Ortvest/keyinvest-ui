@@ -94,11 +94,13 @@ export const authApi = baseAuthApi.injectEndpoints({
       },
     }),
     registerUser: builder.mutation<AuthResponse, { username: string; email: string; password: string }>({
-      query: ({ username, email, password }) => ({
-        url: API_ENDPOINTS.AUTH_SIGN_UP,
-        method: HttpMethods.POST,
-        body: { username, email, password },
-      }),
+      query: ({ username, email, password }) => {
+        return {
+          url: API_ENDPOINTS.AUTH_SIGN_UP,
+          method: HttpMethods.POST,
+          body: { username, email, password },
+        };
+      },
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
