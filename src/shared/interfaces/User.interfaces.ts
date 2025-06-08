@@ -4,7 +4,7 @@ export interface UserEntity {
   _id: string;
   username: string;
   email: string;
-  region: string;
+  country: string;
   phoneNumber: string;
   phoneVerified?: boolean;
   status: UserStatus;
@@ -19,7 +19,8 @@ export interface UpdateUserInfoPayload {
   userId: string;
   username: string;
   email: string;
-  phoneNumber: string;
+  phoneNumber?: string;
+  country?: string;
 }
 
 export type UserHeaderData = Pick<UserEntity, 'username'>;
