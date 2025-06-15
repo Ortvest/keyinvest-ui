@@ -107,7 +107,7 @@ export const RegistrationForm = (): JSX.Element => {
   }, [isVerifyCodeSuccess, handleNextStep]);
 
   const onVerifyEmailHandler = async (): Promise<void> => {
-    await verifyCode({ email: getValues('email'), code: getValues('verificationCode') || "" });
+    await verifyCode({ email: getValues('email'), code: getValues('verificationCode') || '' });
   };
 
   useEffect(() => {
@@ -125,12 +125,11 @@ export const RegistrationForm = (): JSX.Element => {
   }, []);
 
   const onSubmit = (data: SignUpFormInputs): void => {
-
     const payload = {
       email: data.email,
       username: data.username,
       password: data.password,
-      country: country || "",
+      country: country || '',
     };
     registerUser(payload)
       .unwrap()
@@ -143,7 +142,7 @@ export const RegistrationForm = (): JSX.Element => {
   };
 
   useEffect(() => {
-    console.log(currentStep, "STEP")
+    console.log(currentStep, 'STEP');
   }, [currentStep]);
 
   useEffect(() => {
@@ -152,10 +151,11 @@ export const RegistrationForm = (): JSX.Element => {
 
   return (
     <div className="inputs-container">
-      <form  onSubmit={handleSubmit((data) => {
-        console.log('TRY SUBMIT', data);
-        onSubmit(data);
-      })}>
+      <form
+        onSubmit={handleSubmit((data) => {
+          console.log('TRY SUBMIT', data);
+          onSubmit(data);
+        })}>
         {currentStep === 'EMAIL' && (
           <>
             <input
@@ -220,7 +220,7 @@ export const RegistrationForm = (): JSX.Element => {
             Verify
           </button>
         ) : currentStep === 'PASSWORD' ? (
-          <button  className={classNames('submit-button')} type="submit">
+          <button className={classNames('submit-button')} type="submit">
             Create
           </button>
         ) : (
