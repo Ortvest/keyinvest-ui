@@ -20,7 +20,7 @@ import {
   useUpdateUserInfoMutation,
   useVerifySmsMutation,
 } from '@global/api/auth/auth.api';
-import { useGetAllCountriesQuery } from '@global/api/country/country.api';
+import { useGetAllCountriesQuery, useGetPhoneCodesQuery } from '@global/api/country/country.api';
 import { UserStatusClass, UserStatusLabel } from '@shared/enums/UserStatus.enums';
 import { Country } from '@shared/interfaces/Country.interfaces';
 import { UpdateUserInfoPayload } from '@shared/interfaces/User.interfaces';
@@ -39,6 +39,7 @@ export const PersonalForm = (): JSX.Element => {
   const [verifySms] = useVerifySmsMutation();
   const [updateUserInfo] = useUpdateUserInfoMutation();
   const { data: countries = [], isLoading } = useGetAllCountriesQuery();
+  const { data: phoneCodes = [] } = useGetPhoneCodesQuery();
 
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -46,24 +47,35 @@ export const PersonalForm = (): JSX.Element => {
       email: user?.email ?? '',
       phoneNumber: user?.phoneNumber ?? '',
       country: user?.country ?? '',
+      phoneCode: '',
     },
   });
 
   useEffect(() => {
-    if (user) {
+    if (user && phoneCodes.length > 0) {
+      const matchedCode = phoneCodes
+        .map((p) => p.callingCode)
+        .sort((a, b) => b.length - a.length)
+        .find((code) => user.phoneNumber?.startsWith(code));
+
+      const phoneCode = matchedCode || '';
+      const phoneNumber = user.phoneNumber?.replace(phoneCode, '') || '';
+
       reset({
         username: user.username,
         email: user.email,
-        phoneNumber: user.phoneNumber ?? '',
+        phoneNumber,
         country: user.country ?? '',
+        phoneCode,
       });
     }
-  }, [user, reset]);
+  }, [user, phoneCodes, reset]);
 
   const onSubmit = async (data: {
     username: string;
     email: string;
     phoneNumber: string;
+    phoneCode: string;
     country: string;
   }): Promise<void> => {
     if (!user?._id) return;
@@ -75,8 +87,9 @@ export const PersonalForm = (): JSX.Element => {
       country: data.country,
     };
 
-    if (data.phoneNumber !== user.phoneNumber) {
-      updatedFields.phoneNumber = data.phoneNumber;
+    const fullPhone = `${data.phoneCode}${data.phoneNumber}`;
+    if (fullPhone !== user.phoneNumber) {
+      updatedFields.phoneNumber = fullPhone;
     }
 
     try {
@@ -167,7 +180,10 @@ export const PersonalForm = (): JSX.Element => {
                       {isLoading ? (
                         <p className={classNames('field-loading')}>Loading countries...</p>
                       ) : (
-                        <select id="country" {...register('country')} className={classNames('field-input')}>
+                        <select
+                          id="country"
+                          {...register('country')}
+                          className={classNames('field-input', 'shift-left')}>
                           <option value="">Select country</option>
                           {countries
                             .filter((c: Country) => !EXCLUDED_COUNTRIES.includes(c.name.common))
@@ -185,7 +201,33 @@ export const PersonalForm = (): JSX.Element => {
                       <label htmlFor="phoneNumber" className={classNames('field-label')}>
                         Phone number:
                       </label>
-                      <input id="phoneNumber" {...register('phoneNumber')} className={classNames('field-input')} />
+                      <div className={classNames('phone-input-wrapper')}>
+                        {editMode ? (
+                          <>
+                            <select {...register('phoneCode')} className={classNames('shift-left')}>
+                              {phoneCodes.map((p) => (
+                                <option key={`${p.name}-${p.callingCode}`} value={p.callingCode}>
+                                  {p.callingCode} ({p.name})
+                                </option>
+                              ))}
+                            </select>
+                            <input
+                              id="phoneNumber"
+                              {...register('phoneNumber')}
+                              className={classNames('field-input', 'shift-left')}
+                            />
+                          </>
+                        ) : (
+                          <span className={classNames('field-value')}>
+                            {user?.phoneNumber || 'Not specified'}{' '}
+                            {user?.phoneNumber && !(user?.phoneVerified || user?.status === 'confirmed') && (
+                              <button className={classNames('verify-link')} onClick={handleSendVerification}>
+                                Verify
+                              </button>
+                            )}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </>
                 ) : (
