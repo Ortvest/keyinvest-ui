@@ -28,9 +28,13 @@ export const StockPicks = (): React.ReactNode => {
 		  our AI has selected the stocks that best match your investment strategy.`}
       />
       <div className={classNames('brief-stocks-list')}>
-        {stockPicks
-          ? stockPicks.companies.map((stock: Company) => <StockCard key={stock.ticker} stock={stock} />)
-          : null}
+        {!stockPicks ? (
+          <div className="loader">
+            <div className="spinner" />
+          </div>
+        ) : (
+          stockPicks.companies.map((stock: Company) => <StockCard key={stock.ticker} stock={stock} />)
+        )}
       </div>
       <div>
         <CreatePortfolioButton onClick={openModal} />

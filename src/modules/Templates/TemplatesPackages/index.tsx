@@ -69,8 +69,11 @@ export const TemplatesPackages = (): JSX.Element => {
                       <h3>{packageItem.packageName}</h3>
                     </div>
                     <div className="industries">
-                      {uniqueIndustries.map((industry) => (
-                        <em key={industry}>{industry}</em>
+                      {uniqueIndustries.map((industry, index) => (
+                        <span key={industry}>
+                          <em>{industry}</em>
+                          {index < uniqueIndustries.length - 1 && <span> ● </span>}
+                        </span>
                       ))}
                     </div>
                   </article>
