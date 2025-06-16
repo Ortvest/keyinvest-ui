@@ -203,18 +203,31 @@
 }
 
 .verify-link {
-  margin-left: 14px;
+  margin-left: 20px;
   padding: 0;
 
   color: #000;
+  font-weight: 500;
   font-size: 16px;
   text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: var(--blue);
 
   border: none;
 
   background: none;
 
   cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    text-decoration-color 0.2s ease;
+}
+
+.verify-link:hover {
+  color: #03c;
+  text-decoration-color: #03c;
 }
 
 .save-button {
