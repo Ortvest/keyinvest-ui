@@ -29,6 +29,13 @@ export const InvestmentForm = ({
     }));
   };
 
+  const totalInvested = Object.entries(investmentAmounts).reduce((acc, [ticker, value]) => {
+    if (enabledStocks[ticker]) {
+      return acc + (isNaN(value) ? 0 : value);
+    }
+    return acc;
+  }, 0);
+
   return (
     <div className="package-invest-list">
       <ul className="package-invest-items">
@@ -65,6 +72,13 @@ export const InvestmentForm = ({
           <li>No stocks available</li>
         )}
       </ul>
+
+      {totalInvested > 0 && (
+        <div className="package-final-result">
+          <p className="package-final-text">Total invested: </p>
+          <p className="final-value"> ${totalInvested}</p>
+        </div>
+      )}
 
       {estimatedReturn !== undefined && (
         <div className="package-final-result">
