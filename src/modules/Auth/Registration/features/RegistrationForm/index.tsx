@@ -19,6 +19,7 @@ import {
   useVerifyCodeMutation,
 } from '@global/api/auth/auth.api';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { signUpSchema } from '@shared/validation/sign-up.schema';
 
 type SignUpFormInputs = {
@@ -56,11 +57,13 @@ export const RegistrationForm = (): JSX.Element => {
     trigger,
     getValues,
     setValue,
+    setError,
     watch,
     formState: { errors },
   } = useForm<SignUpFormInputs>({
     resolver: yupResolver(signUpSchema),
     mode: 'onTouched',
+    shouldFocusError: true,
   });
 
   const watchAllFields = watch();
@@ -86,19 +89,44 @@ export const RegistrationForm = (): JSX.Element => {
         fieldToValidate = 'email';
     }
 
-    if (currentStep === StepNames.EMAIL) {
-      await sendVerificationCode({ email: getValues('email') }).unwrap();
-    }
-
     const isValid = await trigger(fieldToValidate);
 
-    if (isValid) {
+    if (!isValid) return;
+
+    if (currentStep === StepNames.EMAIL) {
+      try {
+        await sendVerificationCode({ email: getValues('email') }).unwrap();
+        const nextStep = getNextStep(currentStep);
+        if (nextStep) {
+          setCurrentStep(nextStep);
+        }
+      } catch (err) {
+        const fetchError = err as FetchBaseQueryError;
+
+        if (
+          fetchError &&
+          'data' in fetchError &&
+          typeof fetchError.data === 'object' &&
+          fetchError.data !== null &&
+          'message' in fetchError.data &&
+          typeof fetchError.data.message === 'string' &&
+          fetchError.data.message.includes('User already exists')
+        ) {
+          setError('email', {
+            type: 'manual',
+            message: 'User already exists',
+          });
+        } else {
+          console.error('Unexpected error:', err);
+        }
+      }
+    } else {
       const nextStep = getNextStep(currentStep);
       if (nextStep) {
         setCurrentStep(nextStep);
       }
     }
-  }, [currentStep, getValues, sendVerificationCode, trigger]);
+  }, [currentStep, getValues, sendVerificationCode, trigger, setError]);
 
   useEffect(() => {
     if (isVerifyCodeSuccess) {
@@ -107,7 +135,7 @@ export const RegistrationForm = (): JSX.Element => {
   }, [isVerifyCodeSuccess, handleNextStep]);
 
   const onVerifyEmailHandler = async (): Promise<void> => {
-    await verifyCode({ email: getValues('email'), code: getValues('verificationCode') || "" });
+    await verifyCode({ email: getValues('email'), code: getValues('verificationCode') || '' });
   };
 
   useEffect(() => {
@@ -125,12 +153,11 @@ export const RegistrationForm = (): JSX.Element => {
   }, []);
 
   const onSubmit = (data: SignUpFormInputs): void => {
-
     const payload = {
       email: data.email,
       username: data.username,
       password: data.password,
-      country: country || "",
+      country: country || '',
     };
     registerUser(payload)
       .unwrap()
@@ -142,20 +169,12 @@ export const RegistrationForm = (): JSX.Element => {
       });
   };
 
-  useEffect(() => {
-    console.log(currentStep, "STEP")
-  }, [currentStep]);
-
-  useEffect(() => {
-    console.log('All form values:', watchAllFields);
-  }, [watchAllFields]);
-
   return (
     <div className="inputs-container">
-      <form  onSubmit={handleSubmit((data) => {
-        console.log('TRY SUBMIT', data);
-        onSubmit(data);
-      })}>
+      <form
+        onSubmit={handleSubmit((data) => {
+          onSubmit(data);
+        })}>
         {currentStep === 'EMAIL' && (
           <>
             <input
@@ -220,7 +239,7 @@ export const RegistrationForm = (): JSX.Element => {
             Verify
           </button>
         ) : currentStep === 'PASSWORD' ? (
-          <button  className={classNames('submit-button')} type="submit">
+          <button className={classNames('submit-button')} type="submit">
             Create
           </button>
         ) : (

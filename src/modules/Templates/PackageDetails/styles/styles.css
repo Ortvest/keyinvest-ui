@@ -3,7 +3,7 @@
   flex-direction: row;
   gap: 75px;
 
-  height: 100ch;
+  min-height: 100vh;
   padding: 20px;
 }
 
