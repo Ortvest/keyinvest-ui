@@ -190,6 +190,20 @@
   background-color: #f6f6f6;
 }
 
+.difference-positive {
+  margin-left: 6px;
+
+  color: #19e068;
+  vertical-align: 1px;
+}
+
+.difference-negative {
+  margin-left: 6px;
+
+  color: #ff3b30;
+  vertical-align: 1px;
+}
+
 /* chart and dates */
 
 .chart-stocks-info {
@@ -246,6 +260,10 @@
 }
 
 .final-value {
+  position: relative;
+
+  display: inline-block;
+
   color: #131337;
   font-weight: 600;
   font-size: 18px;
