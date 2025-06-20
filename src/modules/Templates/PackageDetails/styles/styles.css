@@ -260,10 +260,6 @@
 }
 
 .final-value {
-  position: relative;
-
-  display: inline-block;
-
   color: #131337;
   font-weight: 600;
   font-size: 18px;
