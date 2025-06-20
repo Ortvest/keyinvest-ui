@@ -41,6 +41,8 @@ export const PersonalForm = (): JSX.Element => {
   const { data: countries = [], isLoading } = useGetAllCountriesQuery();
   const { data: phoneCodes = [] } = useGetPhoneCodesQuery();
 
+  const [initialPhoneCodeSet, setInitialPhoneCodeSet] = useState(false);
+
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       username: user?.username ?? '',
@@ -52,24 +54,30 @@ export const PersonalForm = (): JSX.Element => {
   });
 
   useEffect(() => {
-    if (user && phoneCodes.length > 0) {
-      const matchedCode = phoneCodes
+    if (user && phoneCodes.length > 0 && !initialPhoneCodeSet) {
+      let matchedCode = phoneCodes
         .map((p) => p.callingCode)
+        .filter((code): code is string => typeof code === 'string')
         .sort((a, b) => b.length - a.length)
-        .find((code) => user.phoneNumber?.startsWith(code));
+        .find((code) => code && user.phoneNumber?.startsWith(code));
+      if (!matchedCode && user.country) {
+        const countryInfo = phoneCodes.find((p) => p.name.toLowerCase() === user.country.toLowerCase());
+        matchedCode = countryInfo?.callingCode || '';
+      }
 
-      const phoneCode = matchedCode || '';
-      const phoneNumber = user.phoneNumber?.replace(phoneCode, '') || '';
+      const phoneNumber = matchedCode ? user.phoneNumber?.replace(matchedCode, '') || '' : user.phoneNumber || '';
 
       reset({
         username: user.username,
         email: user.email,
         phoneNumber,
         country: user.country ?? '',
-        phoneCode,
+        phoneCode: matchedCode || '',
       });
+
+      setInitialPhoneCodeSet(true);
     }
-  }, [user, phoneCodes, reset]);
+  }, [user, phoneCodes, reset, initialPhoneCodeSet]);
 
   const onSubmit = async (data: {
     username: string;
