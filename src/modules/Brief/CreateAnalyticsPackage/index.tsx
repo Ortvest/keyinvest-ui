@@ -21,7 +21,7 @@ interface CreatePackageFormInputs {
 
 export const CreateAnalyticsPackage = ({ onClose }: CreateAnalyticsPackageProps): React.ReactElement => {
   const { stockPicks } = useTypedSelector((state) => state.briefReducer);
-  const [sendInvestmentPackage] = useSendInvestmentPackageMutation();
+  const [sendInvestmentPackage, { isLoading }] = useSendInvestmentPackageMutation();
   const { user } = useTypedSelector((state) => state.userReducer);
 
   const {
@@ -79,8 +79,8 @@ export const CreateAnalyticsPackage = ({ onClose }: CreateAnalyticsPackageProps)
             ))}
           </div>
 
-          <button type="submit" className="create-package-button">
-            Create Package
+          <button type="submit" className="create-package-button" disabled={isLoading}>
+            {isLoading ? <div className="brief-spinner-button" /> : 'Create Package'}
           </button>
         </form>
       </div>

@@ -17,7 +17,16 @@ export const StockPicks = (): React.ReactNode => {
   const { stockPicks } = useTypedSelector((state) => state.briefReducer);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = (): void => setIsModalOpen(true);
+  const [loading, setLoading] = useState(false);
+
+  const openModal = (): void => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setIsModalOpen(true);
+    }, 1500);
+  };
+
   const closeModal = (): void => setIsModalOpen(false);
 
   return (
@@ -29,15 +38,15 @@ export const StockPicks = (): React.ReactNode => {
       />
       <div className={classNames('brief-stocks-list')}>
         {!stockPicks ? (
-          <div className="loader">
-            <div className="spinner" />
+          <div className="brief-loader">
+            <div className="brief-spinner" />
           </div>
         ) : (
           stockPicks.companies.map((stock: Company) => <StockCard key={stock.ticker} stock={stock} />)
         )}
       </div>
       <div>
-        <CreatePortfolioButton onClick={openModal} />
+        <CreatePortfolioButton onClick={openModal} loading={loading} />
       </div>
 
       {isModalOpen && <CreateAnalyticsPackage onClose={closeModal} />}
