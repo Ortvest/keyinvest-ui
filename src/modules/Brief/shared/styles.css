@@ -27,6 +27,14 @@
   background-color: var(--white);
 }
 
+.brief-button:disabled:hover {
+  color: var(--white);
+
+  background-color: var(--blue);
+
+  cursor: default;
+}
+
 .brief-form {
   display: flex;
   flex-direction: column;

@@ -23,6 +23,7 @@ export const CreateAnalyticsPackage = ({ onClose }: CreateAnalyticsPackageProps)
   const { stockPicks } = useTypedSelector((state) => state.briefReducer);
   const [sendInvestmentPackage, { isLoading }] = useSendInvestmentPackageMutation();
   const { user } = useTypedSelector((state) => state.userReducer);
+  const isStockLoading = !stockPicks || !stockPicks.companies.length;
 
   const {
     register,
@@ -79,8 +80,8 @@ export const CreateAnalyticsPackage = ({ onClose }: CreateAnalyticsPackageProps)
             ))}
           </div>
 
-          <button type="submit" className="create-package-button" disabled={isLoading}>
-            {isLoading ? <div className="brief-spinner-button" /> : 'Create Package'}
+          <button type="submit" className="create-package-button" disabled={isLoading || isStockLoading}>
+            {isLoading || isStockLoading ? <div className="brief-spinner-button" /> : 'Create Package'}
           </button>
         </form>
       </div>
