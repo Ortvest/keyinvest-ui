@@ -169,14 +169,6 @@ export const RegistrationForm = (): JSX.Element => {
       });
   };
 
-  useEffect(() => {
-    console.log(currentStep, 'STEP');
-  }, [currentStep]);
-
-  useEffect(() => {
-    console.log('All form values:', watchAllFields);
-  }, [watchAllFields]);
-
   return (
     <div className="inputs-container">
       <form
