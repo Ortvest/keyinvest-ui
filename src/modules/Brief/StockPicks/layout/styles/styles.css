@@ -18,6 +18,7 @@
 .stock-card {
   display: flex;
   gap: 12px;
+  align-items: center;
 
   width: 210px;
   padding: 10px;

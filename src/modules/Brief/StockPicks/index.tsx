@@ -16,8 +16,18 @@ import { Company } from '@shared/interfaces/Brief.interfaces';
 export const StockPicks = (): React.ReactNode => {
   const { stockPicks } = useTypedSelector((state) => state.briefReducer);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const openModal = (): void => setIsModalOpen(true);
+  const isStockPicksLoading = !stockPicks || !stockPicks.companies.length;
+
+  const openModal = (): void => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setIsModalOpen(true);
+    }, 1500);
+  };
+
   const closeModal = (): void => setIsModalOpen(false);
 
   return (
@@ -25,15 +35,19 @@ export const StockPicks = (): React.ReactNode => {
       <BriefHeader
         title={'Here are your stock picks'}
         subtitle={`Based on your goals and preferences, 
-		  our AI has selected the stocks that best match your investment strategy.`}
+			our AI has selected the stocks that best match your investment strategy.`}
       />
       <div className={classNames('brief-stocks-list')}>
-        {stockPicks
-          ? stockPicks.companies.map((stock: Company) => <StockCard key={stock.ticker} stock={stock} />)
-          : null}
+        {isStockPicksLoading ? (
+          <div className="brief-loader">
+            <div className="brief-spinner" />
+          </div>
+        ) : (
+          stockPicks.companies.map((stock: Company) => <StockCard key={stock.ticker} stock={stock} />)
+        )}
       </div>
       <div>
-        <CreatePortfolioButton onClick={openModal} />
+        <CreatePortfolioButton onClick={openModal} loading={loading || isStockPicksLoading} />
       </div>
 
       {isModalOpen && <CreateAnalyticsPackage onClose={closeModal} />}
