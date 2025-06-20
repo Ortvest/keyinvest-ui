@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import EyeOn from '@shared/assets/icons/eye-open.png';
 import EyeOff from '@shared/assets/icons/EyeClosed.svg';
 
@@ -22,12 +24,41 @@ export const InvestmentForm = ({
   enabledStocks,
   setEnabledStocks,
 }: Props): JSX.Element => {
+  const [showDifference, setShowDifference] = useState(false);
+  const [hasAnalyzed, setHasAnalyzed] = useState(false);
+
+  const handleAnalyze = (): void => {
+    setShowDifference(false);
+    onAnalyze();
+  };
+
   const toggleStock = (ticker: string): void => {
     setEnabledStocks((prev) => ({
       ...prev,
       [ticker]: !prev[ticker],
     }));
   };
+
+  const totalInvested = Object.entries(investmentAmounts).reduce((acc, [ticker, value]) => {
+    if (enabledStocks[ticker]) {
+      return acc + (isNaN(value) ? 0 : value);
+    }
+    return acc;
+  }, 0);
+
+  const difference = estimatedReturn !== undefined ? estimatedReturn - totalInvested : undefined;
+
+  useEffect(() => {
+    if (isLoading) {
+      setShowDifference(false);
+    }
+  }, [isLoading]);
+
+  useEffect(() => {
+    if (!isLoading && estimatedReturn !== undefined && hasAnalyzed) {
+      setShowDifference(true);
+    }
+  }, [isLoading, estimatedReturn, hasAnalyzed]);
 
   return (
     <div className="package-invest-list">
@@ -66,13 +97,35 @@ export const InvestmentForm = ({
         )}
       </ul>
 
+      {totalInvested > 0 && (
+        <div className="package-final-result">
+          <p className="package-final-text">Total invested: </p>
+          <p className="final-value"> ${totalInvested}</p>
+        </div>
+      )}
+
       {estimatedReturn !== undefined && (
         <div className="package-final-result">
           <p className="package-final-text">Estimated return: </p>
-          <p className="final-value"> ${estimatedReturn}</p>
+          <p className="final-value">
+            ${estimatedReturn.toFixed(2)}
+            {showDifference && difference !== undefined && difference !== 0 && (
+              <span className={difference > 0 ? 'difference-positive' : 'difference-negative'}>
+                ({difference > 0 ? '+' : ''}
+                {difference.toFixed(2)})
+              </span>
+            )}
+          </p>
         </div>
       )}
-      <button className="package-analyze-button" onClick={onAnalyze} disabled={isLoading}>
+
+      <button
+        className="package-analyze-button"
+        onClick={() => {
+          setHasAnalyzed(true);
+          handleAnalyze();
+        }}
+        disabled={isLoading}>
         {isLoading ? <span className="loader" /> : <p>Analyze</p>}
       </button>
     </div>

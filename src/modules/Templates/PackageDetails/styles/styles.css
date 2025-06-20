@@ -3,7 +3,7 @@
   flex-direction: row;
   gap: 75px;
 
-  height: 100ch;
+  min-height: 100vh;
   padding: 20px;
 }
 
@@ -188,6 +188,20 @@
   color: #131337;
 
   background-color: #f6f6f6;
+}
+
+.difference-positive {
+  margin-left: 6px;
+
+  color: #19e068;
+  vertical-align: 1px;
+}
+
+.difference-negative {
+  margin-left: 6px;
+
+  color: #ff3b30;
+  vertical-align: 1px;
 }
 
 /* chart and dates */

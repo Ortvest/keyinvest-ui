@@ -35,11 +35,3 @@
   flex-direction: column;
   gap: 16px;
 }
-
-.error-field-label {
-  color: var(--red);
-}
-
-.input-email-field.error {
-  border: 1px solid var(--red);
-}
