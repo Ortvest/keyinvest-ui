@@ -1,30 +1,7 @@
-import Select, { components, DropdownIndicatorProps } from 'react-select';
+import Select from 'react-select';
 
-import {
-  PhoneCodeOption,
-  PhoneCodeSelectProps,
-} from '@modules/PersInformation/layout/shared/interfaces/PhoneCode.interface';
-
-const customDropdownIndicator = (props: DropdownIndicatorProps<PhoneCodeOption, false>): JSX.Element => {
-  const { menuIsOpen } = props.selectProps;
-
-  return (
-    <components.DropdownIndicator {...props}>
-      <svg
-        width="10"
-        height="6"
-        viewBox="0 0 10 6"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style={{
-          transform: menuIsOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-          transition: 'transform 0.2s ease',
-        }}>
-        <path d="M1 1L5 5L9 1" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </components.DropdownIndicator>
-  );
-};
+import { CustomDropdownIndicator } from '@modules/PersInformation/layout/PhoneCodeSelect/layout/CustomDropdownIndicator';
+import { PhoneCodeSelectProps } from '@modules/PersInformation/layout/shared/interfaces/PhoneCode.interface';
 
 export const PhoneCodeSelect = ({ options, value, onChange }: PhoneCodeSelectProps): JSX.Element => {
   const selectedOption = options.find((opt) => opt.value === value) || null;
@@ -44,7 +21,10 @@ export const PhoneCodeSelect = ({ options, value, onChange }: PhoneCodeSelectPro
       isClearable={false}
       placeholder="Select country code"
       onKeyDown={handleKeyDown}
-      components={{ DropdownIndicator: customDropdownIndicator, IndicatorSeparator: () => null }}
+      components={{
+        DropdownIndicator: CustomDropdownIndicator,
+        IndicatorSeparator: () => null,
+      }}
       styles={{
         container: (provided) => ({
           ...provided,
