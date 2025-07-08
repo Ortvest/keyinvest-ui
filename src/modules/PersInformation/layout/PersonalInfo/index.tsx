@@ -9,6 +9,8 @@ import { setUserData } from '@global/store/slices/user.slice';
 
 import { AppRoutes } from '@global/router/routes.constants';
 
+import { CountrySelect } from '@modules/PersInformation/layout/CountrySelect';
+import { PhoneCodeSelect } from '@modules/PersInformation/layout/PhoneCodeSelect';
 import { PhoneSection } from '@modules/PersInformation/layout/PhoneSection';
 
 import { useTypedSelector } from '@shared/hooks/useTypedSelector';
@@ -43,7 +45,7 @@ export const PersonalForm = (): JSX.Element => {
 
   const [initialPhoneCodeSet, setInitialPhoneCodeSet] = useState(false);
 
-  const { register, handleSubmit, reset } = useForm({
+  const { register, handleSubmit, reset, watch, setValue } = useForm({
     defaultValues: {
       username: user?.username ?? '',
       email: user?.email ?? '',
@@ -132,6 +134,11 @@ export const PersonalForm = (): JSX.Element => {
     }
   };
 
+  const phoneCodeOptions = phoneCodes.map((p) => ({
+    value: p.callingCode,
+    label: `${p.callingCode} (${p.name})`,
+  }));
+
   return (
     <div className={classNames('personal-info-container')}>
       <div className={classNames('status-bar')}>
@@ -188,20 +195,18 @@ export const PersonalForm = (): JSX.Element => {
                       {isLoading ? (
                         <p className={classNames('field-loading')}>Loading countries...</p>
                       ) : (
-                        <select
-                          id="country"
-                          {...register('country')}
-                          className={classNames('field-input', 'shift-left')}>
-                          <option value="">Select country</option>
-                          {countries
+                        <CountrySelect
+                          options={countries
                             .filter((c: Country) => !EXCLUDED_COUNTRIES.includes(c.name.common))
                             .sort((a, b) => a.name.common.localeCompare(b.name.common))
-                            .map((c) => (
-                              <option key={c.name.common} value={c.name.common}>
-                                {c.name.common}
-                              </option>
-                            ))}
-                        </select>
+                            .map((c) => ({
+                              value: c.name.common,
+                              label: c.name.common,
+                            }))}
+                          value={watch('country')}
+                          onChange={(val) => setValue('country', val)}
+                          isDisabled={isLoading}
+                        />
                       )}
                     </div>
 
@@ -212,13 +217,11 @@ export const PersonalForm = (): JSX.Element => {
                       <div className={classNames('phone-input-wrapper')}>
                         {editMode ? (
                           <>
-                            <select {...register('phoneCode')} className={classNames('shift-left')}>
-                              {phoneCodes.map((p) => (
-                                <option key={`${p.name}-${p.callingCode}`} value={p.callingCode}>
-                                  {p.callingCode} ({p.name})
-                                </option>
-                              ))}
-                            </select>
+                            <PhoneCodeSelect
+                              options={phoneCodeOptions}
+                              value={watch('phoneCode')}
+                              onChange={(val) => setValue('phoneCode', val)}
+                            />
                             <input
                               id="phoneNumber"
                               {...register('phoneNumber')}
